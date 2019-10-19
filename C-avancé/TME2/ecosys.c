@@ -105,7 +105,7 @@ void rafraichir_proies(Animal **liste_proie) {
 	bouger_animaux(*liste_proie);
 	while(ani){
 		ani->energie -= d_proie;
-		if(ani->energie < 0){
+		if(ani->energie == 0){
 			enlever_animal(liste_proie,ani);
 			printf("Une proie est morte de fatigue\n");
 		}
@@ -132,7 +132,7 @@ void rafraichir_predateurs(Animal **liste_predateur, Animal **liste_proie) {
 	bouger_animaux(*liste_predateur);
 	while(ani){
 		ani->energie -= d_predateur;
-		if(ani->energie < 0){
+		if(ani->energie == 0){
 			enlever_animal(liste_predateur,ani);
 			printf("Un prédateur est mort de fatigue\n");
 		}

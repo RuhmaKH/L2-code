@@ -15,7 +15,7 @@ float p_ch_dir=0.5;
 float d_proie=1;
 float d_predateur=1;
 float p_manger=0.1;
-float p_reproduce=0.2;
+float p_reproduce=0.01;
 float energie=50;
 
 
@@ -43,7 +43,6 @@ int main(void) {
 		rafraichir_predateurs(&liste_predateur,&liste_proie);
 		usleep(T_WAIT);
 	}
-
-  return 0;
+  	return 0;
 }
 
