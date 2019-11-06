@@ -3,9 +3,9 @@ public class Poule extends Animal{
   public final int id;
 
 
-  public Poule(int x, int y, String nom){
-      super(x,y,"Poule_");
-      id=cpt++;
+  public Poule(int x, int y ){
+      super(x,y,"poule");
+      id = cpt++;
     }
 
   public String toString(){
@@ -15,4 +15,5 @@ public class Poule extends Animal{
   public void afficher(){
       System.out.println(super.getNom()+"en position "+super.getX()+" et "+super.getY() );
   }
+
 }

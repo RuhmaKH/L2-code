@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Code modifiable.
-Vous avez dans le dossier test des fichiers 
+Vous avez dans le dossier test des fichiers
 qui permettent de tester vos fonctions.
-Pour cela il suffit de décommenter le code 
+Pour cela il suffit de décommenter le code
 de la fonction que vous souhaiter tester
 """
 
@@ -14,7 +14,40 @@ from parser import *
 #from essai import Essai
 
 #import projet
+s0=State(0,True,False)
+s1=State(1,False,False)
+s2=State(2,False,True)
+t1=Transition(s0,'a',s0)
+t2=Transition(s0,'b',s1)
+t3=Transition(s1,'a',s2)
+t4=Transition(s1,'b',s2)
+t5=Transition(s2,'a',s0)
+t6=Transition(s2,'b',s1)
+L=[ t1,t2,t3,t4,t5,t6]
+auto=Automate(L)
 
+print(auto)
+#auto.show("A_ListeTrans")
+
+auto1 = Automate(L,[s0,s1,s2])
+print(auto1)
+#auto1.show("A_ListeTrans1")
+
+auto2 = Automate.creationAutomate("auto.txt")
+print(auto2)
+
+auto.removeTransition(t1)
+t = Transition(s0,'yo',s2)
+auto.addTransition(t)
+#auto.removeState(s1)
+#auto.addState(s1)
+s3 = State(0,True,False)
+auto.addState(s3)
+auto.removeState(s0)
+#auto.show("A_ListeTrans")
+auto.getListTransitionsFrom(s1)
+print(auto.getListTransitionsFrom(s1))
+'''
 print "DEBUT PROGRAMME\n"
 
 
@@ -26,6 +59,7 @@ s.insertPrefix(2)
 a= Automate([t,t2])
 a.prefixStates(3)
 a.show("justep")
+
 
 """
 print "etat s " + s.id
@@ -45,7 +79,7 @@ t3=Transition(s1,"b",s2)
 t4=Transition(s2,"a", s2)
 t5=Transition(s2,"b",s2)
 liste = [t1,t2,t3,t4,t5]
-a=Automate(listStates=[], label="a", listTransitions=liste) 
+a=Automate(listStates=[], label="a", listTransitions=liste)
 
 print "a : "
 print a
@@ -73,7 +107,7 @@ a.addTransition(Transition(s2,"c", s1))
 print a
 
 a.addTransition(Transition(s2,"c",s1))
-print a 
+print a
 #t = Transition("a", )
 
 """
@@ -147,7 +181,7 @@ fichier.close()
 
 automate = Automate.creationAutomate("../../test/testDeter.txt")
 print "AUTOMATE CREATION"
-print automate 
+print automate
 automate.prefixStates(0)
 print "PREFIXE"
 print automate
@@ -262,3 +296,4 @@ o.affiche("apEtoile")
 
 
 print "\nFIN PROGRAMME\n"
+'''

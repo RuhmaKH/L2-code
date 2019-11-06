@@ -20,11 +20,15 @@ public class Animal{
         return nom;
     }
 
+    public String getCoordonnees(){
+        return nom + "(" + x + " , " + y + ")";
+    }
+
     public double distance(Animal a){
       return Math.sqrt((x-a.x)*(x-a.x)+(y-a.y)*(y-a.y));
     }
 
-    void move(int i, int j){
+    void fait_le_move(int i, int j){
       x=x+i;
       y=y+j;
     }

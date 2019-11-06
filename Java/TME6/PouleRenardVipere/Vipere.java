@@ -3,13 +3,13 @@ public class Vipere extends Animal{
   public final int id;
 
 
-  public Vipere(int x, int y, String nom){
-      super(x,y,"Vipere_");
+  public Vipere(int x, int y){
+      super(x,y,"vipere");
       id=cpt++;
     }
 
   public String toString(){
-      return String.format("%02d", id);
+      return String.format("v%02d", id);
   }
 
   public void afficher(){

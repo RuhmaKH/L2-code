@@ -3,8 +3,8 @@ public class Renard extends Animal{
   public final int id;
 
 
-  public Renard(int x, int y, String nom){
-      super(x,y,"Renard_");
+  public Renard(int x, int y){
+      super(x,y,"renard");
       id=cpt++;
     }
 
