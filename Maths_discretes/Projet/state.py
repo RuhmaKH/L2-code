@@ -3,7 +3,7 @@
 Code à ne pas modifier
 """
 
-class State : 
+class State :
     """
     Classe définissant un état caractérisée par :
         - un identifiant
@@ -12,10 +12,10 @@ class State :
         - un label utilisé pour les constructions 
              ou il faut memoriser d'ou vient l'etat construit
     """
-    
+
     def __init__ (self, id, init, fin, label=None) :
         """ int x bool x bool x str -> State
-        constructeur d'état 
+        constructeur d'état
         """
         self.id = id
         self.init = init
@@ -24,8 +24,8 @@ class State :
             self.label = str(self.id)
         else :
             self.label =label
-        
-    
+
+
     def __repr__(self) :
         """ -> str
         renvoie une description de l'état sous la forme d'une chaîne
@@ -44,7 +44,7 @@ class State :
 
     def insertPrefix(self, prefid, preflab=None):
         """ int x str ->
-        met à jour l'identifiant et le label de l'état en les 
+        met à jour l'identifiant et le label de l'état en les
         préfixant avec la chaîne de caractères pref
         """
         if self.id < 0 :
@@ -61,21 +61,21 @@ class State :
         else :
             self.label = str(preflab) + "_" + str(self.label)
 
-    
+
     def __eq__(self, other) :
         """ Val -> bool
         rend le booléen vrai si l'état est égal à other, faux sinon
         elle permet que == fonctionne pour les états
         """
         return type(self) == type(other) and self.id == other.id
-    
+
     def __ne__(self, other) :
         """ Val -> bool
         rend le booléen vrai si l'état est différent de other, faux sinon
         elle permet que != fonctionne pour les états
         """
         return not __eq__(self,other)
-   
+
     def __hash__(self) :
         """ -> int
         rend un identifiant unique (utile pour les tables de hachage)
@@ -88,32 +88,27 @@ class State :
         # res : str
         res=''.join(str(ord(c)) for c in s)
         return int(res)
-    
+
     # MJ? on leur fournit ça ???
-    @staticmethod 
+    @staticmethod
     def isInitialIn(list) :
         """ list[State] -> bool
         rend vrai si l'un des états de list est un état initial, faux sinon
         """
-        # s : State 
-        for s in list : 
-            if s.init : 
-                return True 
-        return False 
+        # s : State
+        for s in list :
+            if s.init :
+                return True
+        return False
 
     # MJ? on leur fournit ça ???
-    @staticmethod 
+    @staticmethod
     def isFinalIn(list) :
         """ list[State] -> bool
         rend vrai si l'un des états de list est un état final, faux sinon
         """
-        
-        for s in list : 
-            if s.fin : 
-                return True 
-        return False 
 
-
-
-
-
+        for s in list :
+            if s.fin :
+                return True
+        return False

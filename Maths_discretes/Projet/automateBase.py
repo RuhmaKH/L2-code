@@ -19,10 +19,10 @@ from itertools import product
     - optionnellement un label
 """
 class AutomateBase :
-   
+
 
     def __init__ (self, listTransitions, listStates=None, label=None) :
-        """list[Transition] x list[State] x list[str] -> Automate 
+        """list[Transition] x list[State] x list[str] -> Automate
         construit l'automate construit à partir de la liste de
         transitions fournies, et optionnellement la liste d'états et
         l'étiquette
@@ -35,7 +35,7 @@ class AutomateBase :
         self.listTransitions = copy(listTransitions)
         self.listStates = self.__getListStates()
 
-    
+
 
     def getAlphabetFromTransitions(self):
         """ -> list[str]
@@ -44,7 +44,7 @@ class AutomateBase :
         # recuperation des etiquettes sous forme de set et reconversion en liste
         return list(set([t.etiquette for t in self.listTransitions]))
 
-    
+
     def __getListStates(self):
         """  -> list[State]
         rend la liste des états - usage interne
@@ -56,15 +56,15 @@ class AutomateBase :
             states = states | {t.stateSrc, t.stateDest}
         return list(states)
 
-    
+
 
     def addTransition(self, transition) :
         """Transition -> Bool
         fait la mise à jour de l'automate en lui ajoutant la
         transition, en ajoutant les états impliqués dans l'automate
-        s'ils en sont absents 
+        s'ils en sont absents
         rend True si l'ajout a eu lieu, False sinon (si t était déjà
-        présente dans l'automate) 
+        présente dans l'automate)
         """
         if transition not in self.listTransitions :
             self.listTransitions.append(transition)
@@ -74,21 +74,21 @@ class AutomateBase :
                 self.listStates.append(transition.stateDest)
             return True
         return False
-        
-    
+
+
     def removeTransition(self, transition) :
         """Transition -> Bool
         fait la mise à jour de l'automate en lui enlevant la
-        transition, sans modifier les états 
+        transition, sans modifier les états
         rend True si la suppression a eu lieu, False sinon (si t était
-        absente de l'automate) 
+        absente de l'automate)
         """
         if transition in self.listTransitions :
             self.listTransitions.remove(transition)
             return True
         return False
-        
-    
+
+
     def addState(self, state) :
         """State -> Bool
         fait la mise à jour de l'automate en lui ajoutant l'état state
@@ -99,26 +99,26 @@ class AutomateBase :
                 self.listStates.append(state)
                 return True
         return False
-        
-                
+
+
     def removeState(self, state) :
         """State -> Bool
         fait la mise à jour de l'automate en lui supprimant l'état
-        ainsi que toutes les transisitions entrantes et sortantes  
+        ainsi que toutes les transisitions entrantes et sortantes
         rend True si la suppression a eu lieu, False sinon  (si s
-        était absent de l'automate) 
+        était absent de l'automate)
         """
-        if state in self.listStates : 
+        if state in self.listStates :
             copyT=[t for t in self.listTransitions]
             for t in copyT :
                 if t.stateSrc == state or t.stateDest == state :
                     self.removeTransition(t)
             self.listStates.remove(state)
             return True
-        return False    
-        
-        		    
- 
+        return False
+
+
+
     def getListInitialStates (self) :
         """ -> list[State]
         rend la liste des états initiaux
@@ -131,7 +131,7 @@ class AutomateBase :
                 initStates.append(i)
         return initStates
 
-         
+
     def getListFinalStates (self) :
         """ -> list[State]
         rend la liste des états finals
@@ -143,7 +143,7 @@ class AutomateBase :
             if i.fin :
                 finStates.append(i)
         return finStates
-        
+
         
 
     def getListTransitionsFrom (self, state) :
@@ -158,11 +158,11 @@ class AutomateBase :
             #filtre listTransitions sur les elements t tels que t.StateSrc==state
             list+=filter(lambda t:t.stateSrc==state, self.listTransitions)
         return list
-        
 
- 
-    def toDot (self) : 
-        """-> str 
+
+
+    def toDot (self) :
+        """-> str
         rend une description de l'automate au format dot qui sera
         appelée par la fonction show
         """
@@ -205,7 +205,7 @@ class AutomateBase :
         """ str ->
         Produit un fichier pdf donnant une représentation graphique de l'automate
         Erreur si l'impression s'est mal passée
-        """ 
+        """
         try :
             # fichier : File
             fichier = open(nomFichier + ".dot", "w")
@@ -213,7 +213,7 @@ class AutomateBase :
             fichier.close()
             os.system("dot -Tps "+ nomFichier + ".dot -o " + nomFichier + ".ps" )
             os.system("ps2pdf " + nomFichier + ".ps " + nomFichier + ".pdf")
-            #MAC 
+            #MAC
             #os.system("open " + nomFichier + ".pdf")
             #LINUX
             os.system("evince " + nomFichier + ".pdf &")
@@ -242,19 +242,19 @@ class AutomateBase :
         for t in self.listTransitions :
            ret = ret + str(t) + "\n"
         return ret
-    
+
     """Fonction permettant d'initialiser un automate depuis un fichier
        Exemple :
-           a = Automate.creationAutomate("testAutomate.txt")  
+           a = Automate.creationAutomate("testAutomate.txt")
     """
-    
+
     @classmethod
     def creationAutomate (cls, nomFichier) :
         """  str -> Automate
         rend l'automate construit en lisant le contenu du fichier dont
-        le nom est fourni en argument 
+        le nom est fourni en argument
         Exemple :
-        a = Automate.creationAutomate("testAutomate.txt") 
+        a = Automate.creationAutomate("testAutomate.txt")
         """
         # listeResultat : list[str]
         listeResultat = Parser.parseFromFile(nomFichier)
@@ -291,7 +291,7 @@ class AutomateBase :
                 if s not in listeE :
                     listeE.append(s)
         #print("liste Etats"+ str(listeE))
-        
+
         #on récupère la liste des transitions
         #listeTrans : list[str]
         listeTrans = listeResultat[3]
@@ -302,11 +302,11 @@ class AutomateBase :
             #stateDest : State
             stateDest = State(int(t[2]), False, False)
             if stateSrc in listeE : # si l'état est déjà dans la liste
-                # d'états, on récupère le vrai état,  
+                # d'états, on récupère le vrai état,
                 #sinon c'est par défaut un état ni initial ni final
                 stateSrc = listeE[listeE.index(stateSrc)]
             if stateDest in listeE : # si l'état est déjà dans la
-                # liste d'états, on récupère le vrai état,  
+                # liste d'états, on récupère le vrai état,
                 #sinon c'est par défaut un état ni initial ni final
                 stateDest = listeE[listeE.index(stateDest)]
             # trans : Transition
@@ -322,15 +322,9 @@ class AutomateBase :
     def prefixStates(self, prefixe):
         """ int ->
         modifie le nom de tous les états de l'automate en les
-        préfixant par prefixe 
+        préfixant par prefixe
         HYPOTHESE le préfixe est positif
         """
-        # state : State                
+        # state : State
         for state in self.listStates :
                 state.insertPrefix(prefixe)
-               
-    
-        
-
-            
-    

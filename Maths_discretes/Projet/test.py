@@ -47,6 +47,8 @@ auto.removeState(s0)
 #auto.show("A_ListeTrans")
 auto.getListTransitionsFrom(s1)
 print(auto.getListTransitionsFrom(s1))
+
+print(auto1.succ([s1,s2],'a'))
 '''
 print "DEBUT PROGRAMME\n"
 

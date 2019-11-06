@@ -8,7 +8,7 @@ class Transition :
         - un état source
         - un état de destination"""
 
-    
+
     def __init__ (self,  stateSrc, etiquette, stateDest) :
         """ State x str x State -> Transition
         constructeur de transition
@@ -16,8 +16,8 @@ class Transition :
         self.etiquette = str(etiquette)
         self.stateSrc = stateSrc
         self.stateDest = stateDest
-    
-    
+
+
     def __eq__(self, other) :
         """ Val -> bool
         rend le booléen vrai si la transition est égale à other, faux sinon
@@ -32,7 +32,7 @@ class Transition :
         elle permet que != fonctionne pour les transitions
         """
         return not self.__eq__(other)
-    
+
     def __repr__(self) :
         """ -> str
         renvoie une description de la transition sous la forme d'une
@@ -42,7 +42,3 @@ class Transition :
         elle permet d'utiliser print pour les transitions
         """
         return '['+str(self.stateSrc)+'-'+str(self.etiquette)+'->'+str(self.stateDest)+']'
-
-        
-
-    
