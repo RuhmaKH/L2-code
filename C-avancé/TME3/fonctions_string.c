@@ -30,8 +30,12 @@ void afficher_str(const void *data) {
 }
 
 int comparer_str(const void *a, const void *b) {
-  /* a completer */
-  return 0; // pour que cela compile
+  char* sa = (char*)a;
+  char* sb = (char*)b;
+  for(char c:a){
+    
+  }
+  return 0;
 }
 
 int ecrire_str(const void *data, FILE *f) {
