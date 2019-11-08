@@ -34,12 +34,12 @@ let split_f (l : 'a list): 'a list*'a list =
   loop l [] []
 
 let rec merge_sort (f: 'a-> 'a ->bool)(l: 'a list ): 'a list=
-  let (l1,l2)=split_f(l) in
-  match l1,l2 with
-    [],[]->[]
-  |[],x::xs->l2
-  |x::xs,[]->l1
-  |x::xs,y::ys->
+  match l with
+    []->[]
+  |x::[]->l
+  |_->
+    let (l1,l2)=split_f l in
+    merge_f f (merge_sort f l1) (merge_sort f l2)
 
 let rec padding (l1: 'a list)(l2: 'a list)(x: 'a):'a list * 'a list=
     match l1,l2 with

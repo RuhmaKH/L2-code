@@ -10,7 +10,7 @@ void *dupliquer_str(const void *src) {
     affiche_message("Erreur d'allocation");
     return NULL;
   }
-  *sdst = *ssrc;
+  sdst = ssrc;
   return (void *)sdst;
 }
 
@@ -21,29 +21,37 @@ void copier_str(const void *src, void *dst) {
 }
 
 void detruire_str(void *data) {
-  free(data);
+
 }
 
 void afficher_str(const void *data) {
   char* sdata = (char*)data;
-  printf("%c",*sdata);
+  printf("%s",sdata);
 }
 
 int comparer_str(const void *a, const void *b) {
   char* sa = (char*)a;
   char* sb = (char*)b;
-  for(char c:a){
-    
+  while(*sa!='\0' && *sb!='\0'){
+    if(*sa!=*sb){
+      return 0;
+    }
+    sa++;
+    sb++;
   }
-  return 0;
+  return 1;
 }
 
 int ecrire_str(const void *data, FILE *f) {
-  /* a completer */
-  return 0; // pour que cela compile
+  const char* sd = (char*)data;
+  return fprintf(f,"%s",sd);
 }
 
 void * lire_str(FILE *f) {
-  /* a completer */
-  return NULL; // pour que cela compile
+  char* s=(char*)(malloc(sizeof(char)));
+  int r = fscanf(f,"%s",s);
+  if(r<1) return NULL;
+  char* ps=(char*)(malloc(sizeof(char)));
+  ps = s;
+  return ps;
 }

@@ -33,9 +33,9 @@ int main(void) {
   afficher_liste(liste);
   assert(chercher_liste(liste,&d1));
   assert(chercher_liste_triee(liste,&d3));
-  assert(ecrire_liste(liste,"liste.txt")==1);
+  assert(ecrire_liste(liste,"liste_i.txt")==1);
   detruire_liste(liste);
-  assert(lire_liste(pliste,"liste.txt")==1);
+  assert(lire_liste(pliste,"liste_i.txt")==1);
   afficher_liste(pliste);
   detruire_liste(pliste);
   return 0;

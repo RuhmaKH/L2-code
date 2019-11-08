@@ -20,7 +20,7 @@ void inserer_fin(PListe pliste, void *data){
   }
   newe->data=pliste->dupliquer(data);
   newe->suivant=NULL;
-  
+
   PElement tmp=pliste->elements;
   if(tmp==NULL) {
     pliste->elements=newe;
@@ -32,7 +32,7 @@ void inserer_fin(PListe pliste, void *data){
   }
 }
 
-void inserer_place(PListe pliste, void *data){  
+void inserer_place(PListe pliste, void *data){
 
   PElement newe=malloc(sizeof(Element));
   if (newe==NULL) {
@@ -40,7 +40,7 @@ void inserer_place(PListe pliste, void *data){
   }
   newe->data=pliste->dupliquer(data);
   newe->suivant=NULL;
-  
+
   PElement tmp=pliste->elements;
 
   // si la liste est vide: ajout immediat
@@ -106,7 +106,7 @@ void detruire_liste(PListe pliste) {
     free(tmp);
     tmp=tmp2;
   }
-  free(pliste);  
+  free(pliste);
 }
 
 void afficher_liste(PListe pliste) {
@@ -142,6 +142,8 @@ int lire_liste(PListe pliste, const char * nom_fichier) {
   }
   void *data=pliste->lire(f);
   while(data!=NULL) {
+    char* ch = (char*)data;
+    printf("%s\t",ch);
     inserer_fin(pliste,data);
     free(data);
     data=pliste->lire(f);
