@@ -34,9 +34,36 @@ let split_f (l : 'a list): 'a list*'a list =
   loop l [] []
 
 let rec merge_sort (f: 'a-> 'a ->bool)(l: 'a list ): 'a list=
-  let (l1,l2)=split(l) in
-  match l1,l2 with
-    [],[]->merge_f f l1 l2
-  |[],x::xs->merge_f f l1 (x::l2)
-  |x::xs,[]->merge_f f (x::l1) l2
-  |x::xs,y::ys->merge_sort f (merge_f f (x::l1) (y::l2))
+  match l with
+    []->[]
+  |x::[]->l
+  |_->
+    let (l1,l2)=split_f l in
+    merge_f f (merge_sort f l1) (merge_sort f l2)
+
+let rec padding (l1: 'a list)(l2: 'a list)(x: 'a):'a list * 'a list=
+    match l1,l2 with
+    [],[]->[],[]
+      |a::xs, []-> let (xf,yf)=padding xs [] x  in (a::xf,x::yf)
+      |[],a::xs-> let (xf,yf)=padding [] xs x  in (x::xf,a::yf)
+      |a::xs,b::ys-> let (xf,yf)=padding xs ys x in (a::xf,b::yf)
+
+let lex (f: 'a-> 'a ->bool)(x: 'a):('a list->'a list->bool)=
+  fun l1 l2->
+    let (xf,yf)=padding l1 l2 x in
+let rec loop (l1:'a list)(l2:'a list)=
+match l1,l2 with
+    [],[]->false
+  |x::xs,y::ys->
+    if(f x y) then true else if(x=y) then loop xs ys else false
+  |_->false
+    in
+    loop xf yf
+
+let cmp_bool (b1:bool) (b2:bool) : bool =
+    match b1, b2 with
+    false, true -> true
+      | _ -> false
+
+let sort_bool_list (l: (bool list)list):((bool list)list)=
+  merge_sort (lex cmp_bool false) l
