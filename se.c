@@ -1,43 +1,35 @@
 #define TT 128
 
-int copie(char* f1,char* f2,char* f3){
-    int fd1,fd2,fd3, somme, n;
+int copie(char* f[]){
+    int fd, fdDest, somme, n, i, size;
     char buf[TT];
-    fd1 = open(f1,O_RDONLY);
-    fd2 = open(f2,O_RDONLY);
-    fd3 = open(f3,O_RDONLY);
-    if((fd1 || fd2 || fd3)<0 ){
+    size = sizeof(f);
+    fdDest = open(f[size-1],O_WRONLY);
+    if(fdDest<0){
         perror("open");
-        return -1;
     }
-    while((n=read(fd1,buf,TT))>0){
-        if(n< 0){
-            perror("read");
+    for(i=0;i<size-1;i++){
+        fd = open(f[i],O_RDONLY);
+        if(fd<0 ){
+            perror("open");
             return -1;
         }
-        if(write(fd3,buf[n],n)<0){
-            perror("write");
-            return -1;
+        while((n=read(fd,buf,TT))>0){
+            if(n< 0){
+                perror("read");
+                return -1;
+            }
+            if(write(fdDest,buf[n],n)<0){
+                perror("write");
+                return -1;
+            }
+            somme += n;
+            if(n==0){
+                break;
+            }
         }
-        somme += n;
-        if(n==0){
-            break;
-        }
+        close(fd);
     }
-    while((n=read(fd2,buf,TT))>0){
-        if(n< 0){
-            perror("read");
-            return -1;
-        }
-        if(write(fd3,buf[n],n)<0){
-            perror("write");
-            return -1;
-        }
-        somme += n;
-        if(n==0){
-            break;
-        }
-    }
-    close(fd1,fd2,fd3);
+    close(fdDest);
     return somme;
 }
