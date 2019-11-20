@@ -30,7 +30,10 @@ class Automate(AutomateBase):
         rend la liste des états accessibles à partir de la liste d'états
         listStates par l'étiquette lettre
         """
-        return
+        succs = []
+        for i in listStates:
+            succs += succElem(i,lettre)
+        return succs
 
 
 
@@ -48,7 +51,13 @@ class Automate(AutomateBase):
         """ Automate x str -> bool
         rend True si auto accepte mot, False sinon
         """
-        return
+        #list_init: list[States]
+        liste= auto.getListInitialStates()
+        #c : str
+        for c in mot:
+            liste=auto.succ(liste,c)
+            
+        return State.isFinalIn(liste)
 
 
     @staticmethod
@@ -56,7 +65,17 @@ class Automate(AutomateBase):
         """ Automate x str -> bool
          rend True si auto est complet pour alphabet, False sinon
         """
-        return
+        #liste_state : list[State]
+        liste_state = auto.getListStates()
+        #state : State
+        for state in liste_state:
+            #liste_transition : list[Transition]
+            liste_transition = auto.getListTransitionsFrom(state)
+            #lettre : str
+            for lettre in alphabet:
+                if auto.succElem(state,lettre)==[]:
+                    return False
+        return True
 
 
 
@@ -65,6 +84,20 @@ class Automate(AutomateBase):
         """ Automate  -> bool
         rend True si auto est déterministe, False sinon
         """
+        #alphabet : str
+        alphabet = auto.getAlphabetFromTransitions()
+        #liste_state : list[State]
+        liste_state = auto.getListStates()
+        #state : State
+        for state in liste_state:
+            #liste_transition : list[Transition]
+            liste_transition = auto.getListTransitionsFrom(state)
+            while liste_transition!=[]:
+                if transition.etiquette in liste_transition.remove(transition.e
+
+                
+            for transition in liste_transition:
+                if transition.etiquette in 
         return
 
 

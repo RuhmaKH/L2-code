@@ -142,8 +142,6 @@ int lire_liste(PListe pliste, const char * nom_fichier) {
   }
   void *data=pliste->lire(f);
   while(data!=NULL) {
-    char* ch = (char*)data;
-    printf("%s\t",ch);
     inserer_fin(pliste,data);
     free(data);
     data=pliste->lire(f);
