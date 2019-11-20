@@ -56,7 +56,7 @@ class Automate(AutomateBase):
         #c : str
         for c in mot:
             liste=auto.succ(liste,c)
-            
+
         return State.isFinalIn(liste)
 
 
@@ -69,8 +69,6 @@ class Automate(AutomateBase):
         liste_state = auto.getListStates()
         #state : State
         for state in liste_state:
-            #liste_transition : list[Transition]
-            liste_transition = auto.getListTransitionsFrom(state)
             #lettre : str
             for lettre in alphabet:
                 if auto.succElem(state,lettre)==[]:
@@ -90,15 +88,12 @@ class Automate(AutomateBase):
         liste_state = auto.getListStates()
         #state : State
         for state in liste_state:
-            #liste_transition : list[Transition]
-            liste_transition = auto.getListTransitionsFrom(state)
-            while liste_transition!=[]:
-                if transition.etiquette in liste_transition.remove(transition.e
+            #lettre : str
+            for lettre in alphabet:
+                if len(auto.succElem(state,lettre))>1:
+                    return False
 
-                
-            for transition in liste_transition:
-                if transition.etiquette in 
-        return
+        return True
 
 
 
@@ -107,7 +102,23 @@ class Automate(AutomateBase):
         """ Automate x str -> Automate
         rend l'automate complété d'auto, par rapport à alphabet
         """
-        return
+        #newAuto : Automate
+        newAuto = copy(auto)
+        if(estComplet(newAuto,alphabet)):
+            return newAuto
+        #trash : State
+        trash = State(len(auto.getListStates())+1,False,False,"poubelle")
+        newAuto.addState(trash)
+        #liste_state : list[State]
+        liste_state = newAuto.getListStates()
+        #state : State
+        for state in liste_state:
+            #lettre : str
+            for lettre in alphabet:
+                if newAuto.succElem(state,lettre)==[]:
+                    newAuto.addTransition(Transition(lettre,state,trash))
+
+        return newAuto
 
 
 
@@ -116,6 +127,19 @@ class Automate(AutomateBase):
         """ Automate  -> Automate
         rend l'automate déterminisé d'auto
         """
+        #newAuto : Automate
+        newAuto = copy(auto)
+        if(estDeterministe(newAuto)):
+            return newAuto
+        #alphabet : str
+        alphabet = newAuto.getAlphabetFromTransitions()
+        #current_States : set(list(State))
+        current_States = [newAuto.getListInitialStates()]
+        #new_States : set(list(State))
+        new_States = []
+        for letter in alphabet:
+            while current_States!=[]:
+                current_States.append(succ(current_States[0],letter))
         return
 
     @staticmethod

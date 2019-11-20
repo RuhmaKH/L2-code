@@ -7,9 +7,9 @@ Pour cela il suffit de décommenter le code
 de la fonction que vous souhaiter tester
 """
 
-from automate import Automate
-from state import State
-from transition import Transition
+from .automate import Automate
+from .state import State
+from .transition import Transition
 from parser import *
 #from essai import Essai
 
