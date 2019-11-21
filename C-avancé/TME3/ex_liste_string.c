@@ -8,9 +8,9 @@
 int main(void) {
   PListe liste=(PListe)malloc (sizeof (Liste));
   PListe pliste=(PListe)malloc (sizeof (Liste));
-  char* d1 = "Yo";
-  char* d2 = "Paul";
-  char* d3 = "L'ovni";
+  char* d1 = "aaa";
+  char* d2 = "bbb";
+  char* d3 = "ccc";
   liste->dupliquer=dupliquer_str;
   liste->copier=copier_str;
   liste->detruire=detruire_str;
@@ -35,11 +35,10 @@ int main(void) {
   assert(chercher_liste(liste,d1));
   assert(chercher_liste_triee(liste,d3));
   assert(ecrire_liste(liste,"liste_s.txt")==1);
-  //detruire_liste(liste);
-
+  detruire_liste(liste);
   assert(lire_liste(pliste,"liste_s.txt")==1);
   afficher_liste(pliste);
-  //detruire_liste(pliste);
+  detruire_liste(pliste);
 
   return 0;
 }

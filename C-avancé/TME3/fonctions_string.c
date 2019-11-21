@@ -5,23 +5,22 @@
 
 void *dupliquer_str(const void *src) {
   char *ssrc=(char *)src;
-  char *sdst=malloc(sizeof(char));
+  char *sdst=strdup(ssrc);
   if (sdst==NULL) {
     affiche_message("Erreur d'allocation");
     return NULL;
   }
-  sdst = ssrc;
   return (void *)sdst;
 }
 
 void copier_str(const void *src, void *dst) {
   char* ssrc = (char *)src;
   char* sdst = (char *)dst;
-  *sdst = *ssrc;
+  strcpy(sdst,ssrc);
 }
 
 void detruire_str(void *data) {
-
+  free(data);
 }
 
 void afficher_str(const void *data) {
@@ -32,14 +31,7 @@ void afficher_str(const void *data) {
 int comparer_str(const void *a, const void *b) {
   char* sa = (char*)a;
   char* sb = (char*)b;
-  while(*sa!='\0' && *sb!='\0'){
-    if(*sa!=*sb){
-      return 0;
-    }
-    sa++;
-    sb++;
-  }
-  return 1;
+  return strcmp(sa,sb)-strcmp(sa,sb);
 }
 
 int ecrire_str(const void *data, FILE *f) {

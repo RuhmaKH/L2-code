@@ -92,7 +92,6 @@ class Automate(AutomateBase):
             for lettre in alphabet:
                 if len(auto.succElem(state,lettre))>1:
                     return False
-
         return True
 
 

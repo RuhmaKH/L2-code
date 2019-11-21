@@ -31,12 +31,12 @@ int main(void) {
   inserer_fin(liste,&d1);
   inserer_place(liste,&d3);
   afficher_liste(liste);
-  assert(chercher_liste(liste,&d1));
-  assert(chercher_liste_triee(liste,&d3));
-  assert(ecrire_liste(liste,"liste_i.txt")==1);
-  detruire_liste(liste);
-  assert(lire_liste(pliste,"liste_i.txt")==1);
-  afficher_liste(pliste);
-  detruire_liste(pliste);
+//  assert(chercher_liste(liste,&d1));
+//  assert(chercher_liste_triee(liste,&d3));
+//  assert(ecrire_liste(liste,"liste_i.txt")==1);
+//  detruire_liste(liste);
+//  assert(lire_liste(pliste,"liste_i.txt")==1);
+//  afficher_liste(pliste);
+//  detruire_liste(pliste);
   return 0;
 }
