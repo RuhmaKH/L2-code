@@ -5,6 +5,14 @@ public class StringReversible implements Reversible{
     this.str = str;
   }
   public void reverse(){
-    sdqd
+    String str2 ="";
+    for(int i=str.length-1;i>=0;i--){
+      str2 += str.charAt(i);
+    }
+    st = str2;
+  }
+
+  public String toString(){
+    return str;
   }
 }
