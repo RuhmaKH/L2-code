@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "devel.h"
-
+#define BUF 1024
 void *dupliquer_str(const void *src) {
   char *ssrc=(char *)src;
   char *sdst=strdup(ssrc);
@@ -31,7 +31,7 @@ void afficher_str(const void *data) {
 int comparer_str(const void *a, const void *b) {
   char* sa = (char*)a;
   char* sb = (char*)b;
-  return strcmp(sa,sb)-strcmp(sa,sb);
+  return strcmp(sa,sb);
 }
 
 int ecrire_str(const void *data, FILE *f) {
@@ -40,10 +40,8 @@ int ecrire_str(const void *data, FILE *f) {
 }
 
 void * lire_str(FILE *f) {
-  char* s=(char*)(malloc(sizeof(char)));
+  char* s=(char*)(malloc(BUF*sizeof(char)));
   int r = fscanf(f,"%s",s);
   if(r<1) return NULL;
-  char* ps=(char*)(malloc(sizeof(char)));
-  ps = s;
-  return ps;
+  return s;
 }

@@ -22,10 +22,10 @@ void Initialiser_plateau(int plateau[H][H]){
   }
 
   /*Config standard en croix*/
-  plateau[H/2-1][H/2-1]=BLANC; 
-  plateau[H/2][H/2]=BLANC; 
-  plateau[H/2-1][H/2]=NOIR; 
-  plateau[H/2][H/2-1]=NOIR; 
+  plateau[H/2-1][H/2-1]=BLANC;
+  plateau[H/2][H/2]=BLANC;
+  plateau[H/2-1][H/2]=NOIR;
+  plateau[H/2][H/2-1]=NOIR;
 
 }
 
@@ -65,13 +65,13 @@ int Gain_dir(int plateau[H][H], int iLigne, int iCol, int dirLigne, int dirCol, 
 int Est_jouable_gain(int plateau[H][H], int iLigne, int iCol, int couleurQuiJoue)
 	{
 	int dirCol, dirLigne;
-	
+
 	for (dirCol=-1; dirCol<2; dirCol++)
 		for (dirLigne=-1; dirLigne<2; dirLigne++)
 			if(!( dirCol==0 && dirLigne==0 ))
 				if (Gain_dir(plateau, iLigne, iCol, dirLigne, dirCol, couleurQuiJoue))
 	 	  			return 1;
-	
+
 	return 0;
 	}
 
@@ -92,7 +92,13 @@ int Partie_terminee(int plateau[H][H])
 PosJouable_t *Trouver_liste_pos_jouables(int plateau[H][H], int couleurQuiJoue)
 	{
 	PosJouable_t *listePos=NULL;
-	/*A completer*/
+	int i,j;
+  for(i=0;i<H;i++)
+    for(j=0;j<H;j++)
+      if(plateau[i][j]==VIDE){
+        if(Est_jouable_gain(plateau,i,j,couleurQuiJoue))
+          listePos = Inserer(listePos,i,j);
+      }
 	return listePos;
 	}
 
@@ -118,7 +124,7 @@ void Jouer_pion(int plateau[H][H], int iLigne, int iCol, int couleurQuiJoue)
 			if ( dirCol || dirLigne)
  				if(Gain_dir(plateau, iLigne, iCol, dirLigne, dirCol, couleurQuiJoue))
 					Retourner_pions(plateau, iLigne, iCol, dirLigne, dirCol, couleurQuiJoue);
-          
+
 	plateau[iLigne][iCol] = couleurQuiJoue;
 	return;
 	}
@@ -126,10 +132,10 @@ void Jouer_pion(int plateau[H][H], int iLigne, int iCol, int couleurQuiJoue)
 void Nb_pions(int plateau[H][H], int *NbN, int *NbB)
 	{
 	int i,j;
-	
+
 	*NbB = 0;
 	*NbN = 0;
-	
+
 	for(i=0;i<H;i++)
 		for(j=0;j<H; j++)
 			if (plateau[i][j])
