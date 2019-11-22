@@ -26,7 +26,7 @@ void Afficher_lPosJouables(PosJouable_t *liste_pos)
 	putchar('\n');
 }
 
-/* Renvoie la liste liste à laquelle un élément a été ajouté en tete de liste*/
+/* Renvoie la liste liste ï¿½ laquelle un ï¿½lï¿½ment a ï¿½tï¿½ ajoutï¿½ en tete de liste*/
 PosJouable_t *Inserer(PosJouable_t *liste_pos, int posi, int posj)
 	{
 	PosJouable_t *nPos = Creer_posJouable(posi, posj);
@@ -50,6 +50,10 @@ PosJouable_t *Detruire_liste(PosJouable_t *liste_pos)
 
 int Est_dans_liste(PosJouable_t *liste_pos, int i, int j)
 	{
-	/*A completer */
+	while(liste_pos){
+		if(liste_pos->i==i && liste_pos->j==j)
+			return 1;
+		liste_pos=liste_pos->suiv;
+	}
 	return 0;
 	}

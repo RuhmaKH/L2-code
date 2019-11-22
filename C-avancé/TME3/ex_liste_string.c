@@ -39,6 +39,8 @@ int main(void) {
   assert(lire_liste(pliste,"liste_s.txt")==1);
   afficher_liste(pliste);
   detruire_liste(pliste);
+  printf("%d",comparer_str(d1,d2));
+
 
   return 0;
 }

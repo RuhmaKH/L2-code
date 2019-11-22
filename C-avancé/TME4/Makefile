@@ -11,7 +11,7 @@ ArbreMiMa.o : ArbreMiMa.c
 	gcc ${CFLAGS} -c ArbreMiMa.c
 
 Affichage.o : Affichage.c
-	gcc ${CFLAGS} `sdl-config --cflags` -c Affichage.c
+	gcc ${CFLAGS} `sdl2-config --cflags` -c Affichage.c
 
 Main.o : Main.c
 	gcc ${CFLAGS} -c Main.c
