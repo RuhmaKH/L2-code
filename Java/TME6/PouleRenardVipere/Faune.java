@@ -1,5 +1,5 @@
 public class Faune{
-  public static final int taille;
+  public final int taille;
   private Animal[][] terrain;
 
   public Faune(int taille){
