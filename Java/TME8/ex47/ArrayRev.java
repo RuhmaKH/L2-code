@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ArrayRev extends ArrayList<Object> implements Reversible{
   private boolean rev;
   public ArrayRev(){
@@ -7,7 +9,7 @@ public class ArrayRev extends ArrayList<Object> implements Reversible{
   public void reverse(){
     rev = !rev;
   }
-  public Oject get(int i){
+  public Object get(int i){
     return rev ? super.get(size(-1-i)) : super.get(i);
   }
 }

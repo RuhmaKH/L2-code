@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class StringReversible implements Reversible{
   private String str;
 
@@ -9,7 +11,7 @@ public class StringReversible implements Reversible{
     for(int i=str.length-1;i>=0;i--){
       str2 += str.charAt(i);
     }
-    st = str2;
+    str = str2;
   }
 
   public String toString(){

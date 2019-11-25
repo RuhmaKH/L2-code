@@ -18,6 +18,5 @@ public class Emplacement{
 	}
 	
 	public Carte enlever(){
-		if (est)
-		}
+	}
 }

@@ -14,7 +14,8 @@ int EvaluerPlateau_0(int plateau[H][H])
 NdMiMa_t *Construire_arbre(int plateau[H][H], int prof, int couleurQuiJoue){
 	if(prof<=0 || Partie_terminee(plateau))
 		return NULL;
-	int plateau_bis[H][H]=Copier_plateau(plateau);
+	int plateau_bis[H][H];
+	Copier_plateau(plateau,plateau_bis);
 	NdMiMa_t* racine = malloc(sizeof(NdMiMa_t));
 	racine->Couleur = couleurQuiJoue;
 	racine->liste_pos = Trouver_liste_pos_jouables(plateau,couleurQuiJoue);
