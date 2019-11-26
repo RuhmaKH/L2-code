@@ -70,10 +70,8 @@ class Automate(AutomateBase):
         """ Automate x str -> bool
          rend True si auto est complet pour alphabet, False sinon
         """
-        #liste_state : list[State]
-        liste_state = auto.listStates
         #state : State
-        for state in liste_state:
+        for state in auto.listStates:
             #lettre : str
             for lettre in alphabet:
                 if auto.succElem(state,lettre)==[]:
@@ -89,10 +87,8 @@ class Automate(AutomateBase):
         """
         #alphabet : str
         alphabet = auto.getAlphabetFromTransitions()
-        #liste_state : list[State]
-        liste_state = auto.listStates
         #state : State
-        for state in liste_state:
+        for state in auto.listStates:
             #lettre : str
             for lettre in alphabet:
                 if len(auto.succElem(state,lettre))>1:
@@ -107,8 +103,8 @@ class Automate(AutomateBase):
         rend l'automate complété d'auto, par rapport à alphabet
         """
         #newAuto : Automate
-        newAuto = copy(auto)
-        if(estComplet(newAuto,alphabet)):
+        newAuto = Automate(auto.listTransitions)
+        if(Automate.estComplet(newAuto,alphabet)):
             return newAuto
         #trash : State
         trash = State(len(auto.listStates)+1,False,False,"poubelle")
@@ -120,21 +116,21 @@ class Automate(AutomateBase):
             #lettre : str
             for lettre in alphabet:
                 if newAuto.succElem(state,lettre)==[]:
-                    newAuto.addTransition(Transition(lettre,state,trash))
+                    newAuto.addTransition(Transition(state,lettre,trash))
 
         return newAuto
 
 
 
     @staticmethod
-    def determinisation(newAuto) :
+    def determinisation(auto) :
         """ Automate  -> Automate
         rend l'automate déterminisé d'auto
         """
-        '''#newAuto : Automate
-        newAuto = copy(auto)
-        if(estDeterministe(newAuto)):
-            return newAuto'''
+        #newAuto : Automate
+        newAuto = Automate(auto.listTransitions)
+        if(Automate.estDeterministe(newAuto)):
+            return newAuto
         #alphabet : str
         alphabet = newAuto.getAlphabetFromTransitions()
         #Liste : list(list[States])
@@ -206,7 +202,7 @@ class Automate(AutomateBase):
 
             del Liste[0]
 
-        return AutomateBase(Liste_Transition)
+        return Automate(Liste_Transition)
 
 
 
@@ -251,8 +247,11 @@ class Automate(AutomateBase):
         """
         return
 
-
+'''
 automate=Automate.creationAutomate("exempleAutomate.txt")
+print(a)
+a=Automate.determinisation(automate)
+print (automate)
 automate1=Automate.creationAutomate("auto.txt")
 print(automate)
 """print (automate.listStates)
@@ -274,7 +273,6 @@ print ((automate.listStates)[3].insertPrefix(6,"wesh alors"))
 print(automate)
 """
 
-a=Automate.determinisation(automate)
 b=Automate.determinisation(automate1)
-print(a)
 print (b)
+'''

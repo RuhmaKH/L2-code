@@ -24,8 +24,75 @@ t4=Transition(s1,'b',s2)
 t5=Transition(s2,'a',s0)
 t6=Transition(s2,'b',s1)
 L=[ t1,t2,t3,t4,t5,t6]
-auto=Automate(L)
+#auto=Automate(L)
 
+
+print(" -auto est l'automate suivant : ")
+#auto = Automate.creationAutomate("auto.txt")
+auto=Automate.creationAutomate("exempleAutomate.txt")
+print(auto)
+"""Cette automate est complet et déterministe
+On test maintenant la fonction succ avec a,b et c (sachant qu'auto2 ne contient pas de transition c
+"""
+
+print "\n TEST SUCC \n"
+
+print('# test succ pour auto2.succ(auto2.listStates,"a") : ')
+print(auto.succ(auto.listStates,"a"))
+
+print('# test succ pour auto2.succ(auto2.listStates,"b") : ')
+print(auto.succ(auto.listStates,"b"))
+
+print('# test succ pour auto2.succ(auto2.listStates,"c") : ')
+print(auto.succ(auto.listStates,"c"))
+
+
+
+print "\n TEST ACCEPTE \n"
+
+res = Automate.accepte(auto,"abab")
+print ("Le mot aaa est il accepté par l'automate? => " + str (res))
+res = Automate.accepte (auto,"aba")
+print ("Le mot aab est il accepté par l'automate? => " + str (res) )
+
+
+
+print "\n TEST EST_COMPLET \n"
+res = Automate.estComplet(auto,auto.getAlphabetFromTransitions())
+if res == True :
+	print "L'automate est complet."
+else :
+	print "L'automate n'est pas complet."
+print ("\n APRES UTILISATION DE completeAutomate\n")
+autocomplete = Automate.completeAutomate(auto,auto.getAlphabetFromTransitions())
+res = Automate.estComplet(autocomplete,autocomplete.getAlphabetFromTransitions())
+if res == True :
+	print "L'automate est complet."
+else :
+	print "L'automate n'est pas complet."
+autocomplete.show("autocomplete")
+
+
+print "\n TEST EST_DETERMINISTE \n"
+res = Automate.estDeterministe(auto)
+if res == True :
+	print "L'automate est déterministe."
+else :
+	print "L'automate n'est pas déterministe."
+
+
+
+print "\n TEST DETERMINISATION \n"
+b = Automate.determinisation(auto)
+print(auto)
+print (b)
+
+
+
+
+"""
+auto.show('auto')
+b.show('auto_determinisé')
 print(auto)
 #auto.show("A_ListeTrans")
 
@@ -34,10 +101,9 @@ print(auto1)
 #auto1.show("A_ListeTrans1")
 
 auto2 = Automate.creationAutomate("auto.txt")
-print(auto2)
 
 auto.removeTransition(t1)
-t = Transition(s0,'yo',s2)
+t = Transition(s0,'y',s2)
 auto.addTransition(t)
 #auto.removeState(s1)
 #auto.addState(s1)
@@ -63,12 +129,12 @@ a.prefixStates(3)
 a.show("justep")
 
 """
-
+'''
 print "etat s " + s.id
 print "s "+ str(s)
 print "t "+ str(t)
 print "a "+ str(a)
-
+'''
 """
 print "s=s2? "+ str(s==s2)
 print "t=t2? "+ str(t==t2)
@@ -221,7 +287,7 @@ b = projet.determinisation(a)
 
 a.affiche ("aavDeter")
 b.affiche("apDeter")
-
+"""
 
 """
 print "\n TEST INTERSECTION \n"
@@ -293,6 +359,5 @@ o.affiche("apEtoile")
 """
 
 
-
-print "\nFIN PROGRAMME\n"
-
+'''
+print "\nFIN PROGRAMME\n"'''
