@@ -144,7 +144,7 @@ class AutomateBase :
                 finStates.append(i)
         return finStates
 
-        
+
 
     def getListTransitionsFrom (self, state) :
         """ State -> list[Transition]
