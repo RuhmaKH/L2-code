@@ -7,9 +7,9 @@ Pour cela il suffit de décommenter le code
 de la fonction que vous souhaiter tester
 """
 
-from .automate import Automate
-from .state import State
-from .transition import Transition
+from automate import Automate
+from state import State
+from transition import Transition
 from parser import *
 #from essai import Essai
 
@@ -49,7 +49,7 @@ auto.getListTransitionsFrom(s1)
 print(auto.getListTransitionsFrom(s1))
 
 print(auto1.succ([s1,s2],'a'))
-'''
+
 print "DEBUT PROGRAMME\n"
 
 
@@ -62,14 +62,14 @@ a= Automate([t,t2])
 a.prefixStates(3)
 a.show("justep")
 
-
 """
+
 print "etat s " + s.id
 print "s "+ str(s)
 print "t "+ str(t)
 print "a "+ str(a)
-"""
 
+"""
 print "s=s2? "+ str(s==s2)
 print "t=t2? "+ str(t==t2)
 
@@ -112,10 +112,10 @@ a.addTransition(Transition(s2,"c",s1))
 print a
 #t = Transition("a", )
 
-"""
+
 #a.show("essai")
-print a.succ1(s1,"a")
-print a.succ1(s2,"c")
+print a.succ(s1,"a")
+print a.succ(s2,"c")
 list = [s1,s2]
 print a.succ(list,"c")
 print a.succ(list,"b")
@@ -125,13 +125,12 @@ print a.acc()
 print Automate.accepte(a, "abc")
 print Automate.accepte(a, "aaabbcb")
 print Automate.accepte(a, "abs")
-"""
 
-"""
+
 print Automate.estComplet(a,["a","b","c"])
 print Automate.estComplet(a, ["0","1"])
 print Automate.estComplet(a, ["a","b"])
-"""
+
 print "Deterministe"
 print Automate.estDeterministe(a)
 
@@ -139,7 +138,7 @@ print Automate.estDeterministe(a)
 #a.show("automate_a")
 #b.show("b=a_aprescompletion")
 #print b
-"""
+
 print b.getAlphabetFromTransitions()
 print "etats accessibles"
 print b.acc()
@@ -149,8 +148,7 @@ print Automate.accepteVide(b)
 print "determinisation"
 c = Automate.determinisation(b)
 #c.show("Determinisationb")
-"""
-"""
+
 s3 = State("3",True,False)
 c=Automate([])
 c.addTransition(Transition(s3,"a",s3))
@@ -163,7 +161,6 @@ d = Automate.unionND(b,c)
 d.show("unionND_b_c")
 #b.show("b_apres")
 
-"""
 
 
 my_parser=Parser.Auto()
@@ -190,7 +187,7 @@ print automate
 automate.show("parser")
 
 
-"""
+
 print "\n TEST ACCEPTE_MOT \n"
 a = Automate.initAutomate("test/testDeter.txt")
 res = projet.accepteMot(a,"aaa")
@@ -226,7 +223,7 @@ a.affiche ("aavDeter")
 b.affiche("apDeter")
 
 
-
+"""
 print "\n TEST INTERSECTION \n"
 c = Automate.initAutomate("test/testInterbis1.txt")
 d = Automate.initAutomate("test/testInter2.txt")
@@ -298,4 +295,4 @@ o.affiche("apEtoile")
 
 
 print "\nFIN PROGRAMME\n"
-'''
+

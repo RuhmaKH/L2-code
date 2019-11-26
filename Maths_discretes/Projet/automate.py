@@ -141,73 +141,58 @@ class Automate(AutomateBase):
         Liste=[newAuto.getListInitialStates()]
         #Liste_f : list[States]
         Liste_f=newAuto.getListFinalStates()
+        #Liste_temp : list[list[State]]
         Liste_temp=[]
-        #Liste_Transition: liste[Transition]
+        #Liste_Transition: list[Transition]
         Liste_Transition=[]
         #new_States : set(State)
         new_States =set()
-        #L2: list(list[State])
+        #L2: list[list[State]]
         L2=[]
         #i : int
         i=0
-        k=0
         #s : str
         s=""
         #test : bool
         test=False
-        #State_temp1 : State
-        State_temp1=State(0,False,False)
-        #State_temp3 : State
-        State_temp2=State(0,False,False)
+
         while(Liste!=[]):
-            print(Liste[0])
-            """print(Liste_temp)
-            print (L2)
-            print (Liste)
-            print (new_States)
-            print (" ")"""
             if Liste[0] in L2:
-                #print("a")
                 s=str(Liste[0])
                 for l in new_States:
                     if s==l.label:
                         State_temp1=l
                         break
             else:
-               # print("b")
                 L2.append(Liste[0])
+                #Test pour voir si l'état sera final
                 for k in Liste[0]:
                    if k in Liste_f:
                      test=True
                 s=str(Liste[0])
+                #Initialise le premier etat en initial
                 if i==0:
-                   # print("n")
                     State_temp1=State(i,True,test,s)
                     i+=1
                 else:
-                    #print("p")
                     State_temp1=State(i,False,test,s)
-                    i=i+1
-                    test=False
+                    i+=1
+                test=False
                 new_States.add(State_temp1)
 
             for lettre in alphabet:
-                #print('lettre='+lettre)
                 Liste_temp=newAuto.succ(Liste[0],lettre)
-                #print(Liste_temp)
                 if Liste_temp in L2:
-                    #print("d")
                     s=str(Liste_temp)
                     for l in new_States:
                         if s==l.label:
-                           # print("g")
                             State_temp2=l
                             Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
                             break
                 else:
-                   # print("e")
                     if Liste_temp!=[]:
                         L2.append(Liste_temp)
+                        #Test pour voir si l'état sera final
                         for k in Liste_temp:
                             if k in Liste_f:
                                 test=True
@@ -216,16 +201,10 @@ class Automate(AutomateBase):
                         i=i+1
                         test=False
                         Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
-                        #print(new_States)
-                       # print('id='+str(State_temp2.id))
-
                         new_States.add(State_temp2)
-                        #print(new_States)
                         Liste.append(Liste_temp)
-                #for w in new_States:
-                    #print('id='+str(w.id))
-            del Liste[0]
 
+            del Liste[0]
 
         return AutomateBase(Liste_Transition)
 
@@ -274,6 +253,7 @@ class Automate(AutomateBase):
 
 
 automate=Automate.creationAutomate("exempleAutomate.txt")
+automate1=Automate.creationAutomate("auto.txt")
 print(automate)
 """print (automate.listStates)
 s=State(6,False,True,"11")
@@ -295,19 +275,6 @@ print(automate)
 """
 
 a=Automate.determinisation(automate)
-Liste=[]
-Liste.append(automate.getListInitialStates())
-L=automate.listStates
-#print(L[0])
-#s=automate.getListFinalStates()
-#d=automate.getListInitialStates()
-t=[automate.getListInitialStates(),automate.getListFinalStates(),automate.listStates]
-#print (Liste[0])
-#L1=[1]
-#L1.append([2])
-#print(L1)
-#print(t)
-#n=automate.listedanslistedeliste(Liste[0],t)
-#print(n)
-#a=automate.succ(L,"a")
+b=Automate.determinisation(automate1)
 print(a)
+print (b)
