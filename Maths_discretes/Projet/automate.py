@@ -71,7 +71,7 @@ class Automate(AutomateBase):
          rend True si auto est complet pour alphabet, False sinon
         """
         #liste_state : list[State]
-        liste_state = auto.getListStates()
+        liste_state = auto.listStates
         #state : State
         for state in liste_state:
             #lettre : str
@@ -90,7 +90,7 @@ class Automate(AutomateBase):
         #alphabet : str
         alphabet = auto.getAlphabetFromTransitions()
         #liste_state : list[State]
-        liste_state = auto.getListStates()
+        liste_state = auto.listStates
         #state : State
         for state in liste_state:
             #lettre : str
@@ -111,10 +111,10 @@ class Automate(AutomateBase):
         if(estComplet(newAuto,alphabet)):
             return newAuto
         #trash : State
-        trash = State(len(auto.getListStates())+1,False,False,"poubelle")
+        trash = State(len(auto.listStates)+1,False,False,"poubelle")
         newAuto.addState(trash)
         #liste_state : list[State]
-        liste_state = newAuto.getListStates()
+        liste_state = newAuto.listStates
         #state : State
         for state in liste_state:
             #lettre : str
