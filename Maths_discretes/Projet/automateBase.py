@@ -211,11 +211,11 @@ class AutomateBase :
             fichier.write(self.toDot())
             fichier.close()
             os.system("dot -Tps "+ nomFichier + ".dot -o " + nomFichier + ".ps" )
-            os.system("ps2pdf " + nomFichier + ".ps " + nomFichier + ".pdf")
+            os.system("ps2epsi " + nomFichier + ".ps " + nomFichier + ".epsi")
             #MAC
             #os.system("open " + nomFichier + ".pdf")
             #LINUX
-            os.system("evince " + nomFichier + ".pdf &")
+            os.system("evince " + nomFichier + ".epsi &")
             os.system("rm " + nomFichier + ".dot " + nomFichier + ".ps")
             #os.system("dot -Tpng -o"+ nomFichier + ".png " + nomFichier + ".dot")
             #os.system("open " + nomFichier + ".png")

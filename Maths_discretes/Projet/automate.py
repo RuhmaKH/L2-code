@@ -170,11 +170,6 @@ class Automate(AutomateBase):
                 if i==0:
                     State_temp1=State(i,True,test,s)
                     i+=1
-                else:
-                    State_temp1=State(i,False,test,s)
-                    i+=1
-                test=False
-                new_States.add(State_temp1)
 
             for lettre in alphabet:
                 Liste_temp=newAuto.succ(Liste[0],lettre)
@@ -194,7 +189,7 @@ class Automate(AutomateBase):
                                 test=True
                         s=str(Liste_temp)
                         State_temp2=State(i,False,test,s)
-                        i=i+1
+                        i+=1
                         test=False
                         Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
                         new_States.add(State_temp2)
@@ -209,9 +204,17 @@ class Automate(AutomateBase):
     @staticmethod
     def complementaire(auto,alphabet):
         """ Automate -> Automate
-        rend  l'automate acceptant pour langage le complémentaire du langage de a
+        rend  l'automate acceptant pour langage le complémentaire du langage de auto
         """
-        return
+        #newAuto : Automate
+        newAuto = Automate(auto.listTransitions)
+        newAuto=Automate.completeAutomate(newAuto,alphabet)
+        newAuto =Automate.determinisation(newAuto)
+        #Liste_f : list[States]
+        Liste_f=newAuto.getListFinalStates()
+        for i in newAuto.listStates:
+             i.fin= not (i.fin)
+        return newAuto
 
 
     @staticmethod

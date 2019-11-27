@@ -50,8 +50,8 @@ print(auto.succ(auto.listStates,"c"))
 
 print "\n TEST ACCEPTE \n"
 
-res = Automate.accepte(auto,"abab")
-print ("Le mot aaa est il accepté par l'automate? => " + str (res))
+res = Automate.accepte(auto,"ababaaaabababababa")
+print ("Le mot ababaaaabababababa est il accepté par l'automate? => " + str (res))
 res = Automate.accepte (auto,"aba")
 print ("Le mot aab est il accepté par l'automate? => " + str (res) )
 
@@ -63,6 +63,9 @@ if res == True :
 	print "L'automate est complet."
 else :
 	print "L'automate n'est pas complet."
+
+
+
 print ("\n APRES UTILISATION DE completeAutomate\n")
 autocomplete = Automate.completeAutomate(auto,auto.getAlphabetFromTransitions())
 res = Automate.estComplet(autocomplete,autocomplete.getAlphabetFromTransitions())
@@ -70,8 +73,10 @@ if res == True :
 	print "L'automate est complet."
 else :
 	print "L'automate n'est pas complet."
-autocomplete.show("autocomplete")
-autocomplete.show("a")
+#autocomplete.show("autocomplete")
+
+
+
 
 print "\n TEST EST_DETERMINISTE \n"
 res = Automate.estDeterministe(auto)
@@ -87,6 +92,8 @@ b = Automate.determinisation(auto)
 print(auto)
 print (b)
 
+
+
 print ("\n APRES UTILISATION DE DETERMINISATION\n")
 res = Automate.estDeterministe(b)
 if res == True :
@@ -94,13 +101,16 @@ if res == True :
 else :
 	print "L'automate n'est pas déterministe."
 
-
-
-
-
-"""
 auto.show('auto')
 b.show('auto_determinisé')
+
+
+print "\n TEST COMPLEMENTAIRE \n"
+
+autocomplementaire = Automate.complementaire(auto,auto.getAlphabetFromTransitions())
+autocomplementaire.show("autocomplementaire")
+
+"""
 print(auto)
 #auto.show("A_ListeTrans")
 
@@ -313,6 +323,18 @@ print "\n TEST UNION \n"
 f = Automate.initAutomate("test/testUnion12.txt")
 g = Automate.initAutomate("test/testUnion22.txt")
 h = projet.union(f,g)
+print "\n TEST COMPLEMENTAIRE \n"
+i = Automate.initAutomate("test/testCompl.txt")
+j = projet.complementaire(i)
+print "\n TEST COMPLEMENTAIRE \n"
+i = Automate.initAutomate("test/testCompl.txt")
+j = projet.complementaire(i)
+
+i.affiche("aavCompl")
+j.affiche("apCompl")
+
+i.affiche("aavCompl")
+j.affiche("apCompl")
 
 f.affiche("aavUnion1")
 g.affiche("aavUnion2")
