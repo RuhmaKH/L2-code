@@ -28,8 +28,9 @@ L=[ t1,t2,t3,t4,t5,t6]
 
 
 print(" -auto est l'automate suivant : ")
-#auto = Automate.creationAutomate("auto.txt")
-auto=Automate.creationAutomate("exempleAutomate.txt")
+auto = Automate.creationAutomate("auto.txt")
+#auto=Automate.creationAutomate("exempleAutomate.txt")
+auto.show("auto")
 print(auto)
 """Cette automate est complet et déterministe
 On test maintenant la fonction succ avec a,b et c (sachant qu'auto2 ne contient pas de transition c
@@ -37,13 +38,13 @@ On test maintenant la fonction succ avec a,b et c (sachant qu'auto2 ne contient 
 
 print "\n TEST SUCC \n"
 
-print('# test succ pour auto2.succ(auto2.listStates,"a") : ')
+print('# test succ pour auto2.succ(auto.listStates,"a") : ')
 print(auto.succ(auto.listStates,"a"))
 
-print('# test succ pour auto2.succ(auto2.listStates,"b") : ')
+print('# test succ pour auto2.succ(auto.listStates,"b") : ')
 print(auto.succ(auto.listStates,"b"))
 
-print('# test succ pour auto2.succ(auto2.listStates,"c") : ')
+print('# test succ pour auto2.succ(auto.listStates,"c") : ')
 print(auto.succ(auto.listStates,"c"))
 
 
@@ -52,7 +53,7 @@ print "\n TEST ACCEPTE \n"
 
 res = Automate.accepte(auto,"abab")
 print ("Le mot aaa est il accepté par l'automate? => " + str (res))
-res = Automate.accepte (auto,"aba")
+res = Automate.accepte (auto,"aaaba")
 print ("Le mot aab est il accepté par l'automate? => " + str (res) )
 
 
@@ -96,11 +97,11 @@ else :
 
 
 
-
+b.show('auto_determinisé')
 
 """
+
 auto.show('auto')
-b.show('auto_determinisé')
 print(auto)
 #auto.show("A_ListeTrans")
 

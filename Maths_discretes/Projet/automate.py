@@ -123,12 +123,10 @@ class Automate(AutomateBase):
 
 
     @staticmethod
-    def determinisation(auto) :
+    def determinisation(newAuto) :
         """ Automate  -> Automate
         rend l'automate déterminisé d'auto
         """
-        #newAuto : Automate
-        newAuto = Automate(auto.listTransitions)
         if(Automate.estDeterministe(newAuto)):
             return newAuto
         #alphabet : str
