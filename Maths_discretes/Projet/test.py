@@ -87,6 +87,14 @@ b = Automate.determinisation(auto)
 print(auto)
 print (b)
 
+print ("\n APRES UTILISATION DE DETERMINISATION\n")
+res = Automate.estDeterministe(b)
+if res == True :
+	print "L'automate est déterministe."
+else :
+	print "L'automate n'est pas déterministe."
+
+
 
 
 
