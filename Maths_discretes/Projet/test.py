@@ -71,7 +71,7 @@ if res == True :
 else :
 	print "L'automate n'est pas complet."
 autocomplete.show("autocomplete")
-
+autocomplete.show("a")
 
 print "\n TEST EST_DETERMINISTE \n"
 res = Automate.estDeterministe(auto)
