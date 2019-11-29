@@ -25,7 +25,7 @@ int main(int argc, char **argv)
   char *fichierLocal = NULL;
   int i, j;
   int Niveau[2];
-  int (*EvaluerPlateau[])(int plateau[H][H]) = {EvaluerPlateau_1, EvaluerPlateau_1};
+  int (*EvaluerPlateau[])(int plateau[H][H]) = {EvaluerPlateau_0, EvaluerPlateau_0};
 
 	void print_usage()
 		{
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	switch(Mode)
 		{
 		case 0: break;
-		case 1: 
+		case 1:
 			if (argc != 3)
 				{
 				print_usage();
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 				}
 			Niveau[1] = atoi(argv[2]);
 			break;
-		case 2: 
+		case 2:
 			if (argc != 4)
 				{
 				print_usage();
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 			fichierLocal = argv[3];
 			fichierDistant = argv[4];
 			break;
-		case 4: 
+		case 4:
 			if (argc != 6)
 				{
 				print_usage();
@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 		fprintf(flocal, "Amorce");
 		fclose(flocal);
 		}
-	
+
 	/* boucle de jeu */
 	while (Partie_terminee(plateau) == 0)
 		{
@@ -137,14 +137,14 @@ int main(int argc, char **argv)
 					FILE *fdistant = NULL;
 					/*Test si fichier distant existe*/
 					while ((fdistant = fopen(fichierDistant, "r")) == NULL) sleep(1);
-               
+
 					while ( fscanf(fdistant, "%d,%d", &i, &j) != 2)
 						{
 						fclose(fdistant);
 						fdistant = fopen(fichierDistant, "r");
 						}
 					fclose(fdistant);
-					
+
 					/*Notification de lecture*/
 					remove(fichierLocal);
 					}

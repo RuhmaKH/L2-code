@@ -292,7 +292,6 @@ class Automate(AutomateBase):
                 Liste_temp1=auto1.succElem(Liste[0][1],lettre)
                 for l0 in Liste_temp0:
                     for l1 in Liste_temp1:
-                        #print("\n"+str(Liste_parcourue))
                         if (l0,l1) in Liste_parcourue:
                             s= "("+str (l0) +" ; "+ str (l1)+")"
                             for l in new_States:
@@ -323,6 +322,11 @@ class Automate(AutomateBase):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage l'union des langages des deux automates
         """
+        #Liste0 : list[States]
+        Liste0=auto0.getListInitialStates()
+        #Liste1 : list[States]
+        Liste1=auto1.getListInitialStates()
+        
         return
 
 
@@ -348,8 +352,8 @@ automate=Automate.creationAutomate("exempleAutomate.txt")
 automate1=Automate.creationAutomate("auto.txt")
 a=Automate.intersection(automate,automate1)
 print(a)
-a.show("intersection")
 '''
+a.show("intersection")
 a=Automate.determinisation(automate)
 print (automate)
 print(automate)
