@@ -134,42 +134,36 @@ class Automate(AutomateBase):
         #alphabet : str
         alphabet = newAuto.getAlphabetFromTransitions()
         #Liste : list(list[States])
-        Liste=[newAuto.getListInitialStates()]
+        Liste=[newAuto.getListInitialStates()]    #Notre liste d'attente
         #Liste_f : list[States]
         Liste_f=newAuto.getListFinalStates()
-        #Liste_temp : list[list[State]]
+        #Liste_temp : list[list[States]]
         Liste_temp=[]
         #Liste_Transition: list[Transition]
         Liste_Transition=[]
-        #new_States : set(State)
-        new_States =set()
-        #L2: list[list[State]]
-        L2=[]
-        #i : int
-        i=0
-        #s : str
-        s=""
         #test : bool
         test=False
-
+        for k in Liste[0]:
+            if k in Liste_f:
+                test=True
+        #State_temp1 : States
+        State_temp1=State(0,True,test,str(Liste[0]))
+        #new_States : set(States)
+        new_States =set()
+        new_States.add(State_temp1)
+        test=False
+        #L2: list[list[States]]
+        L2=[Liste[0]]
+        #id : int
+        id=1
+        #s : str
+        s=""
         while(Liste!=[]):
-            if Liste[0] in L2:
-                s=str(Liste[0])
-                for l in new_States:
-                    if s==l.label:
-                        State_temp1=l
-                        break
-            else:
-                L2.append(Liste[0])
-                #Test pour voir si l'état sera final
-                for k in Liste[0]:
-                   if k in Liste_f:
-                     test=True
-                s=str(Liste[0])
-                #Initialise le premier etat en initial
-                if i==0:
-                    State_temp1=State(i,True,test,s)
-                    i+=1
+            s=str(Liste[0])
+            for l in new_States:
+                if s==l.label:
+                    State_temp1=l
+                    break
 
             for lettre in alphabet:
                 Liste_temp=newAuto.succ(Liste[0],lettre)
@@ -188,8 +182,8 @@ class Automate(AutomateBase):
                             if k in Liste_f:
                                 test=True
                         s=str(Liste_temp)
-                        State_temp2=State(i,False,test,s)
-                        i+=1
+                        State_temp2=State(id,False,test,s)
+                        id+=1
                         test=False
                         Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
                         new_States.add(State_temp2)
@@ -222,7 +216,107 @@ class Automate(AutomateBase):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage l'intersection des langages des deux automates
         """
-        return
+        if(auto0.listTransitions==auto1.listTransitions):
+            return Automate(auto0.listTransitions)
+        ################### Creation des Variables utiles au programme ########
+        #id : int
+        id=0
+        #test : boolean
+        test=False
+        #Liste_Transition: list[Transition]
+        Liste_Transition=[]
+        #Liste_parcourue ; list[tuple(States)]
+        Liste_parcourue=[]
+        #Liste_temp : list[States]
+        Liste_temp=[]
+        #Liste_temp0 : list[States]
+        Liste_temp0=[]
+        #Liste_temp1 : list[States]
+        Liste_temp1=[]
+        #State_temp1 : States
+        State_temp1=State(0,True,True,"trash")
+        #State_temp2 : States
+        State_temp2=State(0,True,True,"trash1")
+
+        ################# Création de l'alphabet #############################
+        #alphabet0 : str
+        alphabet0 = auto0.getAlphabetFromTransitions()
+        #alphabet1 : str
+        alphabet1 = auto1.getAlphabetFromTransitions()
+        #alphabet : str
+        alphabet= alphabet0
+        for c in alphabet1:
+            if c not in alphabet0:
+                alphabet+=c
+        ################# Création de la liste des States initiaux ###############
+        #Liste : list[tuple(States)]
+        Liste=[]                                                            #Notre liste d'attente
+        #Liste0 : list[States]
+        Liste0=auto0.getListInitialStates()
+        #Liste1 : list[States]
+        Liste1=auto1.getListInitialStates()
+        for l0 in Liste0:
+            for l1 in Liste1:
+                 print("      \n"+ str(l0)+str(l1))
+                 Liste.append((l0,l1))
+                 Liste_parcourue.append((l0,l1))
+        ################ Création de la liste des States des états finaux #########
+        #Liste0_f : list[States]
+        Liste0_f=auto0.getListFinalStates()
+        #Liste1_f : list[States]
+        Liste1_f=auto1.getListFinalStates()
+        #Liste_f : list[States]
+        Liste_f =Liste0_f
+        for l1 in Liste1_f:
+            if l1 not in Liste0_f:
+                Liste_f.append(l1)
+        ################ Création de l'ensemble des States du nouvel automate #########
+        #new_States ; set(State)
+        new_States=set()
+        for l in Liste:
+            if l[0] in Liste_f and l[1] in Liste_f:
+                test=True
+            new_States.add(State(id ,True ,test ,"("+ str (l[0])+ " ; "+ str (l[1])+ ")") )
+            test=False
+            id+=1
+        ################ Parcours de la Liste d'attente #############################
+        while(Liste!=[]):
+            s="("+ str (Liste[0][0]) + " ; "+str (Liste[0][1])+")"
+            for l in new_States:
+                if s==l.label:
+                    State_temp1=l
+                    break
+
+            for lettre in alphabet:
+                Liste_temp0=auto0.succElem(Liste[0][0],lettre)
+                Liste_temp1=auto1.succElem(Liste[0][1],lettre)
+                for l0 in Liste_temp0:
+                    for l1 in Liste_temp1:
+                        #print("\n"+str(Liste_parcourue))
+                        if (l0,l1) in Liste_parcourue:
+                            s= "("+str (l0) +" ; "+ str (l1)+")"
+                            for l in new_States:
+                                if s==l.label:
+                                    State_temp2=l
+                                    Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
+                                    break
+
+                        else:
+                            if l0 in Liste_f and l1 in Liste_f:   #Test pour voir si l'état sera final
+                                test=True
+                            Liste_parcourue.append((l0,l1))
+                            s= "("+str (l0) + " ; "+str (l1)+")"
+                            State_temp2=State(id,False,test,s)
+                            id+=1
+                            test=False
+                            Liste_Transition.append(Transition(State_temp1,lettre,State_temp2))
+                            new_States.add(State_temp2)
+                            Liste.append((l0,l1))
+
+            del Liste[0]
+
+
+        return Automate(Liste_Transition)
 
     @staticmethod
     def union (auto0, auto1):
@@ -250,12 +344,14 @@ class Automate(AutomateBase):
         """
         return
 
-'''
 automate=Automate.creationAutomate("exempleAutomate.txt")
+automate1=Automate.creationAutomate("auto.txt")
+a=Automate.intersection(automate,automate1)
 print(a)
+a.show("intersection")
+'''
 a=Automate.determinisation(automate)
 print (automate)
-automate1=Automate.creationAutomate("auto.txt")
 print(automate)
 """print (automate.listStates)
 s=State(6,False,True,"11")
