@@ -145,9 +145,9 @@ class Automate(AutomateBase):
         test=False
         for k in Liste[0]:
             if k in Liste_f:
-                test=True
+                test = True
         #State_temp1 : States
-        State_temp1=State(0,True,test,str(Liste[0]))
+        State_temp1=State(0, True, test, str(Liste[0]))
         #new_States : set(States)
         new_States =set()
         new_States.add(State_temp1)
@@ -326,8 +326,39 @@ class Automate(AutomateBase):
         Liste0=auto0.getListInitialStates()
         #Liste1 : list[States]
         Liste1=auto1.getListInitialStates()
-        
-        return
+        #Liste0_Transition: list[Transition]
+        Liste0_Transition=auto0.listTransitions
+        #Liste1_Transition: list[Transition]
+        Liste1_Transition=auto1.listTransitions
+        #Liste_Transition : List[Transition]
+        Liste_Transition=Liste0_Transition+Liste1_Transition
+        #test : boolean
+        test=False
+        for k in auto0.listStates:
+            k.insertPrefix(1)
+        for k in auto1.listStates:
+            k.insertPrefix(2)
+        for k in Liste0:
+            k.init=False
+            if k in auto0.getListFinalStates():
+                test=True
+                break
+        for k in Liste1:
+            k.init=False
+            if k in auto0.getListFinalStates():
+                test=True
+                break
+        State_trash=State(0, True, test, "0")
+        for T in Liste0_Transition:
+            if T.stateSrc in Liste0:
+                Liste_Transition.append(Transition(State_trash, T.etiquette, T.stateDest))
+        for T in Liste1_Transition:
+            if T.stateSrc in Liste1:
+                Liste_Transition.append(Transition(State_trash, T.etiquette, T.stateDest))
+
+
+
+        return Automate(Liste_Transition)
 
 
 
@@ -338,7 +369,41 @@ class Automate(AutomateBase):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage la concaténation des langages des deux automates
         """
-        return
+        #newAuto1 : Automate
+        newAuto1 = Automate(auto1.listTransitions)
+        #newAuto2 : Automate
+        newAuto2 = Automate(auto2.listTransitions)
+        #Liste0 : list[States]
+        Liste_f = newAuto1.getListFinalStates()
+        #Liste1 : list[States]
+        Liste_i = newAuto2.getListInitialStates()
+        #Liste0_Transition: list[Transition]
+        Liste1_Transition=newAuto1.listTransitions
+        #Liste1_Transition: list[Transition]
+        Liste2_Transition=newAuto2.listTransitions
+        #Liste_Transition : List[Transition]
+        Liste_Transition=Liste1_Transition
+
+        #test : boolean
+        test=False
+        for k in newAuto1.listStates:
+            k.insertPrefix(1)
+            if k in Liste_f:
+                k.fin=False
+
+        for k in newAuto2.listStates:
+            k.insertPrefix(2)
+
+        for f in Liste_f:
+            for L in Liste2_Transition:
+                if L.stateSrc in Liste_i:
+                    L.stateSrc = f
+                if L.stateDest in Liste_i:
+                    L.stateDest = f
+                if L in Liste_Transition:
+                    continue
+                Liste_Transition.append(L)
+        return Automate(Liste_Transition)
 
 
     @staticmethod
@@ -346,14 +411,42 @@ class Automate(AutomateBase):
         """ Automate  -> Automate
         rend l'automate acceptant pour langage l'étoile du langage de a
         """
-        return
+        #newAuto : Automate
+        newAuto = Automate(auto.listTransitions)
+        #ListeInit : list[States]
+        ListeInit = newAuto.getListInitialStates()
+        #ListeFin : list[States]
+        ListeFin = newAuto.getListFinalStates()
+        #oldTrans: list[Transition]
+        oldTransi = newAuto.listTransitions
+        #newTransi : List[Transition]
+        newTransi=[]
+        #falseInit : State
+        falseInit = State(len(auto.listStates)+1,False,False,"X")
+        for state in ListeInit:
+            state.fin = True
+
+        for final in ListeFin:
+            for transi in oldTransi:
+                if transi.stateSrc in ListeInit:
+                    if transi.stateDest in ListeInit:
+                        newTransi.append(Transition(falseInit, transi.etiquette, falseInit))
+                    else:
+                        newTransi.append(Transition(final, transi.etiquette, transi.stateDest))
+                        newTransi.append(Transition(falseInit, transi.etiquette, transi.stateDest))
+                if (transi.stateSrc in ListeFin) and (transi.stateDest in ListeInit):
+                    newTransi.append( Transition(final, transi.etiquette, falseInit) )
+                else:
+                    newTransi.append(transi)
+        return Automate(newTransi)
 
 automate=Automate.creationAutomate("exempleAutomate.txt")
 automate1=Automate.creationAutomate("auto.txt")
-a=Automate.intersection(automate,automate1)
+a=Automate.etoile(automate)
 print(a)
+a.show("étoile")
 '''
-a.show("intersection")
+a=Automate.intersection(automate,automate1)
 a=Automate.determinisation(automate)
 print (automate)
 print(automate)
