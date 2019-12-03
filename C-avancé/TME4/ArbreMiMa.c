@@ -23,7 +23,7 @@ NdMiMa_t *Construire_arbre(int plateau[H][H], int prof, int couleurQuiJoue){
 		return NULL;
 	int plateau_bis[H][H];
 	Copier_plateau(plateau,plateau_bis);
-	NdMiMa_t* racine = malloc(sizeof(NdMiMa_t));
+	NdMiMa_t* racine =(NdMiMa_t *) malloc(sizeof(NdMiMa_t));
 	racine->Couleur = couleurQuiJoue;
 	racine->liste_pos = Trouver_liste_pos_jouables(plateau,couleurQuiJoue);
 	racine->JoueurBloque=NULL;

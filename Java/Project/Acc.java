@@ -4,8 +4,8 @@ public abstract class Acc{
   private String categorie;
 
   protected Acc( String categorie){
-    this.categorie=categorie;
-    numero=cpt++;
+    this.categorie = categorie;
+    numero = cpt++;
   }
 
   protected String getNom(){
@@ -14,6 +14,6 @@ public abstract class Acc{
   public abstract double getPoids();
 
   public String toString(){
-    return categorie+" No "+numero+" "+String.format("pèse %.2f",getPoids())+"kg";
+    return categorie+" No " + numero + " " + String.format("pèse %.2f",getPoids()) + "kg";
   }
 }

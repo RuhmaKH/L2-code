@@ -28,37 +28,43 @@ L=[ t1,t2,t3,t4,t5,t6]
 
 
 print(" -auto est l'automate suivant : ")
-#auto = Automate.creationAutomate("auto.txt")
-auto=Automate.creationAutomate("exempleAutomate.txt")
-print(auto)
-"""Cette automate est complet et déterministe
+autoA = Automate.creationAutomate("tripleA.txt")
+autoB = Automate.creationAutomate("auto.txt")
+#autoA.show('autoA')
+#autoB.show('autoB')
+
+#print(autoA)
+#print(autoB)
+
+"""Cet automate est complet et déterministe
 On test maintenant la fonction succ avec a,b et c (sachant qu'auto2 ne contient pas de transition c
 """
 
+
+
 print "\n TEST SUCC \n"
 
-print('# test succ pour auto2.succ(auto2.listStates,"a") : ')
-print(auto.succ(auto.listStates,"a"))
+print('# test succ pour autoA.succ(auto2.listStates,"a") : ')
+print(autoA.succ(autoA.listStates,"a"))
 
-print('# test succ pour auto2.succ(auto2.listStates,"b") : ')
-print(auto.succ(auto.listStates,"b"))
+print('# test succ pour autoA.succ(auto2.listStates,"b") : ')
+print(autoA.succ(autoA.listStates,"b"))
 
-print('# test succ pour auto2.succ(auto2.listStates,"c") : ')
-print(auto.succ(auto.listStates,"c"))
-
-
-
-print "\n TEST ACCEPTE \n"
-
-res = Automate.accepte(auto,"ababaaaabababababa")
-print ("Le mot ababaaaabababababa est il accepté par l'automate? => " + str (res))
-res = Automate.accepte (auto,"aba")
-print ("Le mot aab est il accepté par l'automate? => " + str (res) )
+print('# test succ pour autoA.succ(auto2.listStates,"c") : ')
+print(autoA.succ(autoA.listStates,"c"))
 
 
 
-print "\n TEST EST_COMPLET \n"
-res = Automate.estComplet(auto,auto.getAlphabetFromTransitions())
+print "\n TEST 'accepte' \n"
+print (
+"Le mot ababaaaabababababa est il accepté par l'automate A ? => " + str(Automate.accepte(autoA,"ababaaaabababababa")) +
+"\nLe mot aab est il accepté par l'automate A ? => " + str (Automate.accepte (autoA,"aba"))
+)
+
+
+
+print "\n TEST 'estComplet' \n"
+res = Automate.estComplet(autoA,autoA.getAlphabetFromTransitions())
 if res == True :
 	print "L'automate est complet."
 else :
@@ -67,19 +73,19 @@ else :
 
 
 print ("\n APRES UTILISATION DE completeAutomate\n")
-autocomplete = Automate.completeAutomate(auto,auto.getAlphabetFromTransitions())
-res = Automate.estComplet(autocomplete,autocomplete.getAlphabetFromTransitions())
+complete = Automate.completeAutomate(autoA,autoA.getAlphabetFromTransitions())
+res = Automate.estComplet(complete,complete.getAlphabetFromTransitions())
 if res == True :
 	print "L'automate est complet."
 else :
 	print "L'automate n'est pas complet."
-#autocomplete.show("autocomplete")
+#complete.show("autocomplete")
 
 
 
 
-print "\n TEST EST_DETERMINISTE \n"
-res = Automate.estDeterministe(auto)
+print "\n TEST 'estDeterministe' \n"
+res = Automate.estDeterministe(autoA)
 if res == True :
 	print "L'automate est déterministe."
 else :
@@ -87,28 +93,89 @@ else :
 
 
 
-print "\n TEST DETERMINISATION \n"
-b = Automate.determinisation(auto)
-print(auto)
-print (b)
+print "\n TEST 'determinisation' \n"
+deter = Automate.determinisation(autoA)
 
 
 
-print ("\n APRES UTILISATION DE DETERMINISATION\n")
-res = Automate.estDeterministe(b)
+print ("\n APRES UTILISATION DE 'determinisation'\n")
+res = Automate.estDeterministe(deter)
 if res == True :
 	print "L'automate est déterministe."
 else :
 	print "L'automate n'est pas déterministe."
 
-auto.show('auto')
-b.show('auto_determinisé')
+#deter.show('determinisation')
 
 
-print "\n TEST COMPLEMENTAIRE \n"
 
-autocomplementaire = Automate.complementaire(auto,auto.getAlphabetFromTransitions())
-autocomplementaire.show("autocomplementaire")
+print "\n TEST 'complementaire' \n"
+complement = Automate.complementaire(autoA,autoA.getAlphabetFromTransitions())
+print (
+"Le mot ababaaaabababababa est il accepté par :" +
+"\n\t-l'automate A ? => " + str (Automate.accepte(autoA,"ababaaaabababababa")) +
+"\n\t-le complémentaire A ? => " + str(Automate.accepte(complement,"ababaaaabababababa")) +
+"\nLe mot aab est il accepté par :" +
+"\n\t-l'automate A ? => " + str (Automate.accepte (autoA,"aba")) +
+"\n\t-le complémentaire A ? => " + str(Automate.accepte (complement,"aba"))
+)
+#complement.show("autocomplementaire")
+
+
+
+print "\n TEST 'intersection' \n"
+inter = Automate.intersection(autoA, autoB)
+print (
+"Le mot aaaba est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaab")) +
+"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"aaaba")) +
+"\n\t-l'intersection AnB ? => " + str(Automate.accepte(inter, "aaaba")) +
+"\nLe mot aaa est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaa")) +
+"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"aaa")) +
+"\n\t-l'intersection AnB ? => " + str(Automate.accepte(inter,"aaa"))
+)
+#inter.show("intersection")
+
+
+
+print "\n TEST 'union' \n"
+uni = Automate.union(autoA, autoB)
+print (
+"Le mot aaab est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaab")) +
+"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"aaab")) +
+"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"aaab")) +
+"\nLe mot abb est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"abb")) +
+"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"abb")) +
+"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"abb"))
+)
+#uni.show("union")
+
+
+
+print "\n TEST 'concatenation' \n"
+conca = Automate.concatenation(autoA, autoB)
+print (
+"Le mot aaab est il accepté par l'automate A ? => " + str(Automate.accepte(autoA, "aaab")) +
+"\nLe mot abb est il accepté par l'automate B ? => " + str(Automate.accepte(autoB, "abb")) + "\nLe mots aaab.abb est il accepté par la concatenation A.B ? => " + str(Automate.accepte(conca, "aaababb"))
+)
+#conca.show("concatenation")
+
+
+print "\n TEST 'etoile' \n"
+etoi = Automate.etoile(autoA)
+print(
+"Le mot vide ε est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"")) +
+"\n\t-l'etoile A ? => " + str(Automate.accepte(etoi,"")) +
+"\nLe mot aaab.aaab est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaabaaab")) +
+"\n\t-l'etoile A ? => " + str(Automate.accepte(etoi,"aaabaaab"))
+)
+#etoi.show("etoile")
+
 
 """
 print(auto)
@@ -254,7 +321,7 @@ result = my_parser("#E: 4 1 5 #I: 1 2 #F: 3 4 #T: (1 2 2)")
 #result = my_parser("E: Q1 Q2 Q3 -I: Q1 Q2")
 print "result ",result
 
-
+determinisation
 fichier = open("../../test/testDeter.txt")
 s = fichier.read()
 print s
@@ -388,6 +455,4 @@ n.affiche("aavEtoile")
 o.affiche("apEtoile")
 """
 
-
-'''
-print "\nFIN PROGRAMME\n"'''
+print "\nFIN PROGRAMME\n"
