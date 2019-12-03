@@ -3,11 +3,11 @@ public class Creature extends Personnage{
 
   public Creature(){
     super(Noms.getNom());
-    sac=new Sac();
+    sac=new Sac(1);
   }
 
   public void ajouter(Acc a){
-    if (sac.getPoids()<0.5*super.poids)
+    if (a.getPoids()+sac.getPoids()<0.5*super.poids)
       sac.ajouter(a);
     else
       System.out.println("Trop lourd");
@@ -63,6 +63,6 @@ public class Creature extends Personnage{
   }
 
   public void courir(){
-		System.out.println(toString()+String.format(" court à %.2f",this.getVitesse())+"km/h avec le\n"+sac);
+		System.out.println(toString()+String.format(" court à %.2f",this.getVitesse())+"km/h avec le\n"+sac.toString());
   }
 }

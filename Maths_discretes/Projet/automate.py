@@ -257,7 +257,6 @@ class Automate(AutomateBase):
         Liste1=auto1.getListInitialStates()
         for l0 in Liste0:
             for l1 in Liste1:
-                 print("      \n"+ str(l0)+str(l1))
                  Liste.append((l0,l1))
                  Liste_parcourue.append((l0,l1))
         ################ Création de la liste des States des états finaux #########
@@ -423,20 +422,18 @@ class Automate(AutomateBase):
         newTransi=[]
         #falseInit : State
         falseInit = State(len(auto.listStates)+1,False,False,"X")
-        for state in ListeInit:
-            state.fin = True
-
+        """for s in ListInit:
+            s.init=True"""
         for final in ListeFin:
             for transi in oldTransi:
                 if transi.stateSrc in ListeInit:
                     if transi.stateDest in ListeInit:
-                        newTransi.append(Transition(falseInit, transi.etiquette, falseInit))
+                        newTransi.append(Transition(final, transi.etiquette, final))
                     else:
-                        newTransi.append(Transition(final, transi.etiquette, transi.stateDest))
-                        newTransi.append(Transition(falseInit, transi.etiquette, transi.stateDest))
-                if (transi.stateSrc in ListeFin) and (transi.stateDest in ListeInit):
-                    newTransi.append( Transition(final, transi.etiquette, falseInit) )
-                else:
+                        if not final==transi.stateDest:
+                            newTransi.append(Transition(final, transi.etiquette, transi.stateDest))
+                            #newTransi.append(Transition(falseInit, transi.etiquette, transi.stateDest))
+                if transi not in newTransi:
                     newTransi.append(transi)
         return Automate(newTransi)
 
@@ -445,12 +442,12 @@ automate1=Automate.creationAutomate("auto.txt")
 a=Automate.etoile(automate)
 print(a)
 a.show("étoile")
-'''
+"""
 a=Automate.intersection(automate,automate1)
 a=Automate.determinisation(automate)
 print (automate)
 print(automate)
-"""print (automate.listStates)
+print (automate.listStates)
 s=State(6,False,True,"11")
 print(s.__repr__())
 print(automate.addState(s))
@@ -468,7 +465,3 @@ print(s)
 print ((automate.listStates)[3].insertPrefix(6,"wesh alors"))
 print(automate)
 """
-
-b=Automate.determinisation(automate1)
-print (b)
-'''

@@ -15,6 +15,6 @@ public class Jeu{
  c.ajouter(new Pomme());
  c.courir();
  c.manger();
- c.courir();
+// c.courir();
   }
 }
