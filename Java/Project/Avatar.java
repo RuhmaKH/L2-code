@@ -6,8 +6,8 @@ public class Avatar extends Personnage{
 
   public Avatar(String nom, double poids){
     super(nom,poids);
-    listeAmis= new ArrayList<Creature>();
-    listeAcc= new ArrayList<Acc>();
+    listeAmis = new ArrayList<Creature>();
+    listeAcc = new ArrayList<Acc>();
   }
 
   public String toString(){
@@ -31,24 +31,23 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrer(Creature c){
-    Acc a=listeAcc.get(0);
-    if (a!=null){
+    Acc a = listeAcc.get(0);
+    if (a != null){
       c.ajouter(a);
       if (!this.estAmi(c) && a.getPoids()<50)
         this.devenirAmi(c);
     }
-    else{
+    else
       if (this.estAmi(c))
         this.PerdreAmi(c);
-    }
   }
 
   public double course(){
-    double distance_t=0;
+    double distance_t = 0;
     for ( Creature c : listeAmis){
       c.manger();
       c.courir();
-      distance_t+=c.getVitesse();
+      distance_t += c.getVitesse();
     }
     return distance_t;
   }

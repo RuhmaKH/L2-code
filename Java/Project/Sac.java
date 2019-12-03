@@ -12,7 +12,7 @@ public class Sac extends Acc{
   }
 
   public Acc getSac_i(int i){
-    if (i<0 && i>(tab.length-1))
+    if (i < 0 && i > (tab.length-1))
       return null;
     return tab[i];
   }
@@ -22,25 +22,19 @@ public class Sac extends Acc{
   }
 
   public void ajouter(Acc a){
-    boolean test=true;
-    for (int i=0; i<tab.length;i++){
-      if (tab[i]==null){
-        tab[i]=a;
-        test=false;
-        break;
-      }
-    }
-    if (test)
+    int nb;
+    if((nb = getNbelements()) < tab.length)
+      tab[nb] = a;
+    else
       System.out.println("Pas la place");
-  }
+}
 
   public Acc obtenir(int i){
-    if (i<getNbelements()){
-      Acc finale=tab[i];
-      for (int j=i;j<tab.length-1;j++){
-        tab[j]=tab[j+1];
-      }
-      tab[tab.length-1]=null;
+    if (i < getNbelements()){
+      Acc finale = tab[i];
+      for (int j=i; j<tab.length-1; j++)
+        tab[j] = tab[j+1];
+      tab[tab.length-1] = null;
       return finale;
     }
     return null;
@@ -48,8 +42,8 @@ public class Sac extends Acc{
 
   public int getNbelements(){
     int cpt=0;
-    for (int i=0; i<tab.length;i++){
-        if (tab[i]!=null)
+    for (int i=0; i<tab.length; i++){
+        if (tab[i] != null)
           cpt++;
     }
     return cpt;
