@@ -58,6 +58,7 @@ class Automate(AutomateBase):
         """
         #list_init: list[States]
         liste= auto.getListInitialStates()
+        print(liste)
         #c : str
         for c in mot:
             liste=auto.succ(liste,c)
@@ -322,43 +323,34 @@ class Automate(AutomateBase):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage l'union des langages des deux automates
         """
-        #Liste0 : list[States]
-        Liste0=auto0.getListInitialStates()
-        #Liste1 : list[States]
-        Liste1=auto1.getListInitialStates()
-        #Liste0_Transition: list[Transition]
-        Liste0_Transition=auto0.listTransitions
-        #Liste1_Transition: list[Transition]
-        Liste1_Transition=auto1.listTransitions
-        #Liste_Transition : List[Transition]
-        Liste_Transition=Liste0_Transition+Liste1_Transition
-        #test : boolean
-        test=False
-        for k in auto0.listStates:
-            k.insertPrefix(1)
-        for k in auto1.listStates:
-            k.insertPrefix(2)
-        for k in Liste0:
-            k.init=False
-            if k in auto0.getListFinalStates():
-                test=True
-                break
-        for k in Liste1:
-            k.init=False
-            if k in auto0.getListFinalStates():
-                test=True
-                break
-        State_trash=State(0, True, test, "0")
-        for T in Liste0_Transition:
-            if T.stateSrc in Liste0:
-                Liste_Transition.append(Transition(State_trash, T.etiquette, T.stateDest))
-        for T in Liste1_Transition:
-            if T.stateSrc in Liste1:
-                Liste_Transition.append(Transition(State_trash, T.etiquette, T.stateDest))
+        #newAuto0 : Automate
+        newAuto0= copy.deepcopy(auto0)
+        #newAuto1 : Automate
+        newAuto1 = copy.deepcopy(auto1)
+
+        newAuto0.prefixStates(0)
+        newAuto1.prefixStates(1)
+
+
+        #Liste_init1 : list[States]
+        Liste_init1=newAuto0.getListInitialStates()
+
+
+        #Liste_f2 : list[States]
+        Liste_f2=newAuto1.getListFinalStates()
+
+
+
+        Liste_Transition=newAuto0.listTransitions+newAuto1.listTransitions
+        for lettre in newAuto1.getAlphabetFromTransitions():
+            for s1 in Liste_f2:
+                for s2 in Liste_init1:
+                    Liste_Transition.append(Transition(s1,lettre,s2))
 
 
 
         return Automate(Liste_Transition)
+        
 
 
 
@@ -370,9 +362,9 @@ class Automate(AutomateBase):
         rend l'automate acceptant pour langage la concaténation des langages des deux automates
         """
         #newAuto1 : Automate
-        newAuto1 = Automate(auto1.listTransitions)
+        newAuto1 = copy.deepcopy(auto1)
         #newAuto2 : Automate
-        newAuto2 = Automate(auto2.listTransitions)
+        newAuto2 = copy.deepcopy(auto2)
         #Liste0 : list[States]
         Liste_f = newAuto1.getListFinalStates()
         #Liste1 : list[States]
@@ -387,12 +379,12 @@ class Automate(AutomateBase):
         #test : boolean
         test=False
         for k in newAuto1.listStates:
-            k.insertPrefix(1)
+            #k.insertPrefix(1)
             if k in Liste_f:
                 k.fin=False
 
-        for k in newAuto2.listStates:
-            k.insertPrefix(2)
+        #for k in newAuto2.listStates:
+        #    k.insertPrefix(2)
 
         for f in Liste_f:
             for L in Liste2_Transition:
@@ -440,12 +432,12 @@ class Automate(AutomateBase):
                     newTransi.append(transi)
         return Automate(newTransi)
 
-automate=Automate.creationAutomate("exempleAutomate.txt")
+automate=Automate.creationAutomate("tripleA.txt")
 automate1=Automate.creationAutomate("auto.txt")
-a=Automate.etoile(automate)
+a=Automate.union(automate,automate1)
 print(a)
+ '''
 a.show("étoile")
-'''
 a=Automate.intersection(automate,automate1)
 a=Automate.determinisation(automate)
 print (automate)
