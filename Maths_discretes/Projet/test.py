@@ -122,7 +122,6 @@ print (
 #complement.show("autocomplementaire")
 
 
-
 print "\n TEST 'intersection' \n"
 inter = Automate.intersection(autoA, autoB)
 print (
