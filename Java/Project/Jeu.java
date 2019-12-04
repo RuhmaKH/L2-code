@@ -4,10 +4,9 @@ public class Jeu{
   s.ajouter(new Pomme());
   s.ajouter(new Pomme());
   System.out.println(s);*/
-
-  /*
-  Creature c= new Creature();
-  System.out.println(c);
+  Monde m = new Monde (10);
+  m.afficher();
+  Creature c = new Creature();
   c.courir();
   c.ajouter(new Sac());
   c.ajouter(new Pomme());
@@ -16,6 +15,14 @@ public class Jeu{
   c.courir();
   c.manger();
   c.courir();
-  */
+
+  Avatar bob = new Avatar("Bob", 100.50, m);
+  m.ajouterItem(bob);
+  m.afficher();
+  m.ajouterItem(new Pomme());
+  m.ajouterItem(new Sac());
+  m.ajouterItem(c);
+  bob.seDeplacer();
+  m.afficher();
   }
 }

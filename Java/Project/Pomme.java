@@ -1,7 +1,6 @@
 public class Pomme extends Acc implements Mangeable{
   private double rayon;
 
-
   public Pomme(){
     super("Pomme");
     rayon=Math.random()* 4 + 3;

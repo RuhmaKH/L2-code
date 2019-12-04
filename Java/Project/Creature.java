@@ -5,7 +5,12 @@ public class Creature extends Personnage{
     super(Noms.getNom());
     sac = new Sac();
   }
-
+/*
+  public Creature(int x, int y){
+    super(Noms.getNom(), x, y);
+    sac = new Sac();
+  }
+*/
   public void ajouter(Acc a){
     if (sac.getPoids( ) < 0.5 * getPoids())
       sac.ajouter(a);

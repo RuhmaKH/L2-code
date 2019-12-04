@@ -10,24 +10,30 @@ public class Sac extends Acc{
     super("Sac");
     tab=new Acc[(int)(Math.random() * 10) + 1];
   }
-
+/*
   public Acc getSac_i(int i){
     if (i < 0 && i > (tab.length-1))
       return null;
     return tab[i];
   }
-
+*/
   public int size(){
     return tab.length;
   }
 
   public void ajouter(Acc a){
+  /*  for(Acc acc : tab){
+      if(acc instanceof Sac){
+        acc.ajouter(a);
+        return;
+      }
+    }*/
     int nb;
     if((nb = getNbElements()) < tab.length)
       tab[nb] = a;
     else
       System.out.println("Pas la place");
-}
+  }
 
   public Acc obtenir(int i){
     if (i < getNbElements()){
@@ -48,6 +54,7 @@ public class Sac extends Acc{
     }
     return cpt;
   }
+
   public double getPoids(){
     double poids=0;
     for(int i=0; i<getNbElements(); i++){
@@ -55,6 +62,8 @@ public class Sac extends Acc{
     }
     return poids;
   }
+
+
 
   public String toString(){
     String s=""+super.toString()+" contient "+getNbElements()+" accessoires sur "+size()+" :\n";

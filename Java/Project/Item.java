@@ -1,6 +1,7 @@
 public abstract class Item{
   private final String nom;
-  private int x, y;
+  private int x;
+  private int y;
 
   public Item(String nom, int x,int y){
     this.nom = nom;
