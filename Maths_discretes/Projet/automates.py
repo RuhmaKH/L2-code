@@ -350,7 +350,7 @@ class Automate(AutomateBase):
 
 
         return Automate(Liste_Transition)
-        
+
 
 
 
@@ -436,8 +436,8 @@ automate=Automate.creationAutomate("tripleA.txt")
 automate1=Automate.creationAutomate("auto.txt")
 a=Automate.union(automate,automate1)
 print(a)
- '''
 a.show("étoile")
+ '''
 a=Automate.intersection(automate,automate1)
 a=Automate.determinisation(automate)
 print (automate)

@@ -58,7 +58,6 @@ class Automate(AutomateBase):
         """
         #list_init: list[States]
         liste= auto.getListInitialStates()
-        print(liste)
         #c : str
         for c in mot:
             liste=auto.succ(liste,c)
@@ -203,8 +202,8 @@ class Automate(AutomateBase):
         """
         #newAuto : Automate
         newAuto = Automate(auto.listTransitions)
-        newAuto=Automate.completeAutomate(newAuto,alphabet)
-        newAuto =Automate.determinisation(newAuto)
+        newAuto = Automate.completeAutomate(newAuto,alphabet)
+        newAuto = Automate.determinisation(newAuto)
         #Liste_f : list[States]
         Liste_f=newAuto.getListFinalStates()
         for i in newAuto.listStates:
@@ -258,7 +257,6 @@ class Automate(AutomateBase):
         Liste1=auto1.getListInitialStates()
         for l0 in Liste0:
             for l1 in Liste1:
-                 print("      \n"+ str(l0)+str(l1))
                  Liste.append((l0,l1))
                  Liste_parcourue.append((l0,l1))
         ################ Création de la liste des States des états finaux #########
@@ -388,7 +386,7 @@ class Automate(AutomateBase):
         return Automate(Liste_Transition)
 
     @staticmethod
-    def standard (auto):
+    def standard(auto):
         """ Automate  -> Automate
         rend l'automate acceptant pour langage le standard du langage de a
         """
@@ -398,7 +396,7 @@ class Automate(AutomateBase):
         Liste_Transition=[]
         set_States=set()
         #State_temp1 : States
-        State_temp1=State(0,True,True,"trash")
+        State_temp1 = State(0,True,True,"trash")
         #State_temp2 : States
         State_temp2=State(0,True,True,"trash1")
         for s in newAuto.listStates:
@@ -430,39 +428,31 @@ class Automate(AutomateBase):
         rend l'automate acceptant pour langage l'étoile du langage de a
         """
         #newAuto : Automate
-        newAuto = copy.deepcopy(auto)
-        #ListeInit : list[States]
-        ListeInit = newAuto.getListInitialStates()
-        #ListeFin : list[States]
-        ListeFin = newAuto.getListFinalStates()
-        #oldTrans: list[Transition]
-        oldTransi = newAuto.listTransitions
-        #newTransi : List[Transition]
-        newTransi=[]
-        #falseInit : State
-        falseInit = State(len(auto.listStates)+1,False,False,"X")
-        for state in ListeInit:
-            state.fin = True
+        newAuto = Automate.standard(auto)
+        #listeFin : list[State]
+        listeFin = newAuto.getListFinalStates()
+        #listeTransi : list[Transition]
+        listeTransi = newAuto.listTransitions
+        #listeTransition : list[Transition]
+        listeTransition =  listeTransi
+        #listeInit :  list[State]
+        listeInit = newAuto.getListInitialStates()
+        for T in listeTransi:
+            if T.stateSrc in listeInit:
+                for final in listeFin:
+                    listeTransition.append(Transition(final,T.etiquette,T.stateDest))
 
-        for final in ListeFin:
-            for transi in oldTransi:
-                if transi.stateSrc in ListeInit:
-                    if transi.stateDest in ListeInit:
-                        newTransi.append(Transition(falseInit, transi.etiquette, falseInit))
-                    else:
-                        newTransi.append(Transition(final, transi.etiquette, transi.stateDest))
-                        newTransi.append(Transition(falseInit, transi.etiquette, transi.stateDest))
-                if (transi.stateSrc in ListeFin) and (transi.stateDest in ListeInit):
-                    newTransi.append( Transition(final, transi.etiquette, falseInit) )
-                else:
-                    newTransi.append(transi)
-        return Automate(newTransi)
+        listeInit[0].fin = True
+        return Automate(listeTransition)
+
+
 
 automate=Automate.creationAutomate("tripleA.txt")
 automate1=Automate.creationAutomate("auto.txt")
-a=Automate.standard(automate)
+a=Automate.etoile(automate)
 print(a)
-a.show("standard")
+
+a.show("etoile")
 '''
 a=Automate.intersection(automate,automate1)
 a=Automate.determinisation(automate)

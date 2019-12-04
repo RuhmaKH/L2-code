@@ -56,8 +56,6 @@ public class Avatar extends Personnage{
     double distance_max=0;
     Creature rapide=null;
     for ( Creature c : listeAmis){
-      c.manger();
-      c.courir();
       if (rapide.getVitesse()>c.getVitesse())
         rapide=c;
     }

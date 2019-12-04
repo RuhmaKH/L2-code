@@ -148,7 +148,11 @@ print (
 "\nLe mot abb est il accepté par :" +
 "\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"abb")) +
 "\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"abb")) +
-"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"abb"))
+"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"abb")) +
+"\nLe mot b est il accepté par :" +
+"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"b")) +
+"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"b")) +
+"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"b"))
 )
 #uni.show("union")
 
@@ -173,7 +177,7 @@ print(
 "\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaabaaab")) +
 "\n\t-l'etoile A ? => " + str(Automate.accepte(etoi,"aaabaaab"))
 )
-#etoi.show("etoile")
+etoi.show("etoile")
 
 
 """

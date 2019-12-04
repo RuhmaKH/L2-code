@@ -8,7 +8,7 @@ public class Sac extends Acc{
 
   public Sac(){
     super("Sac");
-    tab=new Acc[(int)(Math.random()*9) +1];
+    tab=new Acc[(int)(Math.random() * 10) + 1];
   }
 
   public Acc getSac_i(int i){
@@ -23,14 +23,14 @@ public class Sac extends Acc{
 
   public void ajouter(Acc a){
     int nb;
-    if((nb = getNbelements()) < tab.length)
+    if((nb = getNbElements()) < tab.length)
       tab[nb] = a;
     else
       System.out.println("Pas la place");
 }
 
   public Acc obtenir(int i){
-    if (i < getNbelements()){
+    if (i < getNbElements()){
       Acc finale = tab[i];
       for (int j=i; j<tab.length-1; j++)
         tab[j] = tab[j+1];
@@ -40,7 +40,7 @@ public class Sac extends Acc{
     return null;
   }
 
-  public int getNbelements(){
+  public int getNbElements(){
     int cpt=0;
     for (int i=0; i<tab.length; i++){
         if (tab[i] != null)
@@ -50,15 +50,15 @@ public class Sac extends Acc{
   }
   public double getPoids(){
     double poids=0;
-    for(int i=0; i<getNbelements(); i++){
+    for(int i=0; i<getNbElements(); i++){
         poids+=tab[i].getPoids();
     }
     return poids;
   }
 
   public String toString(){
-    String s=""+super.toString()+" contient "+getNbelements()+" accessoires sur "+size()+" :\n";
-    for(int i=0; i<getNbelements(); i++){
+    String s=""+super.toString()+" contient "+getNbElements()+" accessoires sur "+size()+" :\n";
+    for(int i=0; i<getNbElements(); i++){
        s=s+"\t"+tab[i].toString()+"\n";
     }
     return s;

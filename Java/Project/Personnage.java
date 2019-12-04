@@ -1,23 +1,25 @@
-public abstract class Personnage{
-  private String nom;
+public abstract class Personnage extends Item{
   private double poids;
 
-  protected Personnage(String nom, double poids){
-    this.nom = nom;
+  protected Personnage(String nom, double poids, int x, int y){
+    super(nom, x, y);
     this.poids = poids;
-    name.add(nom);
+  }
+
+  protected Personnage(String nom, int x, int y){
+    this(nom, Math.random() * 100 + 30, x, y);
+  }
+
+  protected Personnage(String nom, double poids){
+    super(nom);
+    this.poids = poids;
   }
 
   protected Personnage(String nom){
-    this.nom = nom;
-    poids = Math.random()*100+30;
+    this(nom, Math.random() * 100 + 30);
   }
 
-  protected String getNom(){
-    return nom;
-  }
-
-  protected double getPoids(){
+  public double getPoids(){
     return poids;
   }
 
@@ -27,6 +29,6 @@ public abstract class Personnage{
   }
 
   public String toString(){
-    return nom + String.format("   %.2f",poids) + "kg\n";
+    return getNom() + String.format("   %.2f",poids) + "kg\n";
   }
 }
