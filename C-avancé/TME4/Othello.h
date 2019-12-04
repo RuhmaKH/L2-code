@@ -1,5 +1,5 @@
 #ifndef _OTHELLO_H_
-#define _OTHELLO_H_ 
+#define _OTHELLO_H_
 #include "ListePos.h"
 
 #define H 8 //Taille du plateau

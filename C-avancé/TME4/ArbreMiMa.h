@@ -1,5 +1,5 @@
 #ifndef _ARB_MIMA_
-#define _ARB_MIMA_ 
+#define _ARB_MIMA_
 
 #include "Othello.h"
 
@@ -15,5 +15,6 @@ int MeilleurPos(NdMiMa_t *arbre, int plateau[H][H], int (*EvaluerPlateau)(int pl
 NdMiMa_t *Detruire_arbre(NdMiMa_t *arbre);
 int EvaluerPlateau_0(int plateau[H][H]);
 int EvaluerPlateau_1(int plateau[H][H]);
+void afficher_arbre(NdMiMa_t* arbre);
 
 #endif

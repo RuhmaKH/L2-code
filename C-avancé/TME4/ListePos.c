@@ -21,6 +21,7 @@ void Afficher_lPosJouables(PosJouable_t *liste_pos)
 	while (liste_pos)
 		{
 		printf("(%d,%d) ",liste_pos->i, liste_pos->j);
+		afficher_arbre(liste_pos->Nd);
 		liste_pos=liste_pos->suiv;
 		}
 	putchar('\n');

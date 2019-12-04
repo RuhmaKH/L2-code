@@ -84,7 +84,7 @@ else :
 
 
 
-print "\n TEST 'estDeterministe' \n"
+print "\nTEST 'estDeterministe' \n"
 res = Automate.estDeterministe(autoA)
 if res == True :
 	print "L'automate est déterministe."

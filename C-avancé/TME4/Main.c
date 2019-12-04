@@ -98,7 +98,6 @@ int main(int argc, char **argv)
 
   Initialiser_plateau(plateau);
   Creer_fenetre(ModeStr[Mode]);
-
 	/*Creation du fichier le joueur ne commence pas*/
 	if ((Mode == 3 || Mode == 4) && joueurCourant == BLANC)
 		{
@@ -149,13 +148,13 @@ int main(int argc, char **argv)
 					remove(fichierLocal);
 					}
  			/*Joueur automatique*/
-				else
-					{
+				else{
 					sleep(1);
-					NdMiMa_t *arbreMiMa = Construire_arbre(plateau, Niveau[joueurCourant -1], joueurCourant);
+          NdMiMa_t *arbreMiMa = Construire_arbre(plateau, Niveau[joueurCourant -1], joueurCourant);
+          afficher_arbre(arbreMiMa);
 					MeilleurPos(arbreMiMa, plateau, EvaluerPlateau[joueurCourant -1], &i, &j);
 					arbreMiMa = Detruire_arbre(arbreMiMa);
-					}
+				}
 
 			Jouer_pion(plateau, i, j, joueurCourant);
 			Dessine_plateau_graph(plateau, joueurCourant);
