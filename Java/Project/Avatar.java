@@ -27,21 +27,21 @@ public class Avatar extends Personnage{
     return false;
   }
 
-  public void devenirAmi(Creature c){
+  private void devenirAmi(Creature c){
     if (! this.estAmi(c)){
       listeAmis.add(c);
       System.out.println(c.getNom() + " est devenu l'ami de " + getNom());
     }
   }
 
-  public void PerdreAmi(Creature c){
+  private void PerdreAmi(Creature c){
     if (this.estAmi(c)){
       listeAmis.remove(c);
       System.out.println(c.getNom() + " n'est plus l'ami de " + getNom());
     }
   }
 
-  public void rencontrer(Creature c){
+  private void rencontrer(Creature c){
     Acc a = listeAcc.get(0);
     if (a != null){
       c.ajouter(a);
@@ -82,7 +82,7 @@ public class Avatar extends Personnage{
     return j;
   }
 
-  public void ramasser(Acc a){
+  private void ramasser(Acc a){
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac)
@@ -107,7 +107,7 @@ public class Avatar extends Personnage{
     return false;
   }
 
-  public void rencontrerVoisins(){
+  private void rencontrerVoisins(){
     ArrayList<Item> voisins = monde.getVoisins(this);
     for(Item i : voisins){
       if(i instanceof Avatar)
@@ -134,5 +134,6 @@ public class Avatar extends Personnage{
     setX(ordo);
     setY(absi);
     sc.close();
+    rencontrerVoisins();
   }
 }

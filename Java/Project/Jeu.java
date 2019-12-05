@@ -35,11 +35,9 @@ public class Jeu{
 
     for(int i = 0; i < 5; i++){
       mario.seDeplacer();
-      mario.rencontrerVoisins();
       m.afficher();
 
       luigi.seDeplacer();
-      luigi.rencontrerVoisins();
       m.afficher();
     }
 

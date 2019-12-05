@@ -10,16 +10,6 @@ public class Sac extends Acc{
     super("Sac");
     tab = new Acc[(int)(Math.random() * 10) + 1];
   }
-/*
-  public Acc getSac_i(int i){
-    if (i < 0 && i > (tab.length-1))
-      return null;
-    return tab[i];
-  }
-*/
-  public int size(){
-    return tab.length;
-  }
 
   public void ajouter(Acc a){
     for(Acc acc : tab)
@@ -78,10 +68,8 @@ public class Sac extends Acc{
     return poids;
   }
 
-
-
   public String toString(){
-    String s=""+super.toString()+" contient "+getNbElements()+" accessoires sur "+size()+" :\n";
+    String s=""+super.toString()+" contient "+getNbElements()+" accessoires sur " + tab.length + " :\n";
     for(int i=0; i<getNbElements(); i++){
        s=s+"\t"+tab[i].toString()+"\n";
     }
