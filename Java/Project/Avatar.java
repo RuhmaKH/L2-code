@@ -86,19 +86,19 @@ public class Avatar extends Personnage{
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac)
-          test = ramasser(a, (Sac) i);
-    if (! test)
+          place = ramasser(a, (Sac) i);
+    if (! place)
       listeAcc.add(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
       monde.supprimerItem(a);
   }
 
   private boolean ramasser(Acc a, Sac sac){
-    boolean test = false;
+    boolean place = false;
     for ( Item i : listeAcc)
         if (i instanceof Sac)
-          test = ramasser(a, sac);
-    if(! test){
+          place = ramasser(a, sac);
+    if(! place){
       sac.ajouter(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
       monde.supprimerItem(a);
