@@ -56,7 +56,7 @@ public class Jeu{
         ggwp += c.getNom();
       ggwp += "\n";
     }
-    ggwp += "Iels ont parcou.e.s " + chicken;
+    ggwp += "Iels ont parcou.e.s " + chicken + "\n";
 
     System.out.println(ggwp);
     sc.close();
