@@ -14,17 +14,24 @@ public class Jeu{
     Avatar winner;
     Creature daFast;
 
+    //*********************************************** ITEMS *********************************************** */
+
     m.ajouterItem(mario);
     m.ajouterItem(luigi);
+
+    for(int j = 0; j < Math.random() * (taille / 2) + 6; j++)
+        m.ajouterItem(new Creature());
+
+    for(int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
+      m.ajouterItem(new Sac());
+
+    for(int j = 0; j < Math.random() * (taille /4 ) + taille /2; j++)
+      m.ajouterItem(new Pomme());
+
+  
     m.afficher();
 
-    for(int j = 0; j < Math.random() * (taille / 4) + 4; j++){
-        m.ajouterItem(new Creature());
-    }
-
-    for(int j = 0; j < Math.random() * (taille / 2) + taille / 4; j++){
-      m.ajouterItem(new Sac());
-  }
+    //*********************************************** JEU *********************************************** */
 
     for(int i = 0; i < 5; i++){
       mario.seDeplacer();
