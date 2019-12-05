@@ -8,7 +8,7 @@ public class Sac extends Acc{
 
   public Sac(){
     super("Sac");
-    tab=new Acc[(int)(Math.random() * 10) + 1];
+    tab = new Acc[(int)(Math.random() * 10) + 1];
   }
 /*
   public Acc getSac_i(int i){

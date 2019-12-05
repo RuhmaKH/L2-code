@@ -3,11 +3,11 @@ public class Pomme extends Acc implements Mangeable{
 
   public Pomme(){
     super("Pomme");
-    rayon=Math.random()* 4 + 3;
+    rayon = Math.random()* 4 + 3;
   }
 
   public double getPoids(){
-    return (4* Math.PI * (rayon*rayon*rayon))/3000;
+    return (4 * Math.PI * (Math.pow(rayon, 3))) / 3000;
   }
 
 

@@ -17,6 +17,10 @@ public class Avatar extends Personnage{
     return super.toString()+" "+ listeAmis.size()+ " amis(s)"+ listeAcc.size()+" accessoire(s)";
   }
 
+  public ArrayList<Creature> getAmis(){
+    return listeAmis;
+  }
+
   public boolean estAmi(Creature c){
     if (listeAmis.contains(c))
       return true;
@@ -24,20 +28,24 @@ public class Avatar extends Personnage{
   }
 
   public void devenirAmi(Creature c){
-    if (! this.estAmi(c))
+    if (! this.estAmi(c)){
       listeAmis.add(c);
+      System.out.println(c.getNom() + " est devenu l'ami de " + getNom());
+    }
   }
 
   public void PerdreAmi(Creature c){
-    if (this.estAmi(c))
+    if (this.estAmi(c)){
       listeAmis.remove(c);
+      System.out.println(c.getNom() + " n'est plus l'ami de " + getNom());
+    }
   }
 
   public void rencontrer(Creature c){
     Acc a = listeAcc.get(0);
     if (a != null){
       c.ajouter(a);
-      if (!this.estAmi(c) && a.getPoids()<50)
+      if (!this.estAmi(c) && a.getPoids() < 50)
         this.devenirAmi(c);
     }
     else
@@ -46,22 +54,21 @@ public class Avatar extends Personnage{
   }
 
   public double course(){
-    double distance_t = 0;
+    double dist = 0;
     for ( Creature c : listeAmis){
       c.manger();
       c.courir();
-      distance_t += c.getVitesse();
+      dist += c.getVitesse();
     }
-    return distance_t;
+    return dist;
   }
 
   public Creature getCreaturePlusRapide(){
-    double distance_max=0;
-    Creature rapide=null;
-    for ( Creature c : listeAmis){
+    Creature rapide = null;
+    for ( Creature c : listeAmis)
       if (rapide.getVitesse()>c.getVitesse())
-        rapide=c;
-    }
+        rapide = c;
+    
     return rapide;
   }
 
@@ -74,7 +81,9 @@ public class Avatar extends Personnage{
     }
     return j;
   }
+
   public void ramasser(Acc a){
+/*
     boolean test = true;
     for (Item i : listeAcc)
         if (i instanceof Sac)
@@ -83,8 +92,12 @@ public class Avatar extends Personnage{
       listeAcc.add(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
       monde.supprimerItem(a);
-    }
-
+*/
+    listeAcc.add(a);
+    System.out.println(getNom() + " ramasse " + a.getNom());
+    monde.supprimerItem(a);
+  }
+/*
   private boolean ramasser(Acc a, Sac sac){
     boolean test = true;
     for ( Item i : listeAcc)
@@ -98,7 +111,7 @@ public class Avatar extends Personnage{
     }
     return true;
   }
-
+*/
   public void rencontrerVoisins(){
     ArrayList<Item> voisins = monde.getVoisins(this);
     for(Item i : voisins){
@@ -125,5 +138,6 @@ public class Avatar extends Personnage{
     }while(ordo < 0 && ordo > t);
     setX(ordo);
     setY(absi);
+    sc.close();
   }
 }
