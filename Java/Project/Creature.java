@@ -33,9 +33,15 @@ public class Creature extends Personnage{
       if ((obj = sac.obtenir(0)) instanceof Mangeable) {
         manger((Mangeable) obj);
         System.out.println(getNom() + " a mangé " + obj.toString());
+        continue;
       }
-      else
-        sac.ajouter(obj);
+      if ((obj = sac.obtenir(0)) instanceof Sac) {
+        Sac sol = sac;
+        sac = (Sac) obj;
+        manger();
+        sac = sol;
+      }
+      sac.ajouter(obj);
     }
   }
 

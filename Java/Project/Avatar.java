@@ -83,35 +83,30 @@ public class Avatar extends Personnage{
   }
 
   public void ramasser(Acc a){
-/*
-    boolean test = true;
+    boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac)
-          test = ramasser(a,(Sac) i);
-    if (test)
+          test = ramasser(a, (Sac) i);
+    if (! test)
       listeAcc.add(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
       monde.supprimerItem(a);
-*/
-    listeAcc.add(a);
-    System.out.println(getNom() + " ramasse " + a.getNom());
-    monde.supprimerItem(a);
   }
-/*
+
   private boolean ramasser(Acc a, Sac sac){
-    boolean test = true;
+    boolean test = false;
     for ( Item i : listeAcc)
         if (i instanceof Sac)
-          test=ramasser(a,sac);
-    if(test){
+          test = ramasser(a, sac);
+    if(! test){
       sac.ajouter(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
       monde.supprimerItem(a);
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
-*/
+
   public void rencontrerVoisins(){
     ArrayList<Item> voisins = monde.getVoisins(this);
     for(Item i : voisins){

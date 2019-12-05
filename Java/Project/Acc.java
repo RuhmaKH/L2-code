@@ -15,6 +15,14 @@ public abstract class Acc extends Item{
     numero = cpt;
   }
 
+  public int getNum(){
+    return numero;
+  }
+
+  public String getCategorie(){
+    return categorie;
+  }
+
   public abstract double getPoids();
 
   public String toString(){

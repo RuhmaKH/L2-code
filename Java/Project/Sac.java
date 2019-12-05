@@ -22,17 +22,32 @@ public class Sac extends Acc{
   }
 
   public void ajouter(Acc a){
-  /*  for(Acc acc : tab){
-      if(acc instanceof Sac){
-        acc.ajouter(a);
-        return;
-      }
-    }*/
+    for(Acc acc : tab)
+      if(acc instanceof Sac)
+        if( ((Sac) acc).ajouter(a, "Sous"))
+          return;
     int nb;
     if((nb = getNbElements()) < tab.length)
       tab[nb] = a;
     else
-      System.out.println("Pas la place");
+      System.out.println("Pas la place !");
+  }
+
+  private boolean ajouter(Acc a, String niv){
+    for(Acc acc : tab)
+      if(acc instanceof Sac)
+        if( ((Sac) acc).ajouter(a, niv + "Sous "))
+          return true;
+    int nb;
+    if((nb = getNbElements()) < tab.length){
+      tab[nb] = a;
+      System.out.println("L'item a été placé dans le " + niv + "sac !");
+      return true;
+    }
+    else{
+      System.out.println("Pas la place dans le " + niv + "sac !");
+      return false;
+    }
   }
 
   public Acc obtenir(int i){
