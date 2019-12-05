@@ -10,8 +10,7 @@ public class Pomme extends Acc implements Mangeable{
     return (4 * Math.PI * (Math.pow(rayon, 3))) / 3000;
   }
 
-
   public String toString(){
-    return super.toString()+String.format("   %.2f",rayon)+"cm\n";
+    return super.toString() + String.format("   %.2f", rayon) + "cm\n";
   }
 }
