@@ -84,7 +84,7 @@ else :
 
 
 
-print "\nTEST 'estDeterministe' \n"
+print "\n TEST 'estDeterministe' \n"
 res = Automate.estDeterministe(autoA)
 if res == True :
 	print "L'automate est déterministe."
@@ -148,11 +148,7 @@ print (
 "\nLe mot abb est il accepté par :" +
 "\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"abb")) +
 "\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"abb")) +
-"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"abb")) +
-"\nLe mot b est il accepté par :" +
-"\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"b")) +
-"\n\t-l'automate B ? => " + str(Automate.accepte(autoB,"b")) +
-"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"b"))
+"\n\t-l'union AuB ? => " + str(Automate.accepte(uni,"abb"))
 )
 #uni.show("union")
 
@@ -160,10 +156,13 @@ print (
 
 print "\n TEST 'concatenation' \n"
 conca = Automate.concatenation(autoA, autoB)
+#autoA.show('autoA')
+#autoB.show('autoB')
 print (
 "Le mot aaab est il accepté par l'automate A ? => " + str(Automate.accepte(autoA, "aaab")) +
 "\nLe mot abb est il accepté par l'automate B ? => " + str(Automate.accepte(autoB, "abb")) + "\nLe mots aaab.abb est il accepté par la concatenation A.B ? => " + str(Automate.accepte(conca, "aaababb"))
 )
+print (autoB)
 #conca.show("concatenation")
 
 
@@ -177,7 +176,7 @@ print(
 "\n\t-l'automate A ? => " + str(Automate.accepte(autoA,"aaabaaab")) +
 "\n\t-l'etoile A ? => " + str(Automate.accepte(etoi,"aaabaaab"))
 )
-etoi.show("etoile")
+#etoi.show("etoile")
 
 
 """
