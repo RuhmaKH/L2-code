@@ -118,17 +118,6 @@ public class Avatar extends Personnage{
     // Récupère les coordonnées
     do{
       System.out.println("Veuillez saisir une absicisse entre " + size + " : ");
-<<<<<<< HEAD
-      absi = sca.nextInt();
-    }while(absi > t);
-    do{
-      System.out.println("Veuillez saisir une ordonnée entre " + size + " : ");
-      ordo = sca.nextInt();
-    }while( ordo > t);
-    this.setX(absi);
-    this.setY(ordo);
-  //  sca.close();
-=======
       absi = sc.nextInt();
     }while(absi > taille || absi < 0);
     do{
@@ -139,7 +128,7 @@ public class Avatar extends Personnage{
     this.setX(absi);
     this.setY(ordo);
     // Rencontre ses voisins
->>>>>>> d96dc677faa947e87e0e69b5d884671143a05e0f
+
     rencontrerVoisins();
   }
 
