@@ -47,9 +47,8 @@ public class Monde extends JPanel{
 
   public ArrayList<Item> getVoisins(Item item){
     ArrayList<Item> voisins = new ArrayList<Item>();
-    int dis;
     for(Item i : listeItems)
-      if(( dis = item.distance(i)) <= 2 && dis != 0)
+      if(item.distance(i) <= 2 && i != item)
         voisins.add(i);
 
     return voisins;
@@ -97,7 +96,4 @@ public class Monde extends JPanel{
 			}
 		}
   }
-
-  
-
 }

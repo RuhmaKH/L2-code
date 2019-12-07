@@ -19,16 +19,20 @@ public class Sac extends Acc{
     return tab;
   }
 
-  public void ajouter(Acc a){
+  public boolean ajouter(Acc a){
     for(Acc acc : tab)
       if(acc instanceof Sac)
         if( ((Sac) acc).ajouter(a, "Sous"))
-          return;
+          return true;
     int nb;
-    if((nb = getNbElements()) < tab.length)
+    if((nb = getNbElements()) < tab.length){
       tab[nb] = a;
-    else
+      return true;
+    }
+    else{
       System.out.println("Pas la place !");
+      return false;
+    }
   }
 
   private boolean ajouter(Acc a, String niv){

@@ -20,6 +20,6 @@ public abstract class Personnage extends Item{
   }
 
   public String toString(){
-    return getNom() + String.format("   %.2f",poids) + "kg\n";
+    return getNom() + String.format(" %.2f",poids) + "kg";
   }
 }
