@@ -1,3 +1,7 @@
+import java.awt.*;
+import javax.swing.*;
+
+
 public class Sac extends Acc{
   private Acc[] tab;
 
@@ -9,6 +13,10 @@ public class Sac extends Acc{
   public Sac(){
     super("Sac");
     tab = new Acc[(int)(Math.random() * 10) + 1];
+  }
+
+  public Acc[] getTab(){
+    return tab;
   }
 
   public void ajouter(Acc a){
@@ -75,4 +83,10 @@ public class Sac extends Acc{
     }
     return s;
   }
+
+  public void dessiner(Graphics g, Monde m){
+    	int tc=m.getTailleCase();
+    	g.setColor(new Color(225,255,0)); //couleur courante devient bleu
+    	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
+    }
 }

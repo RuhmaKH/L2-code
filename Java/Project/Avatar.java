@@ -1,3 +1,5 @@
+import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +44,7 @@ public class Avatar extends Personnage{
   }
 
   private void rencontrer(Creature c){
-    Acc a = listeAcc.get(0);
+    Acc a=(listeAcc.size()>0 ? listeAcc.get(0) : null);
     if (a != null){
       c.ajouter(a);
       if (!this.estAmi(c) && a.getPoids() < 50)
@@ -95,9 +97,9 @@ public class Avatar extends Personnage{
 
   private boolean ramasser(Acc a, Sac sac){
     boolean place = false;
-    for ( Item i : listeAcc)
+    for ( Item i : sac.getTab())
         if (i instanceof Sac)
-          place = ramasser(a, sac);
+          place = ramasser(a, (Sac) i );
     if(! place){
       sac.ajouter(a);
       System.out.println(getNom() + " ramasse " + a.getNom());
@@ -107,7 +109,7 @@ public class Avatar extends Personnage{
     return false;
   }
 
-  private void rencontrerVoisins(){
+  public void rencontrerVoisins(){
     ArrayList<Item> voisins = monde.getVoisins(this);
     for(Item i : voisins){
       if(i instanceof Avatar)
@@ -126,14 +128,21 @@ public class Avatar extends Personnage{
     do{
       System.out.println("Veuillez saisir une absicisse entre " + size + " : ");
       absi = sca.nextInt();
-    }while(absi < 0 && absi > t);
+    }while(absi > t);
+    System.out.println(t);
     do{
       System.out.println("Veuillez saisir une ordonnée entre " + size + " : ");
       ordo = sca.nextInt();
-    }while(ordo < 0 && ordo > t);
-    setX(ordo);
-    setY(absi);
-    sca.close();
+    }while( ordo > t);
+    this.setX(ordo);
+    this.setY(absi);
+  //  sca.close();
     rencontrerVoisins();
   }
+
+  public void dessiner(Graphics g, Monde m){
+    	int tc=m.getTailleCase();
+    	g.setColor(new Color(0,0,255)); //couleur courante devient bleu
+    	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
+    }
 }

@@ -1,3 +1,7 @@
+import java.awt.*;
+import javax.swing.*;
+
+
 public class Pomme extends Acc implements Mangeable{
   private double rayon;
 
@@ -12,5 +16,11 @@ public class Pomme extends Acc implements Mangeable{
 
   public String toString(){
     return super.toString() + String.format("   %.2f", rayon) + "cm\n";
+  }
+
+  public void dessiner(Graphics g, Monde m){
+    int tc = m.getTailleCase();
+    g.setColor(new Color(255,0,0));// rouge
+    g.fillOval(getX()*tc, getY()*tc,tc,tc); //cercle plein
   }
 }

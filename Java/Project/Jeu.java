@@ -1,11 +1,16 @@
 import java.util.Scanner;
+import java.awt.*;
+import javax.swing.*;
 
 public class Jeu{
-  public static void main (String [] args){
+  public static void main (String [] args)throws InterruptedException{
+
     int taille = 20;
-    Monde m = new Monde (taille,100);
+    Monde m = new Monde (taille,30);
     Scanner sc = new Scanner(System.in);
+    System.out.println("Nom du joueur 1 :");
     Avatar mario = new Avatar(sc.nextLine(), 60.5, m);
+    System.out.println("Nom du joueur 2 :");
     Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
     double dist1;
     double dist2;
@@ -31,14 +36,30 @@ public class Jeu{
 
     m.afficher();
 
+    ///// Test Graphique
+       		JFrame f=new JFrame();
+    		f.setLocationRelativeTo(null);
+    		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+    		f.setContentPane(m);
+    		f.pack();
+    		f.setVisible(true);
+
+
     //*********************************************** JEU *********************************************** */
 
     for(int i = 0; i < 5; i++){
       mario.seDeplacer();
       m.afficher();
-
+      System.out.println(mario);
+      Thread.sleep(1000);  //ralenti l'affichage
+			m.repaint();
       luigi.seDeplacer();
       m.afficher();
+      System.out.println(luigi);
+      Thread.sleep(1000);  //ralenti l'affichage
+			m.repaint();
     }
 
     //*********************************************** GAGNANT *********************************************** */
@@ -65,5 +86,18 @@ public class Jeu{
 
     System.out.println(ggwp);
     sc.close();
+
+
+
+
+
+		for(int i=0; i<2;i++){
+      Thread.sleep(1000);  //ralenti l'affichage
+			mario.seDeplacer();
+			mario.rencontrerVoisins();
+			m.repaint();
+			m.afficher();
+		}
+
   }
 }

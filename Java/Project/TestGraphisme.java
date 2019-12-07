@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 public class TestGraphisme{
-	private static final int TAILLE_CASE=30;
+	private static final int TAILLE_CASE=10;
 	private static final int NB_CASES=20;
 
 	public static void main (String []args) throws InterruptedException{

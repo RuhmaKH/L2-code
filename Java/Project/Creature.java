@@ -1,3 +1,7 @@
+import java.awt.*;
+import javax.swing.*;
+
+
 public class Creature extends Personnage{
   private Sac sac;
 
@@ -52,4 +56,10 @@ public class Creature extends Personnage{
   public void courir(){
 		System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
   }
+
+  public void dessiner(Graphics g, Monde m){
+    	int tc=m.getTailleCase();
+    	g.setColor(new Color(0,255,255)); //couleur courante devient bleu
+    	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
+    }
 }
