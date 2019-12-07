@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.io.IOException;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +18,7 @@ public class Avatar extends Personnage{
   }
 
   public String toString(){
-    return super.toString()+" "+ listeAmis.size()+ " amis(s)"+ listeAcc.size()+" accessoire(s)";
+    return super.toString() + " : " + listeAmis.size() + " amis(s) "+ listeAcc.size() + " accessoire(s)";
   }
 
   public ArrayList<Creature> getAmis(){
@@ -44,7 +46,7 @@ public class Avatar extends Personnage{
   }
 
   private void rencontrer(Creature c){
-    Acc a=(listeAcc.size()>0 ? listeAcc.get(0) : null);
+    Acc a = (listeAcc.size()>0 ? listeAcc.get(0) : null);
     if (a != null){
       c.ajouter(a);
       if (!this.estAmi(c) && a.getPoids() < 50)
@@ -66,9 +68,9 @@ public class Avatar extends Personnage{
   }
 
   public Creature getCreaturePlusRapide(){
-    Creature rapide = null;
+    Creature rapide = listeAmis.get(0);
     for ( Creature c : listeAmis)
-      if (rapide.getVitesse()>c.getVitesse())
+      if (rapide.getVitesse() > c.getVitesse())
         rapide = c;
 
     return rapide;
@@ -87,26 +89,14 @@ public class Avatar extends Personnage{
   private void ramasser(Acc a){
     boolean place = false;
     for (Item i : listeAcc)
-        if (i instanceof Sac)
-          place = ramasser(a, (Sac) i);
+        if (i instanceof Sac){
+          if((place = ((Sac) i ).ajouter(a)))
+            break;
+        }
     if (! place)
       listeAcc.add(a);
-      System.out.println(getNom() + " ramasse " + a.getNom());
-      monde.supprimerItem(a);
-  }
-
-  private boolean ramasser(Acc a, Sac sac){
-    boolean place = false;
-    for ( Item i : sac.getTab())
-        if (i instanceof Sac)
-          place = ramasser(a, (Sac) i );
-    if(! place){
-      sac.ajouter(a);
-      System.out.println(getNom() + " ramasse " + a.getNom());
-      monde.supprimerItem(a);
-      return true;
-    }
-    return false;
+    System.out.println(getNom() + " ramasse " + a.getNom());
+    monde.supprimerItem(a);
   }
 
   public void rencontrerVoisins(){
@@ -122,11 +112,13 @@ public class Avatar extends Personnage{
   }
 
   public void seDeplacer(){
-    int absi, ordo, t = monde.getTaille();
-    Scanner sca = new Scanner(System.in);
-    String size = String.format("[0,%d]", t);
+    int absi, ordo, taille = monde.getTaille();
+    Scanner sc = new Scanner(System.in);
+    String size = String.format("[0,%d]", taille);
+    // Récupère les coordonnées
     do{
       System.out.println("Veuillez saisir une absicisse entre " + size + " : ");
+<<<<<<< HEAD
       absi = sca.nextInt();
     }while(absi > t);
     do{
@@ -136,11 +128,23 @@ public class Avatar extends Personnage{
     this.setX(absi);
     this.setY(ordo);
   //  sca.close();
+=======
+      absi = sc.nextInt();
+    }while(absi > taille || absi < 0);
+    do{
+      System.out.println("Veuillez saisir une ordonnée entre " + size + " : ");
+      ordo = sc.nextInt();
+    }while(ordo > taille - 1 || ordo < 0);
+    // Déplace le personnage aux coordonnées
+    this.setX(absi);
+    this.setY(ordo);
+    // Rencontre ses voisins
+>>>>>>> d96dc677faa947e87e0e69b5d884671143a05e0f
     rencontrerVoisins();
   }
 
   public void dessiner(Graphics g, Monde m){
-    	int tc=m.getTailleCase();
+    	int tc = m.getTailleCase();
     	g.setColor(new Color(0,0,255)); //couleur courante devient bleu
     	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Jeu{
   public static void main (String [] args)throws InterruptedException{
-
+    System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
     Monde m = new Monde (taille,30);
     Scanner sc = new Scanner(System.in);
@@ -12,92 +12,97 @@ public class Jeu{
     Avatar mario = new Avatar(sc.nextLine(), 60.5, m);
     System.out.println("Nom du joueur 2 :");
     Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
-    double dist1;
-    double dist2;
-    double chicken;
-    String ggwp;
-    Avatar winner;
-    Creature daFast;
-
+    int NB_TOUR = 3;
     //*********************************************** ITEMS *********************************************** */
-
+    
     m.ajouterItem(mario);
     m.ajouterItem(luigi);
 
-    for(int j = 0; j < Math.random() * (taille / 2) + 6; j++)
+    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
         m.ajouterItem(new Creature());
 
-    for(int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
       m.ajouterItem(new Sac());
 
-    for(int j = 0; j < Math.random() * (taille /4 ) + taille /2; j++)
+    for (int j = 0; j < Math.random() * (taille /4 ) + taille /2; j++)
       m.ajouterItem(new Pomme());
 
 
-    m.afficher();
+    //m.afficher();
 
     ///// Test Graphique
-       		JFrame f=new JFrame();
-    		f.setLocationRelativeTo(null);
-    		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JFrame f = new JFrame();
+    f.setLocationRelativeTo(null);
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-    		f.setContentPane(m);
-    		f.pack();
-    		f.setVisible(true);
+ 		f.setContentPane(m);
+ 		f.pack();
+ 		f.setVisible(true);
 
 
     //*********************************************** JEU *********************************************** */
 
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < NB_TOUR; i++) {
       mario.seDeplacer();
-      m.afficher();
+      //m.afficher();
       System.out.println(mario);
       Thread.sleep(1000);  //ralenti l'affichage
 			m.repaint();
       luigi.seDeplacer();
-      m.afficher();
+      //m.afficher();
       System.out.println(luigi);
       Thread.sleep(1000);  //ralenti l'affichage
 			m.repaint();
     }
 
     //*********************************************** GAGNANT *********************************************** */
-
-    if((dist1 = mario.course()) > (dist2 = luigi.course())){
-      chicken = dist1;
-      winner = mario;
+    int amisMario = mario.getAmis().size();
+    int amisLuigi = luigi.getAmis().size();
+    double distMario = mario.course();
+    double distLuigi = luigi.course();
+    String ggwp = "";
+    double chicken;
+    Avatar winner;
+    Creature daFast;
+    if (amisMario != 0 && amisLuigi != 0) {
+      if( distMario == distLuigi){
+        ggwp += mario.getNom() + " et " + luigi.getNom() + " ont gagné(e)s par égalité";
+      }
+      else{
+        if (distMario > distLuigi){
+          chicken = distMario;
+          winner = mario;
+        }
+        else {
+          chicken = distLuigi;
+          winner = luigi;
+        }
+        
+        ggwp += winner.getNom() + " a gagné la course grâce à ses amis :\n";
+        daFast = winner.getCreaturePlusRapide();
+        for (Creature c : winner.getAmis()){
+          ggwp += "\t - ";
+          if (c == daFast)
+            ggwp += c.getNom() + " is da Speeeed";
+          else
+            ggwp += c.getNom();
+          ggwp += "\n";
+        }
+        ggwp += "Iels ont parcou.e.s " + chicken + "km.\n";
+      }
     }
-    else{
-      chicken = dist2;
-      winner = luigi;
+    else {
+      if (amisMario == 0 && amisLuigi == 0)
+        ggwp += "La course n'a pas eu lieu car " + mario.getNom() + " et " + luigi.getNom() + " n'ont pas d'amis";
+      else {  if(amisMario == 0)
+          ggwp += luigi.getNom() + " a gagné la course car " + mario.getNom() + " n'a pas d'amis";
+        else
+        ggwp += mario.getNom() + " a gagné la course car " + luigi.getNom() + " n'a pas d'amis";
+      }
     }
-    ggwp = winner.getNom() + " a gagné la course grâce à ses amis :\n";
-    daFast = winner.getCreaturePlusRapide();
-    for(Creature c : winner.getAmis()){
-      ggwp += "\t - ";
-      if(c == daFast)
-        ggwp += c.getNom() + " is da Speeeed";
-      else
-        ggwp += c.getNom();
-      ggwp += "\n";
-    }
-    ggwp += "Iels ont parcou.e.s " + chicken + "\n";
-
+    
     System.out.println(ggwp);
     sc.close();
-
-
-
-
-
-		for(int i=0; i<2;i++){
-      Thread.sleep(1000);  //ralenti l'affichage
-			mario.seDeplacer();
-			mario.rencontrerVoisins();
-			m.repaint();
-			m.afficher();
-		}
 
   }
 }
