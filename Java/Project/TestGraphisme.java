@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 public class TestGraphisme{
-	private static final int TAILLE_CASE=10;
+	private static final int TAILLE_CASE=20;
 	private static final int NB_CASES=20;
 
 	public static void main (String []args) throws InterruptedException{
@@ -16,7 +16,8 @@ public class TestGraphisme{
 		f.pack(); //adaptation de la fenetre au panneau
 		f.setVisible(true);
 
-		Avatar jake =new Avatar("Jake", 79.5, m); //ajoute Jake dans le monde
+		Avatar jake =new Avatar("Jake", 79.5, m);
+		m.ajouterItem(jake); //ajoute Jake dans le monde
 		for(int i=0; i<10;i++){
 			Thread.sleep(1000);  //ralenti l'affichage
 			jake.seDeplacer();

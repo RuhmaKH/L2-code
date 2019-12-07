@@ -129,13 +129,12 @@ public class Avatar extends Personnage{
       System.out.println("Veuillez saisir une absicisse entre " + size + " : ");
       absi = sca.nextInt();
     }while(absi > t);
-    System.out.println(t);
     do{
       System.out.println("Veuillez saisir une ordonnée entre " + size + " : ");
       ordo = sca.nextInt();
     }while( ordo > t);
-    this.setX(ordo);
-    this.setY(absi);
+    this.setX(absi);
+    this.setY(ordo);
   //  sca.close();
     rencontrerVoisins();
   }
