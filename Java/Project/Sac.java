@@ -65,7 +65,7 @@ public class Sac extends Acc{
 
   public int getNbElements(){
     int cpt=0;
-    for (int i=0; i<tab.length; i++){
+    for (int i = 0; i < tab.length; i++) {
         if (tab[i] != null)
           cpt++;
     }
@@ -81,7 +81,7 @@ public class Sac extends Acc{
   }
 
   public String toString(){
-    String s=""+super.toString()+" contient "+getNbElements()+" accessoires sur " + tab.length + " :\n";
+    String s = super.toString() + " contient " + getNbElements() + " accessoires sur " + tab.length + " :\n";
     for(int i=0; i<getNbElements(); i++){
        s=s+"\t"+tab[i].toString()+"\n";
     }

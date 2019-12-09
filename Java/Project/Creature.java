@@ -3,7 +3,7 @@ import javax.swing.*;
 
 
 public class Creature extends Personnage{
-  private Sac sac;
+  protected Sac sac;
 
   public Creature(){
     super(Noms.getNom());
@@ -58,7 +58,7 @@ public class Creature extends Personnage{
   }
 
   public void dessiner(Graphics g, Monde m){
-    	int tc=m.getTailleCase();
+    	int tc = m.getTailleCase();
     	g.setColor(new Color(0,255,255)); //couleur courante devient bleu
     	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

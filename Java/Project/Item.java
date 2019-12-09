@@ -6,7 +6,7 @@ public abstract class Item{
   private int x;
   private int y;
 
-  public Item(String nom, int x,int y){
+  protected Item(String nom, int x,int y){
     this.nom = nom;
     this.x = x;
     this.y = y;
