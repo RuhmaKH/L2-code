@@ -120,15 +120,11 @@ public class Avatar extends Personnage{
         switch (sc.nextInt()) {
           case 0:
             ((Magasin) i).acheter(this);
-            break;
-          
+            break; 
           case 1:
-            
-          default:
-            break;
+            vendre((Magasin) i);
         }
       }
-        
     }
   }
 
@@ -164,9 +160,34 @@ public class Avatar extends Personnage{
     return prix;
   }
 
-  public void vendre (){
-
-  }
+  public void vendre (Magasin mag) {
+    Scanner sc = new Scanner(System.in);
+    String discution = String.format("Le magasin possède %.2\n Vous possédez : \n");
+    int num, i = 0;
+    do{
+        for (Acc acc : listeAcc){
+          discution += "\t( " + i + " )-" + acc.getNom() + " : " + acc.getPrix() + "\n";
+          if(acc instanceof Sac)
+            for(Acc a : ((Sac) acc).getTab()){
+              discution += "\t\t( " + (i++) + " )-" + a.getNom() + " : " + a.getPrix() + "\n";  
+              i++;
+            }
+        }
+        discution += "\t( " + i + " )-Acheter";
+        discution += "\t( " + (i++) + " )-Partir";
+        System.out.println(discution);
+        System.out.println("Choisissez l'objet que vous désirez vendre : ");
+        num = sc.nextInt();
+        if (num == i - 1)
+            break;
+        if (num == i){
+          mag.acheter(this);
+        }  
+        money += mag.acheter();
+        (super.stock).obtenir(num);
+        System.out.println("Voulez-vous acheter autre chose ? [o/n]");
+    }while( sc.nextLine() != "n");
+}
 
   public void dessiner(Graphics g, Monde m){
     	int tc = m.getTailleCase();

@@ -8,16 +8,15 @@ public class Fruitier extends Magasin {
 
     public void acheter (Avatar avatar) {
         Scanner sc = new Scanner(System.in);
-        Acc[] stock = super.stock.getTab();
-        String mag = "Le magasin vend : \n";
+        String discution = String.format("Vous possédez %.2f € \nJe vend : \n",avatar.getMoney());
         int num, taille;
         do{
-            taille = stock.length;
+            taille = stock.size();
             for (int i = 0; i < taille; i++)
-                mag += "\t( " + i + " )-" + stock[i].getNom() + " : " + stock[i].getPrix() + "\n";
-            mag += "\t( " + taille + " )-Vendre";
-            mag += "\t( " + (taille + 1) + " )-Partir";
-            System.out.println(mag);
+                discution += "\t( " + i + " )-" + stock[i].getNom() + " : " + stock[i].getPrix() + "\n";
+            discution += "\t( " + taille + " )-Vendre";
+            discution += "\t( " + (taille + 1) + " )-Partir";
+            System.out.println(discution);
             System.out.println("Choisissez l'objet que vous désirez acquérir : ");
             num = sc.nextInt();
             if (num == taille)
@@ -30,7 +29,14 @@ public class Fruitier extends Magasin {
         }while( sc.nextLine() != "n");
     }
 
-    public void vendre (Avatar avatar) {
-
+    public double vendre (Acc acc){
+        double prix = acc.getPrix();
+        if (prix > money){
+          System.out.println("Je n'ai pas assez d'argent pour vous acheter " + acc.getNom());
+          return 0.0;
+        }
+        money -= prix;
+        super.stock.add(acc);
+        return prix;
     }
 }
