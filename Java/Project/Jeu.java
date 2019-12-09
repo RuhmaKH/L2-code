@@ -14,7 +14,7 @@ public class Jeu{
     Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
     int NB_TOUR = 3;
     //*********************************************** ITEMS *********************************************** */
-    
+
     m.ajouterItem(mario);
     m.ajouterItem(luigi);
 
@@ -77,7 +77,7 @@ public class Jeu{
           chicken = distLuigi;
           winner = luigi;
         }
-        
+
         ggwp += winner.getNom() + " a gagné la course grâce à ses amis :\n";
         daFast = winner.getCreaturePlusRapide();
         for (Creature c : winner.getAmis()){
@@ -88,7 +88,7 @@ public class Jeu{
             ggwp += c.getNom();
           ggwp += "\n";
         }
-        ggwp += "Iels ont parcou.e.s " + chicken + "km.\n";
+        ggwp += "IZels ont parcou.e.s " + chicken + "km.\n";
       }
     }
     else {
@@ -100,7 +100,7 @@ public class Jeu{
         ggwp += mario.getNom() + " a gagné la course car " + luigi.getNom() + " n'a pas d'amis";
       }
     }
-    
+
     System.out.println(ggwp);
     sc.close();
 
