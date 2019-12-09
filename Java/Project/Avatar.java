@@ -92,7 +92,7 @@ public class Avatar extends Personnage{
     return j;
   }
 
-  private void ramasser(Acc a){
+  private void ramasser(Acc a, boolean msg){
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac){
@@ -101,8 +101,10 @@ public class Avatar extends Personnage{
         }
     if (! place)
       listeAcc.add(a);
-    System.out.println(getNom() + " ramasse " + a.getNom());
-    monde.supprimerItem(a);
+    if (msg){
+      System.out.println(getNom() + " ramasse " + a.getNom());
+      monde.supprimerItem(a);
+    }
   }
 
   public void rencontrerVoisins(){
@@ -113,7 +115,7 @@ public class Avatar extends Personnage{
       if(i instanceof Creature)
         rencontrer((Creature) i);
       if(i instanceof Acc)
-        ramasser((Acc) i);
+        ramasser((Acc) i, true);
       if(i instanceof Magasin){
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenu.e dans mon magasin " + i.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
@@ -156,13 +158,13 @@ public class Avatar extends Personnage{
       return 0.0;
     }
     money -= prix;
-    ramasser(acc);
+    ramasser(acc, false);
     return prix;
   }
 
   public void vendre (Magasin mag) {
     Scanner sc = new Scanner(System.in);
-    String discution = String.format("Le magasin possède %.2\n Vous possédez : \n");
+    String discution = String.format("Le magasin possède %.2\nVous pouvez vendre : \n");
     int num, i = 0;
     do{
         for (Acc acc : listeAcc){
@@ -170,24 +172,63 @@ public class Avatar extends Personnage{
           if(acc instanceof Sac)
             for(Acc a : ((Sac) acc).getTab()){
               discution += "\t\t( " + (i++) + " )-" + a.getNom() + " : " + a.getPrix() + "\n";  
-              i++;
             }
+          i++;
         }
         discution += "\t( " + i + " )-Acheter";
         discution += "\t( " + (i++) + " )-Partir";
         System.out.println(discution);
         System.out.println("Choisissez l'objet que vous désirez vendre : ");
         num = sc.nextInt();
-        if (num == i - 1)
-            break;
-        if (num == i){
+        if (num == i - 1){
           mag.acheter(this);
-        }  
-        money += mag.acheter();
-        (super.stock).obtenir(num);
-        System.out.println("Voulez-vous acheter autre chose ? [o/n]");
+          return;
+        }
+        if (num == i){
+          return;
+        }
+        for (Acc acc : listeAcc){
+          if (num == 0){
+            money += mag.vendre(acc);
+            if ( acc instanceof Sac)
+              for (Acc a : ((Sac) acc).getTab())
+                ramasser(a , false);
+            listeAcc.remove(acc);
+            break;
+          }
+          if (acc instanceof Sac){
+            if ((num = inSac(mag, num, (Sac) acc)) == 0){
+              break;
+            }
+          }
+          num--;
+        }
+        System.out.println("Voulez-vous vendre autre chose ? [o/n]");
     }while( sc.nextLine() != "n");
-}
+  }
+
+  private int inSac(Magasin mag, int num, Sac sac){
+    int cmpt = 0;
+    for (Acc acc : sac.getTab()){
+      num--;
+      if (num == 0){
+        money += mag.vendre(acc);
+        if (acc instanceof Sac)
+          for (Acc a : sac.getTab())
+            ramasser(a, false);
+        sac.obtenir(cmpt);
+        return 0;
+      }
+      if(acc instanceof Sac){
+        if ((num = inSac(mag, num, (Sac) acc)) == 0){
+          return 0;
+        }
+        
+      }
+      cmpt++;
+    }
+    return num;
+  }
 
   public void dessiner(Graphics g, Monde m){
     	int tc = m.getTailleCase();

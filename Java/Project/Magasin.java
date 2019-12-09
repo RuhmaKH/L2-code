@@ -6,15 +6,15 @@ public abstract class Magasin extends Item {
     
     protected Magasin (String nom, int nb){
         super(nom);
-        stock = new Sac(nb);
+        stock = new ArrayList<Acc>();
         money = Math.random() * 30 + 10;
     }
 
-    public Sac getStock(){
+    public ArrayList<Acc> getStock(){
         return stock;
     }
 
-    protected abstract void acheter(Avatar a);
+    public abstract void acheter(Avatar a);
 
-    protected abstract double vendre(Acc acc);
+    public abstract double vendre(Acc acc);
 }

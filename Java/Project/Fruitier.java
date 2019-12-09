@@ -13,18 +13,20 @@ public class Fruitier extends Magasin {
         do{
             taille = stock.size();
             for (int i = 0; i < taille; i++)
-                discution += "\t( " + i + " )-" + stock[i].getNom() + " : " + stock[i].getPrix() + "\n";
+                discution += "\t( " + i + " )-" + stock.get(i).getNom() + " : " + stock.get(i).getPrix() + "\n";
             discution += "\t( " + taille + " )-Vendre";
             discution += "\t( " + (taille + 1) + " )-Partir";
             System.out.println(discution);
             System.out.println("Choisissez l'objet que vous désirez acquérir : ");
             num = sc.nextInt();
             if (num == taille)
-                break;
-            if (num == taille + 1)
-                
-            super.money += avatar.acheter(stock[num]);
-            (super.stock).obtenir(num);
+                return;
+            if (num == taille + 1){
+                avatar.vendre(this);
+                return;
+            }
+            money += avatar.acheter(stock.get(num));
+            stock.remove(num);
             System.out.println("Voulez-vous acheter autre chose ? [o/n]");
         }while( sc.nextLine() != "n");
     }
@@ -36,7 +38,7 @@ public class Fruitier extends Magasin {
           return 0.0;
         }
         money -= prix;
-        super.stock.add(acc);
+        stock.add(acc);
         return prix;
     }
 }

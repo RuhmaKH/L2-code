@@ -14,6 +14,10 @@ public class Pills extends Acc implements Mangeable {
         return poids;
     }
 
+    public double getPrix(){
+        return 10 * poids + 8; 
+    }
+
     public String toString(){
         return super.toString();
       }
