@@ -1,5 +1,5 @@
 public class Pills extends Acc implements Mangeable {
-    private final static String[] box = {"Bleue", "Rouge", "Verte", "Jaune"};
+    private final static String[] box = {"Bleue", "Rouge", "Verte"};
     private static int id = 0;
     private double poids;
 

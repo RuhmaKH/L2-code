@@ -25,6 +25,8 @@ public abstract class Acc extends Item{
 
   public abstract double getPoids();
 
+  public abstract double getPrix();
+
   public String toString(){
     return getNom() + " " + String.format("pèse %.2f",getPoids()) + "kg";
   }
