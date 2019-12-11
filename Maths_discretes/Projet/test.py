@@ -156,8 +156,6 @@ print (
 
 print "\n TEST 'concatenation' \n"
 conca = Automate.concatenation(autoA, autoB)
-#autoA.show('autoA')
-#autoB.show('autoB')
 print (
 "Le mot aaab est il accepté par l'automate A ? => " + str(Automate.accepte(autoA, "aaab")) +
 "\nLe mot abb est il accepté par l'automate B ? => " + str(Automate.accepte(autoB, "abb")) + "\nLe mots aaab.abb est il accepté par la concatenation A.B ? => " + str(Automate.accepte(conca, "aaababb"))
