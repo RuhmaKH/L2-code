@@ -327,6 +327,8 @@ class Automate(AutomateBase):
         newAuto0= copy.deepcopy(auto0)
         #newAuto1 : Automate
         newAuto1 = copy.deepcopy(auto1)
+        #newState: State
+        newState= State(0, True,False)
 
         newAuto0.prefixStates(0)
         newAuto1.prefixStates(1)
@@ -334,18 +336,26 @@ class Automate(AutomateBase):
 
         #Liste_init1 : list[States]
         Liste_init1=newAuto0.getListInitialStates()
-
-
-        #Liste_f2 : list[States]
-        Liste_f2=newAuto1.getListFinalStates()
-
-
+        #Liste_init2 : list[States]
+        Liste_init2=newAuto1.getListInitialStates()
 
         Liste_Transition=newAuto0.listTransitions+newAuto1.listTransitions
+
+        for l0 in Liste_init1:
+            if lo.fin:
+                newState.fin = True
+            l0.init= False
+
+
+        for l1 in Liste_init2:
+            if l1.fin:
+                newState.fin = True
+            l1.init= False
+
         for lettre in newAuto1.getAlphabetFromTransitions():
             for s1 in Liste_f2:
                 for s2 in Liste_init1:
-                    Liste_Transition.append(Transition(s1,lettre,s2))
+                    Liste_Transition.append(Transition(newState,lettre,s2))
 
 
 

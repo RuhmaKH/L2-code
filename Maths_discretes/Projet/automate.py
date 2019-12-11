@@ -316,30 +316,42 @@ class Automate(AutomateBase):
 
         return Automate(Liste_Transition)
 
+
     @staticmethod
     def union (auto0, auto1):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage l'union des langages des deux automates
         """
         #newAuto0 : Automate
-        newAuto0= copy.deepcopy(auto0)
+        newAuto0 = copy.deepcopy(auto0)
         #newAuto1 : Automate
         newAuto1 = copy.deepcopy(auto1)
+
         newAuto0.prefixStates(0)
         newAuto1.prefixStates(1)
-        #Liste_init1 : list[States]
-        Liste0_init=newAuto0.getListInitialStates()
-        #Liste_f2 : list[States]
-        Liste1_f=newAuto1.getListFinalStates()
 
-        Liste_Transition=newAuto0.listTransitions+newAuto1.listTransitions
-        for lettre in newAuto1.getAlphabetFromTransitions():
-            for i in Liste1_f:
-                for j in Liste0_init:
-                    Liste_Transition.append(Transition(i,lettre,j))
 
-        return Automate(Liste_Transition)
+        #Liste_init : list[States]
+        Liste_init = newAuto0.getListInitialStates() + newAuto1.getListInitialStates()
 
+        i = len ( newAuto0.listStates + newAuto1.listStates ) + 1
+        #newState: State
+        newState = State(i, True, False)
+
+        newTransi = []
+
+        Liste_Transition = newAuto0.listTransitions + newAuto1.listTransitions
+        for l0 in Liste_init:
+            if l0.fin:
+                newState.fin = True
+            l0.init= False
+
+        for transition in Liste_Transition:
+            newTransi.append(transition)
+            if transition.stateSrc in Liste_init:
+                newTransi.append(Transition(newState, transition.etiquette, transition.stateDest))
+
+        return Automate(newTransi)
 
 
 
@@ -444,36 +456,3 @@ class Automate(AutomateBase):
 
         listeInit[0].fin = True
         return Automate(listeTransition)
-
-
-
-automate=Automate.creationAutomate("tripleA.txt")
-automate1=Automate.creationAutomate("auto.txt")
-a=Automate.etoile(automate)
-print(a)
-
-a.show("etoile")
-'''
-a=Automate.intersection(automate,automate1)
-a=Automate.determinisation(automate)
-print (automate)
-print(automate)
-"""print (automate.listStates)
-s=State(6,False,True,"11")
-print(s.__repr__())
-print(automate.addState(s))
-d=(6,False,True)
-print(automate.addState(s))
-print(automate)
-print(s)
-L=automate.listStates
-s=""
-for l in L:
-    s=s+"_"+l.label
-print(s)
-print ((automate.listStates)[3].insertPrefix(6,"wesh alors"))
-print(automate)
-"""
-b=Automate.determinisation(automate1)
-print (b)
-'''
