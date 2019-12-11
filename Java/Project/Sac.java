@@ -55,7 +55,7 @@ public class Sac extends Acc{
   public Acc obtenir(int i){
     if (i < getNbElements()){
       Acc finale = tab[i];
-      for (int j=i; j<tab.length-1; j++)
+      for (int j = i; j < tab.length - 1; j++)
         tab[j] = tab[j+1];
       tab[tab.length-1] = null;
       return finale;
@@ -78,6 +78,10 @@ public class Sac extends Acc{
         poids+=tab[i].getPoids();
     }
     return poids;
+  }
+
+  public double getPrix(){
+    return 0.5 * tab.length + 0.5;
   }
 
   public String toString(){

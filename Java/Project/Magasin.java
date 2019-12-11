@@ -1,20 +1,20 @@
+import java.util.ArrayList;
+
 public abstract class Magasin extends Item {
-    protected Sac stock;
+    protected ArrayList<Acc> stock;
     protected double money;
     
     protected Magasin (String nom, int nb){
         super(nom);
-        stock = new Sac(nb);
+        stock = new ArrayList<Acc>();
         money = Math.random() * 30 + 10;
     }
 
-    public Sac getStock(){
+    public ArrayList<Acc> getStock(){
         return stock;
     }
 
-    public abstract void interagir(Avatar a);
+    public abstract void acheter(Avatar a);
 
-    protected abstract void acheter(Avatar a);
-
-    protected abstract void vendre(Avatar a);
+    public abstract double vendre(Acc acc);
 }
