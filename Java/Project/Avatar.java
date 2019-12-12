@@ -12,7 +12,7 @@ public class Avatar extends Personnage{
   private double money;
 
   public Avatar(String nom, double poids, Monde monde){
-    super(nom,poids);
+    super(nom, poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
     this.monde = monde;
@@ -92,7 +92,14 @@ public class Avatar extends Personnage{
     return j;
   }
 
-  private void ramasser(Acc a, boolean msg){
+  private void ouvir(Coffre coffre){
+    for (Acc acc : coffre.getContenu()){
+      ramasser(acc, true);
+    }
+    monde.supprimerItem(coffre);
+  }
+
+  public void ramasser(Acc a, boolean msg){
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac){
@@ -108,29 +115,32 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrerVoisins(){
+    Jeu.interact();
     ArrayList<Item> voisins = monde.getVoisins(this);
-    for(Item i : voisins){
-      if(i instanceof Avatar)
-        System.out.println("Salutation mon ami " + i.getNom());
-      if(i instanceof Creature)
-        rencontrer((Creature) i);
-      if(i instanceof Acc)
-        ramasser((Acc) i, true);
-      if(i instanceof Magasin){
+    for (Item item : voisins){
+      if (item instanceof Avatar)
+        System.out.println("Salutation mon ami " + item.getNom());
+      if (item instanceof Creature)
+        rencontrer((Creature) item);
+      if (item instanceof Coffre)
+        ouvir((Coffre) item);
+      if (item instanceof Acc)
+        ramasser((Acc) item, true);
+      if (item instanceof Magasin){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenu.e dans mon magasin " + i.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
           case 0:
-            ((Magasin) i).acheter(this);
+            ((Magasin) item).acheter(this);
             break;
           case 1:
-            vendre((Magasin) i);
+            vendre((Magasin) item);
         }
       }
+      monde.repaint();
     }
     Jeu.interact();
     Jeu.nextPlayer();
-    monde.repaint();
   }
 
   public void seDeplacer(){
@@ -150,7 +160,6 @@ public class Avatar extends Personnage{
     this.setX(absi);
     this.setY(ordo);
     // Rencontre ses voisins
-
     rencontrerVoisins();
   }
 
@@ -178,19 +187,30 @@ public class Avatar extends Personnage{
 
   public void vendre (Magasin mag) {
     Scanner sc = new Scanner(System.in);
-    String discution = String.format("Le magasin possède %.2\nVous pouvez vendre : \n");
-    int num, i = 0;
+    String discution = "";
+    Acc[] tab;
+    int num, i;
     do{
-        for (Acc acc : listeAcc){
-          discution += "\t( " + i + " )-" + acc.getNom() + " : " + acc.getPrix() + "\n";
-          if(acc instanceof Sac)
-            for(Acc a : ((Sac) acc).getTab()){
-              discution += "\t\t( " + (i++) + " )-" + a.getNom() + " : " + a.getPrix() + "\n";
+        i = 0;
+        if (listeAcc.size() != 0){
+          discution = String.format("Le magasin possède %.2f €\nVous pouvez vendre : \n", mag.getMoney());
+          for (Acc acc : listeAcc){
+            discution += String.format("\t( %d )-%s  : %.2f €\n", i, acc.getNom(), acc.getPrix() * 0.9);
+            i++;
+            if(acc instanceof Sac){
+              tab = ((Sac) acc).getTab();
+              for(int j = 0; j < ((Sac) acc).getNbElements(); j++){
+                discution += String.format("\t\t( %d )-%s  : %.2f €\n", i, tab[j].getNom(), tab[j].getPrix() * 0.9);
+                i++;
+              }
             }
-          i++;
+          }
         }
-        discution += "\t( " + i + " )-Acheter";
-        discution += "\t( " + (i++) + " )-Partir";
+        else
+          discution = "Vous ne possédez rien à vendre !\nVoulez-vous :\n";
+        discution += "\t( " + i + " )-Acheter ?\n";
+        i++;
+        discution += "\t( " + i + " )-Partir ?";
         System.out.println(discution);
         System.out.println("Choisissez l'objet que vous désirez vendre : ");
         num = sc.nextInt();
