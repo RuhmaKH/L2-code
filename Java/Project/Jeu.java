@@ -9,36 +9,28 @@ public class Jeu{
   public static void main (String [] args)throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
-    Monde m = new Monde (taille,30);
+    Monde monde = new Monde (taille,30);
     Scanner sc = new Scanner(System.in);
     System.out.println("Nom du joueur 1 :");
-    Avatar mario = new Avatar(sc.nextLine(), 60.5, m);
+    Avatar mario = new Avatar(sc.nextLine(), 60.5, monde);
     System.out.println("Nom du joueur 2 :");
-    Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
-    int NB_TOUR = 3;
+    Avatar luigi = new Avatar(sc.nextLine(), 100.50, monde);
+		int NB_TOUR = 3;
+		
     //*********************************************** ITEMS *********************************************** */
-
-    m.ajouterItem(mario);
-    m.ajouterItem(luigi);
-
-    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
-        m.ajouterItem(new Creature());
-
-    for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
-      m.ajouterItem(new Sac());
-
-    for (int j = 0; j < Math.random() * (taille /4 ) + taille /2; j++)
-      m.ajouterItem(new Pomme());
-
-
-    //m.afficher();
+    monde.ajouterItem(mario);
+    players[0] = mario;
+    monde.ajouterItem(luigi);
+    players[1] = luigi;
+		mario.ramasser(new Sac(2), false);;
+    monde.initialize();
 
     ///// Test Graphique
     JFrame f = new JFrame();
     f.setLocationRelativeTo(null);
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
- 		f.setContentPane(m);
+ 		f.setContentPane(monde);
  		f.pack();
  		f.setVisible(true);
     f.setFocusable(true);
@@ -48,18 +40,15 @@ public class Jeu{
     currentPlayer = mario;
     interact = false;
     for (int i = 0; i < NB_TOUR; i++) {
-      //m.afficher();
       System.out.println(mario);
-      m.repaint();
+      monde.repaint();
       while (currentPlayer == mario){
-        Thread.sleep(1000);  //ralenti l'affichage
+        Thread.sleep(700);  //ralenti l'affichage
       }
-
-      //m.afficher();
       System.out.println(luigi);
-      m.repaint();
+      monde.repaint();
       while (currentPlayer == luigi){
-        Thread.sleep(1000);  //ralenti l'affichage
+        Thread.sleep(700);  //ralenti l'affichage
       }
     }
 

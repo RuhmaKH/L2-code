@@ -81,7 +81,7 @@ public class Sac extends Acc{
   }
 
   public double getPrix(){
-    return 0.5 * tab.length + 0.5;
+    return 0.7 * tab.length + 0.5;
   }
 
   public String toString(){

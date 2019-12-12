@@ -134,10 +134,10 @@ public class Avatar extends Personnage{
             vendre((Magasin) i);
         }
       }
+      monde.repaint();
     }
     Jeu.interact();
     Jeu.nextPlayer();
-    monde.repaint();
   }
 
   public void seDeplacer(){

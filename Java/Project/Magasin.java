@@ -4,7 +4,7 @@ public abstract class Magasin extends Item {
     protected ArrayList<Acc> stock;
     protected double money;
     
-    protected Magasin (String nom, int nb){
+    protected Magasin (String nom){
         super(nom);
         stock = new ArrayList<Acc>();
         money = Math.random() * 30 + 10;
@@ -12,6 +12,10 @@ public abstract class Magasin extends Item {
 
     public ArrayList<Acc> getStock(){
         return stock;
+    }
+
+    public double getMoney () {
+        return money;
     }
 
     public abstract void acheter(Avatar a);
