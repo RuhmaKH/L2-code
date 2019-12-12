@@ -102,7 +102,7 @@ public class Sac extends Acc{
       int tc = m.getTailleCase();
       Image image =null;
       try {
-        image = ImageIO.read(new File("bag.jpg"));
+        image = ImageIO.read(new File("bag.png"));
       }
       catch(IOException exc) {
         exc.printStackTrace();

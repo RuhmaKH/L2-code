@@ -102,7 +102,7 @@ public class Monde extends JPanel{
 
 
 		super.paintComponent(g); //redessine le panneau
-    g.setColor(Color.WHITE);
+    g.setColor(Color.GREEN);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     for (int i = 0; i<getWidth(); i++){
       g.setColor(Color.ORANGE);

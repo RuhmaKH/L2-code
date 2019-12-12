@@ -33,6 +33,10 @@ public class Avatar extends Personnage{
     return listeAmis;
   }
 
+  public ArrayList<Acc> getAcc(){
+    return listeAcc;
+  }
+
   public double getMoney(){
     return money;
   }
@@ -164,7 +168,7 @@ public class Avatar extends Personnage{
     int taille = monde.getTaille();
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){ 
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){
       setX(x);
       setY(y);
     }
@@ -255,7 +259,7 @@ public class Avatar extends Personnage{
       Image image =null;
       if (id==0){
         try {
-            image = ImageIO.read(new File("Smiley_Face.JPG"));
+            image = ImageIO.read(new File("link_retouche.png"));
           }
           catch(IOException exc) {
             exc.printStackTrace();
@@ -263,7 +267,7 @@ public class Avatar extends Personnage{
           g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
       }else{
         try {
-            image = ImageIO.read(new File("smiley_bleu.jpg"));
+            image = ImageIO.read(new File("mario_retouche.png"));
           }
           catch(IOException exc) {
             exc.printStackTrace();

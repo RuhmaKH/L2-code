@@ -31,7 +31,7 @@ public class Pomme extends Acc implements Mangeable{
       int tc = m.getTailleCase();
       Image image =null;
       try {
-        image = ImageIO.read(new File("Apple_video_game.jpg"));
+        image = ImageIO.read(new File("pomme_retouche.png"));
       }
       catch(IOException exc) {
         exc.printStackTrace();

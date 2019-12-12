@@ -11,14 +11,29 @@ public class Jeu extends JFrame{
 
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
-    int taille = 20;
-    Monde m = new Monde (taille,40);
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Nom du joueur 1 :");
-    Avatar mario = new Avatar(sc.nextLine(), 60.5, m);
-    System.out.println("Nom du joueur 2 :");
-    Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
-    int NB_TOUR = 3;
+    int taille = 30;
+    Monde m = new Monde (taille,30);
+
+
+    int NB_TOUR;
+    String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
+		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
+		if(nom1 == "" || nom1 == null) {
+			nom1 = "J1";
+		}
+		if(nom2 == "" || nom2 == null) {
+			nom2 = "J2";
+		}
+
+		try {
+			NB_TOUR = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"))*2;
+		}catch(NumberFormatException e) {
+			NB_TOUR = 10;
+			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
+		}
+		Avatar mario = new Avatar(nom1 , 60.5, m);
+    Avatar luigi = new Avatar(nom1, 100.50, m);
+
     //*********************************************** ITEMS *********************************************** */
     m.ajouterItem(mario);
     players[0] = mario;
@@ -42,17 +57,19 @@ public class Jeu extends JFrame{
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     m.setLayout(new BorderLayout());
  		f.add(m, BorderLayout.CENTER);
-    
-    f.setLocationRelativeTo(null);
+    MenuDroite menuDroite = new MenuDroite(players);
+    f.add(menuDroite, BorderLayout.EAST);
  		f.pack();
     f.setVisible(true);
-    f.setFocusable(true); 
+    f.setResizable(false);
+    f.setFocusable(true);
+    f.setLocationRelativeTo(null);
     f.addKeyListener(new MyKeyListener());
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     interact = false;
-    for (int i = 0; i < NB_TOUR; i++) {
+    for (int i = 1; i < NB_TOUR; i++) {
       //m.afficher();
       System.out.println(mario);
       m.repaint();
@@ -115,7 +132,7 @@ public class Jeu extends JFrame{
     }
 
     System.out.println(ggwp);
-    sc.close();
+  //  sc.close();
 
   }
 
