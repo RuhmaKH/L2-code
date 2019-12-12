@@ -3,9 +3,9 @@ import java.awt.*;
 import java.io.*;
 import java.nio.*;
 import java.util.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
-public class Jeu extends JFrame {
+public class Jeu extends JFrame implements ActionListener {
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
@@ -41,12 +41,11 @@ public class Jeu extends JFrame {
 
     JPanel f1 = new JPanel( new FlowLayout());
     JButton b1 = new JButton ("Gauche");
-    b1.addActionListener(this);
-
-    @override
-    	public void ActionPerformed (ActionEvent e){
-
-    	}
+    b1.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        System.out.println("gg");
+      }
+    });
 
   f1.add(b1);
     b1.setPreferredSize( new Dimension( 100, 60) );
@@ -135,6 +134,10 @@ public class Jeu extends JFrame {
 
     System.out.println(ggwp);
     sc.close();
+
+  }
+
+  public void actionPerformed (ActionEvent e){
 
   }
 }
