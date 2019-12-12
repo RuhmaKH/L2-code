@@ -114,6 +114,7 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrerVoisins(){
+    Jeu.interact();
     ArrayList<Item> voisins = monde.getVoisins(this);
     for(Item i : voisins){
       if(i instanceof Avatar)
@@ -134,6 +135,8 @@ public class Avatar extends Personnage{
         }
       }
     }
+    Jeu.interact();
+    Jeu.nextPlayer();
   }
 
   public void seDeplacer(){
@@ -165,6 +168,7 @@ public class Avatar extends Personnage{
       setX(x);
       setY(y);
     }
+    monde.repaint();
   }
 
   public double acheter (Acc acc){

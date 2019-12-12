@@ -7,6 +7,8 @@ import java.awt.event.*;
 
 public class Jeu extends JFrame{
   private static Avatar currentPlayer;
+  private static Avatar[] players = new Avatar[2];
+  private static boolean interact;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
@@ -19,7 +21,9 @@ public class Jeu extends JFrame{
     int NB_TOUR = 3;
     //*********************************************** ITEMS *********************************************** */
     m.ajouterItem(mario);
+    players[0] = mario;
     m.ajouterItem(luigi);
+    players[1] = luigi;
 
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
         m.ajouterItem(new Creature());
@@ -37,12 +41,13 @@ public class Jeu extends JFrame{
     JFrame f = new JFrame();
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     m.setLayout(new BorderLayout());
- 		f.add(m,BorderLayout.CENTER);
+ 		f.add(m, BorderLayout.CENTER);
 
+    
+/*
     JPanel f1 = new JPanel( new FlowLayout());
     JButton b1 = new JButton ("Gauche");
     b1.addKeyListener(new MyKeyListener());
-
     f1.add(b1);
     b1.setPreferredSize( new Dimension( 100, 60) );
     JButton b2 = new JButton ("Haut");
@@ -59,30 +64,31 @@ public class Jeu extends JFrame{
     f1.add(b5);
     f1.setBackground(Color.RED);
     f.add(f1,BorderLayout.SOUTH);
-
+    */
 
     //f.setOpacity(0);
     f.setLocationRelativeTo(null);
  		f.pack();
- 		f.setVisible(true);
-
+    f.setVisible(true);
+    f.setFocusable(true); 
+    f.addKeyListener(new MyKeyListener());
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
+    interact = false;
     for (int i = 0; i < NB_TOUR; i++) {
       //m.afficher();
       System.out.println(mario);
-      Thread.sleep(1000);  //ralenti l'affichage
       m.repaint();
       while (currentPlayer == mario){
-
+        Thread.sleep(1000);  //ralenti l'affichage
       }
+
       //m.afficher();
       System.out.println(luigi);
-      Thread.sleep(1000);  //ralenti l'affichage
       m.repaint();
       while (currentPlayer == luigi){
-        
+        Thread.sleep(1000);  //ralenti l'affichage
       }
     }
 
@@ -137,11 +143,19 @@ public class Jeu extends JFrame{
 
   }
 
-  public static Avatar getCurrent(){
+  public static Avatar getCurrPlay(){
     return currentPlayer;
   }
 
-  public static void setCurrent(Avatar ava){
-    currentPlayer = ava;
+  public static void nextPlayer(){
+    currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
+  }
+
+  public static boolean getInteract(){
+    return interact;
+  }
+
+  public static void interact(){
+    interact = ! interact;
   }
 }
