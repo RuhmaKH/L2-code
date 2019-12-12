@@ -5,7 +5,8 @@ import java.nio.*;
 import java.util.*;
 import java.awt.event.*;
 
-public class Jeu extends JFrame implements ActionListener {
+public class Jeu extends JFrame{
+  private static Avatar currentPlayer;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
@@ -17,7 +18,6 @@ public class Jeu extends JFrame implements ActionListener {
     Avatar luigi = new Avatar(sc.nextLine(), 100.50, m);
     int NB_TOUR = 3;
     //*********************************************** ITEMS *********************************************** */
-
     m.ajouterItem(mario);
     m.ajouterItem(luigi);
 
@@ -41,13 +41,9 @@ public class Jeu extends JFrame implements ActionListener {
 
     JPanel f1 = new JPanel( new FlowLayout());
     JButton b1 = new JButton ("Gauche");
-    b1.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        System.out.println("gg");
-      }
-    });
+    b1.addKeyListener(new MyKeyListener());
 
-  f1.add(b1);
+    f1.add(b1);
     b1.setPreferredSize( new Dimension( 100, 60) );
     JButton b2 = new JButton ("Haut");
     b2.setPreferredSize( new Dimension( 100, 60) );
@@ -72,18 +68,22 @@ public class Jeu extends JFrame implements ActionListener {
 
 
     //*********************************************** JEU *********************************************** */
-
+    currentPlayer = mario;
     for (int i = 0; i < NB_TOUR; i++) {
-      mario.seDeplacer();
       //m.afficher();
       System.out.println(mario);
       Thread.sleep(1000);  //ralenti l'affichage
-			m.repaint();
-      luigi.seDeplacer();
+      m.repaint();
+      while (currentPlayer == mario){
+
+      }
       //m.afficher();
       System.out.println(luigi);
       Thread.sleep(1000);  //ralenti l'affichage
-			m.repaint();
+      m.repaint();
+      while (currentPlayer == luigi){
+        
+      }
     }
 
     //*********************************************** GAGNANT *********************************************** */
@@ -109,7 +109,7 @@ public class Jeu extends JFrame implements ActionListener {
           winner = luigi;
         }
 
-        ggwp += winner.getNom() + " a gagné la course grâce à ses amis :\n";
+        ggwp += winner.getNom() + " a gagné.e la course grâce à ses amis :\n";
         daFast = winner.getCreaturePlusRapide();
         for (Creature c : winner.getAmis()){
           ggwp += "\t - ";
@@ -119,16 +119,16 @@ public class Jeu extends JFrame implements ActionListener {
             ggwp += c.getNom();
           ggwp += "\n";
         }
-        ggwp += "IZels ont parcou.e.s " + chicken + "km.\n";
+        ggwp += "Iels ont parcou.e.s " + chicken + "km.\n";
       }
     }
     else {
       if (amisMario == 0 && amisLuigi == 0)
-        ggwp += "La course n'a pas eu lieu car " + mario.getNom() + " et " + luigi.getNom() + " n'ont pas d'amis";
+        ggwp += "La course n'a pas eu lieu car " + mario.getNom() + " et " + luigi.getNom() + " n'ont pas d'ami.e.s";
       else {  if(amisMario == 0)
-          ggwp += luigi.getNom() + " a gagné la course car " + mario.getNom() + " n'a pas d'amis";
+          ggwp += luigi.getNom() + " a gagné.e la course car " + mario.getNom() + " n'a pas d'ami.e.s";
         else
-        ggwp += mario.getNom() + " a gagné la course car " + luigi.getNom() + " n'a pas d'amis";
+        ggwp += mario.getNom() + " a gagné.e la course car " + luigi.getNom() + " n'a pas d'ami.e.s";
       }
     }
 
@@ -137,7 +137,11 @@ public class Jeu extends JFrame implements ActionListener {
 
   }
 
-  public void actionPerformed (ActionEvent e){
+  public static Avatar getCurrent(){
+    return currentPlayer;
+  }
 
+  public static void setCurrent(Avatar ava){
+    currentPlayer = ava;
   }
 }
