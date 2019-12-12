@@ -157,6 +157,16 @@ public class Avatar extends Personnage{
     rencontrerVoisins();
   }
 
+  public void seDeplacer(int dx, int dy){
+    int taille = monde.getTaille();
+    int x = getX() + dx;
+    int y = getY() + dy;
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){ 
+      setX(x);
+      setY(y);
+    }
+  }
+
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){
