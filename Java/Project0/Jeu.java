@@ -3,12 +3,12 @@ import java.awt.*;
 import java.io.*;
 import java.nio.*;
 import java.util.*;
-import java.awt.event.*;
 
 public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static boolean interact;
+
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
@@ -42,31 +42,7 @@ public class Jeu extends JFrame{
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     m.setLayout(new BorderLayout());
  		f.add(m, BorderLayout.CENTER);
-
     
-/*
-    JPanel f1 = new JPanel( new FlowLayout());
-    JButton b1 = new JButton ("Gauche");
-    b1.addKeyListener(new MyKeyListener());
-    f1.add(b1);
-    b1.setPreferredSize( new Dimension( 100, 60) );
-    JButton b2 = new JButton ("Haut");
-    b2.setPreferredSize( new Dimension( 100, 60) );
-    f1.add(b2);
-    JButton b3 = new JButton ("Droite");
-    b3.setPreferredSize( new Dimension( 100, 60) );
-    f1.add(b3);
-    JButton b4 = new JButton ("BAS");
-    b4.setPreferredSize( new Dimension( 100, 60) );
-    f1.add(b4);
-    JButton b5 = new JButton ("STOP ICI");
-    b5.setPreferredSize( new Dimension( 100, 60) );
-    f1.add(b5);
-    f1.setBackground(Color.RED);
-    f.add(f1,BorderLayout.SOUTH);
-    */
-
-    //f.setOpacity(0);
     f.setLocationRelativeTo(null);
  		f.pack();
     f.setVisible(true);
