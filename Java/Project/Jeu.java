@@ -3,6 +3,9 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Jeu{
+  private static Avatar currentPlayer;
+  private static Avatar[] players = new Avatar[2];
+  private static boolean interact;
   public static void main (String [] args)throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 20;
@@ -38,21 +41,26 @@ public class Jeu{
  		f.setContentPane(m);
  		f.pack();
  		f.setVisible(true);
-
+    f.setFocusable(true);
+    f.addKeyListener(new MyKeyListener());
 
     //*********************************************** JEU *********************************************** */
-
+    currentPlayer = mario;
+    interact = false;
     for (int i = 0; i < NB_TOUR; i++) {
-      mario.seDeplacer();
       //m.afficher();
       System.out.println(mario);
-      Thread.sleep(1000);  //ralenti l'affichage
-			m.repaint();
-      luigi.seDeplacer();
+      m.repaint();
+      while (currentPlayer == mario){
+        Thread.sleep(1000);  //ralenti l'affichage
+      }
+
       //m.afficher();
       System.out.println(luigi);
-      Thread.sleep(1000);  //ralenti l'affichage
-			m.repaint();
+      m.repaint();
+      while (currentPlayer == luigi){
+        Thread.sleep(1000);  //ralenti l'affichage
+      }
     }
 
     //*********************************************** GAGNANT *********************************************** */
@@ -104,5 +112,21 @@ public class Jeu{
     System.out.println(ggwp);
     sc.close();
 
+  }
+
+  public static Avatar getCurrPlay(){
+    return currentPlayer;
+  }
+
+  public static void nextPlayer(){
+    currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
+  }
+
+  public static boolean getInteract(){
+    return interact;
+  }
+
+  public static void interact(){
+    interact = ! interact;
   }
 }

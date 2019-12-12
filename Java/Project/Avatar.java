@@ -128,6 +128,9 @@ public class Avatar extends Personnage{
         }
       }
     }
+    Jeu.interact();
+    Jeu.nextPlayer();
+    monde.repaint();
   }
 
   public void seDeplacer(){
@@ -149,6 +152,17 @@ public class Avatar extends Personnage{
     // Rencontre ses voisins
 
     rencontrerVoisins();
+  }
+
+  public void seDeplacer(int dx, int dy){
+    int taille = monde.getTaille();
+    int x = getX() + dx;
+    int y = getY() + dy;
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){ 
+      setX(x);
+      setY(y);
+    }
+    monde.repaint();
   }
 
   public double acheter (Acc acc){

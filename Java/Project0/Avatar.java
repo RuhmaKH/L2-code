@@ -137,6 +137,7 @@ public class Avatar extends Personnage{
     }
     Jeu.interact();
     Jeu.nextPlayer();
+    monde.repaint();
   }
 
   public void seDeplacer(){
@@ -156,7 +157,6 @@ public class Avatar extends Personnage{
     this.setX(absi);
     this.setY(ordo);
     // Rencontre ses voisins
-
     rencontrerVoisins();
   }
 
