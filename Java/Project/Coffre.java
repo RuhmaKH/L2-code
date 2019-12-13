@@ -27,6 +27,12 @@ public class Coffre extends Item {
     public ArrayList<Item> ouvrir(){
         ArrayList<Item> tab = contenu;
         contenu = new ArrayList<Item>();
+        try {
+          image = ImageIO.read(new File("./Image/coffre_ouvert_retouche.png"));
+        }
+        catch(IOException exc) {
+          exc.printStackTrace();
+        }
         return tab;
     }
 
