@@ -6,80 +6,82 @@ import javax.imageio.ImageIO;
 
 
 public class Monde extends JPanel{
-  private ArrayList<Item> listeItems;
-  private int taille;
-  private int tailleCase;
+  private static ArrayList<Item> listeItems;
+  private static final int taille = 30;
+  private static final int tailleCase = 30;
+  private final static Monde monde = new Monde();
 
-  public Monde(int taille, int tailleCase){
+  private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
-    this.taille = taille;
-    this.tailleCase=tailleCase;
     listeItems = new ArrayList<Item>();
   }
 
-  public int getTailleCase(){
+  public static Monde getMonde(){
+    return monde;
+  }
+
+  public static int getTailleCase(){
     return tailleCase;
   }
 
-  public int getPositionAlea(){
+  private static int getPositionAlea(){
     return (int) (Math.random() * taille);
   }
 
-  public int getTaille(){
+  public static int getTaille(){
     return taille;
   }
 
-    public void initialize(){
-      //############# Creature #############
-      for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
-        ajouterItem(new Creature());
-      for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-        ajouterItem(new Ryuk());
-      //############# Coffre #############
-      for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
-        ajouterItem(new Coffre());
-      //############# Accessoire #############
-      for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
-        ajouterAcc(new Sac());
-      for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-        ajouterAcc(new Pomme());
-      for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
-        ajouterAcc(new Pills());
-      //############# Magasin #############
-      ajouterItem(new Fruitier());
-    }
+  public void initialize(){
+    //############# Creature #############
+    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
+      ajouterItem(new Creature());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+      ajouterItem(new Ryuk());
+    //############# Coffre #############
+    for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
+      ajouterItem(new Coffre());
+    //############# Accessoire #############
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
+      ajouterAcc(new Sac());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+      ajouterAcc(new Pomme());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
+      ajouterAcc(new Pills());
+    //############# Magasin #############
+    ajouterItem(new Fruitier());
+  }
+  public static void ajouterItem(Item item){
+    do {
+      item.setX(getPositionAlea());
+      item.setY(getPositionAlea());
+    } while (chercher(item.getX(), item.getY()) != null);
+    listeItems.add(item);
 
-    public void ajouterItem(Item item){
-      do {
-        item.setX(getPositionAlea());
-        item.setY(getPositionAlea());
-      } while (chercher(item.getX(), item.getY()) != null);
-      listeItems.add(item);
+  }
 
-    }
+  private static void ajouterAcc(Acc acc){
+    ArrayList<Coffre> coffres = new ArrayList<Coffre>();
+    for (Item item : listeItems)
+      if (item instanceof Coffre)
+        coffres.add((Coffre) item);
+    coffres.get( (int) (Math.random() * coffres.size()) ).ajouter(acc);;
+  }
 
-    private void ajouterAcc(Acc acc){
-      ArrayList<Coffre> coffres = new ArrayList<Coffre>();
-      for (Item item : listeItems)
-        if (item instanceof Coffre)
-          coffres.add((Coffre) item);
-      coffres.get( (int) (Math.random() * coffres.size()) ).ajouter(acc);;
-    }
-
-  public void supprimerItem(Item item){
+  public static void supprimerItem(Item item){
     listeItems.remove(item);
     item.setX(-1);
     item.setY(-1);
   }
 
-  public Item chercher(int x,int y){
+  public static Item chercher(int x,int y){
     for(Item i : listeItems)
       if(i.getX() == x && i.getY() == y)
         return i;
     return null;
   }
 
-  public ArrayList<Item> getVoisins(Item item){
+  public static ArrayList<Item> getVoisins(Item item){
     ArrayList<Item> voisins = new ArrayList<Item>();
     for(Item i : listeItems)
       if(item.distance(i) <= 2 && i != item)
@@ -101,7 +103,7 @@ public class Monde extends JPanel{
     }
   }
 
-  public void afficher(){
+  public static void afficher(){
     Item i;
     String aff="    |";
     for ( int x = 0; x<taille; x++)

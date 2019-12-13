@@ -4,10 +4,12 @@ import javax.swing.*;
 
 public class Creature extends Personnage{
   protected Sac sac;
+  private Avatar bff;
 
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
+    bff = null;
   }
 
   public Creature(String nom){
@@ -18,8 +20,10 @@ public class Creature extends Personnage{
   public void ajouter(Acc a){
     if (sac.getPoids() + a.getPoids() < 0.5 * getPoids())
       sac.ajouter(a);
-    else
+    else{
       System.out.println("Trop lourd");
+      
+    }
   }
 
   public double getVitesse(){
@@ -27,6 +31,16 @@ public class Creature extends Personnage{
     if (v < 0)
       return 0;
     return v;
+  }
+
+  public void newBFF (Avatar newBFF){
+    if (bff != null)
+      System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
+    bff = newBFF;
+  }
+
+  public void looseBFF (){
+    bff = null;
   }
 
   public void manger(){

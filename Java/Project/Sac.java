@@ -35,7 +35,7 @@ public class Sac extends Acc{
   public boolean ajouter(Acc a){
     for(Acc acc : tab)
       if(acc instanceof Sac)
-        if( ((Sac) acc).ajouter(a, "Sous"))
+        if( ((Sac) acc).ajouter(a, "Sous-") )
           return true;
     int nb;
     if((nb = getNbElements()) < tab.length){
@@ -50,8 +50,8 @@ public class Sac extends Acc{
 
   private boolean ajouter(Acc a, String niv){
     for(Acc acc : tab)
-      if(acc instanceof Sac)
-        if( ((Sac) acc).ajouter(a, niv + "Sous "))
+      if(acc instanceof Sac && (niv == "Sous-" || niv == "Sous-Sous-"))
+        if( ((Sac) acc).ajouter(a, niv + "Sous-"))
           return true;
     int nb;
     if((nb = getNbElements()) < tab.length){
@@ -86,9 +86,9 @@ public class Sac extends Acc{
   }
 
   public double getPoids(){
-    double poids=0;
-    for(int i=0; i<getNbElements(); i++){
-        poids+=tab[i].getPoids();
+    double poids = 0.1;
+    for(int i = 0; i < getNbElements(); i++){
+        poids += tab[i].getPoids();
     }
     return poids;
   }
