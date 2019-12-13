@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Coffre extends Item {
-    private ArrayList<Acc> contenu;
+    private ArrayList<Item> contenu;
 
     public Coffre(){
         super("Coffre");
-        contenu = new ArrayList<Acc>();
+        contenu = new ArrayList<Item>();
     }
 
     public void ajouter(Acc acc){
         contenu.add(acc);
     }
 
-    public ArrayList<Acc> getContenu(){
+    public ArrayList<Item> getContenu(){
         return contenu;
     }
 }

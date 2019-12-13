@@ -49,13 +49,15 @@ public class Monde extends JPanel{
     item.setY(getPositionAlea());
     if (item instanceof Acc){
       for (Item i : listeItems)
-        if( i.getX() == item.getX() && i.getY() == item.getY() && i instanceof Coffre){
-          ((Coffre) i).ajouter((Acc) item);
+        if ( i.getX() == item.getX() && i.getY() == item.getY() && i instanceof Coffre) {
+          ((Coffre) i).ajouter(item);
           return;
         }
       Coffre coffre = new Coffre();
+      if (Math.random() < 0.125)
+        coffre.ajouter(new Tresor());
       ajouterItem(coffre, item.getX(), item.getY());
-      coffre.ajouter((Acc) item);
+      coffre.ajouter(item);
     }
     else
       listeItems.add(item);

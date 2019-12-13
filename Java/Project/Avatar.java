@@ -92,9 +92,12 @@ public class Avatar extends Personnage{
     return j;
   }
 
-  private void ouvir(Coffre coffre){
-    for (Acc acc : coffre.getContenu()){
-      ramasser(acc, true);
+  private void ouvrir(Coffre coffre){
+    for (Item item : coffre.getContenu()){
+      if (item instanceof Tresor)
+        money += ((Tresor) item).getTresor();
+      else
+        ramasser((Acc) item, true);
     }
     monde.supprimerItem(coffre);
   }
@@ -123,7 +126,7 @@ public class Avatar extends Personnage{
       if (item instanceof Creature)
         rencontrer((Creature) item);
       if (item instanceof Coffre)
-        ouvir((Coffre) item);
+        ouvrir((Coffre) item);
       if (item instanceof Acc)
         ramasser((Acc) item, true);
       if (item instanceof Magasin){
