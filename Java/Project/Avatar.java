@@ -10,17 +10,15 @@ import javax.imageio.ImageIO;
 public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
   private ArrayList<Acc> listeAcc;
-  private Monde monde;
   private double money;
   private static int cpt = 0;
   private final int id;
   private Image image =null;
 
-  public Avatar(String nom, double poids, Monde monde, String  nomFichier){
-    super(nom,poids);
+  public Avatar(String nom, double poids, String  nomFichier){
+    super(nom, poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
-    this.monde = monde;
     money = Math.random() * 10 + 5;
     id=cpt;
     cpt++;
@@ -35,7 +33,13 @@ public class Avatar extends Personnage{
   }
 
   public String toString(){
-    return super.toString() + " : " + listeAmis.size() + " amis(s) "+ listeAcc.size() + " accessoire(s)";
+    int nbAcc = 0;
+    for (Acc acc : listeAcc){
+      nbAcc++;
+      if (acc instanceof Sac)
+        nbAcc += ((Sac) acc).getNbElements();
+    }
+    return super.toString() + " : " + listeAmis.size() + " amis(s) " + nbAcc + " accessoire(s)";
   }
   public Image getImage(){
     return image;
@@ -53,53 +57,60 @@ public class Avatar extends Personnage{
     return money;
   }
 
-  public boolean estAmi(Creature c){
-    if (listeAmis.contains(c))
+  public boolean estAmi(Creature crea){
+    if (listeAmis.contains(crea))
       return true;
     return false;
   }
 
-  private void devenirAmi(Creature c){
-    if (! this.estAmi(c)){
-      listeAmis.add(c);
-      System.out.println(c.getNom() + " est devenu l'ami de " + getNom());
+  private void devenirAmi(Creature crea){
+    if (! this.estAmi(crea)){
+      crea.newBFF(this);
+      listeAmis.add(crea);
+      System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
     }
   }
 
-  private void PerdreAmi(Creature c){
-    if (this.estAmi(c)){
-      listeAmis.remove(c);
-      System.out.println(c.getNom() + " n'est plus l'ami de " + getNom());
+  private void PerdreAmi(Creature crea){
+    if (this.estAmi(crea)){
+      crea.looseBFF();
+      listeAmis.remove(crea);
+      System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
     }
   }
 
-  private void rencontrer(Creature c){
-    Acc a = (listeAcc.size()>0 ? listeAcc.get(0) : null);
+  private void rencontrer(Creature crea){
+    Acc a = null;
+    if (listeAcc.size() > 0){
+      a = listeAcc.get(0);
+      listeAcc.remove(0);
+    }
+    
     if (a != null){
-      c.ajouter(a);
-      if (!this.estAmi(c) && a.getPoids() < 50)
-        this.devenirAmi(c);
+      crea.ajouter(a);
+      if (!this.estAmi(crea) && a.getPoids() < 50)
+        this.devenirAmi(crea);
     }
     else
-      if (this.estAmi(c))
-        this.PerdreAmi(c);
+      if (this.estAmi(crea))
+        this.PerdreAmi(crea);
   }
 
   public double course(){
     double dist = 0;
-    for ( Creature c : listeAmis){
-      c.manger();
-      c.courir();
-      dist += c.getVitesse();
+    for ( Creature crea : listeAmis){
+      crea.manger();
+      crea.courir();
+      dist += crea.getVitesse();
     }
     return dist;
   }
 
   public Creature getCreaturePlusRapide(){
     Creature rapide = listeAmis.get(0);
-    for ( Creature c : listeAmis)
-      if (rapide.getVitesse() > c.getVitesse())
-        rapide = c;
+    for ( Creature crea : listeAmis)
+      if (rapide.getVitesse() > crea.getVitesse())
+        rapide = crea;
 
     return rapide;
   }
@@ -116,7 +127,8 @@ public class Avatar extends Personnage{
 
 
   private void ouvrir(Coffre coffre){
-    for (Item item : coffre.getContenu()){
+    ArrayList<Item> contenu = coffre.ouvrir();
+    for (Item item : contenu){
       if (item instanceof Tresor)
         money += ((Tresor) item).getTresor();
       else
@@ -136,13 +148,13 @@ public class Avatar extends Personnage{
       listeAcc.add(a);
     if (msg){
       System.out.println(getNom() + " ramasse " + a.getNom());
-      monde.supprimerItem(a);
+      Monde.supprimerItem(a);
     }
   }
 
   public void rencontrerVoisins(){
     Jeu.interact();
-    ArrayList<Item> voisins = monde.getVoisins(this);
+    ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
       if (item instanceof Avatar)
         System.out.println("Salutation mon ami " + item.getNom());
@@ -163,14 +175,14 @@ public class Avatar extends Personnage{
             vendre((Magasin) item);
         }
       }
-      monde.repaint();
+      Monde.getMonde().repaint();
     }
     Jeu.interact();
     Jeu.nextPlayer();
   }
 
   public void seDeplacer(){
-    int absi, ordo, taille = monde.getTaille();
+    int absi, ordo, taille = Monde.getTaille();
     Scanner sc = new Scanner(System.in);
     String size = String.format("[0,%d]", taille);
     // Récupère les coordonnées
@@ -190,14 +202,14 @@ public class Avatar extends Personnage{
   }
 
   public void seDeplacer(int dx, int dy){
-    int taille = monde.getTaille();
+    int taille = Monde.getTaille();
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (monde.chercher(x,y)== null)){
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (Monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
     }
-    monde.repaint();
+    Monde.getMonde().repaint();
   }
 
   public double acheter (Acc acc){
@@ -220,7 +232,7 @@ public class Avatar extends Personnage{
         for (Acc acc : listeAcc){
           discution += String.format("\t( %d )-%s : %.2f\n", i, acc.getNom(), acc.getPrix());
           i++;
-          if(acc instanceof Sac)
+          if(acc instanceof Sac && ((Sac) acc).getNbElements() != 0)
             for(Acc a : ((Sac) acc).getTab()){
               discution += String.format("\t\t( %d )-%s : %.2f\n", i, a.getNom(), a.getPrix());
               i++;
@@ -282,7 +294,7 @@ public class Avatar extends Personnage{
   }
 
   public void dessiner(Graphics g, Monde monde){
-      int tc = monde.getTailleCase();
+      int tc = Monde.getTailleCase();
       g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,monde);
       //g.setColor(new Color(0,0,255)); //couleur courante devient bleu
       //g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
