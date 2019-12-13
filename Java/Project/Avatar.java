@@ -137,18 +137,18 @@ public class Avatar extends Personnage{
   }
 
 
-  private void ramasser(Acc a, boolean msg){
+  private void ramasser(Acc acc, boolean msg){
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac){
-          if((place = ((Sac) i ).ajouter(a)))
+          if((place = ((Sac) i ).ajouter(acc, true)))
             break;
         }
     if (! place)
-      listeAcc.add(a);
+      listeAcc.add(acc);
     if (msg){
-      System.out.println(getNom() + " ramasse " + a.getNom());
-      Monde.supprimerItem(a);
+      System.out.println(getNom() + " ramasse " + acc.getNom());
+      Monde.supprimerItem(acc);
     }
   }
 
@@ -175,14 +175,14 @@ public class Avatar extends Personnage{
             vendre((Magasin) item);
         }
       }
-      Monde.getMonde().repaint();
+      Monde.world.repaint();
     }
     Jeu.interact();
     Jeu.nextPlayer();
   }
 
   public void seDeplacer(){
-    int absi, ordo, taille = Monde.getTaille();
+    int absi, ordo, taille = Monde.taille;
     Scanner sc = new Scanner(System.in);
     String size = String.format("[0,%d]", taille);
     // Récupère les coordonnées
@@ -202,14 +202,14 @@ public class Avatar extends Personnage{
   }
 
   public void seDeplacer(int dx, int dy){
-    int taille = Monde.getTaille();
+    int taille = Monde.taille;
     int x = getX() + dx;
     int y = getY() + dy;
     if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (Monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
     }
-    Monde.getMonde().repaint();
+    Monde.world.repaint();
   }
 
   public double acheter (Acc acc){
@@ -293,9 +293,9 @@ public class Avatar extends Personnage{
     return num;
   }
 
-  public void dessiner(Graphics g, Monde monde){
-      int tc = Monde.getTailleCase();
-      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,monde);
+  public void dessiner(Graphics g){
+      int tc = Monde.tailleCase;
+      g.drawImage(image, getX() * tc + 1, getY() * tc + 1, tc - 2, tc - 2, Monde.world);
       //g.setColor(new Color(0,0,255)); //couleur courante devient bleu
       //g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

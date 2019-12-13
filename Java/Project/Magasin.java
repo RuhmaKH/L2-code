@@ -23,5 +23,5 @@ public abstract class Magasin extends Item {
 
     public abstract void acheter(Avatar a);
     public abstract double vendre(Acc acc);
-    public abstract void dessiner ( Graphics g , Monde m);
+    public abstract void dessiner (Graphics g);
 }

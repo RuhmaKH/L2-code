@@ -7,32 +7,21 @@ import javax.imageio.ImageIO;
 
 public class Monde extends JPanel{
   private static ArrayList<Item> listeItems;
-  private static final int taille = 30;
-  private static final int tailleCase = 30;
-  private final static Monde monde = new Monde();
+  public static final int taille = 30;
+  public static final int tailleCase = 30;
+  public final static Monde world = new Monde();
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
-  }
-
-  public static Monde getMonde(){
-    return monde;
-  }
-
-  public static int getTailleCase(){
-    return tailleCase;
+    initialize();
   }
 
   private static int getPositionAlea(){
     return (int) (Math.random() * taille);
   }
 
-  public static int getTaille(){
-    return taille;
-  }
-
-  public void initialize(){
+  private void initialize(){
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());
@@ -51,21 +40,27 @@ public class Monde extends JPanel{
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }
-  public static void ajouterItem(Item item){
+  public static void ajouterItem (Item item) {
     do {
       item.setX(getPositionAlea());
       item.setY(getPositionAlea());
     } while (chercher(item.getX(), item.getY()) != null);
     listeItems.add(item);
-
   }
 
-  private static void ajouterAcc(Acc acc){
+  public static void ajouterItemAtCoor(Item item){
+    if (chercher(item.getX(), item.getY()) == null)
+      listeItems.add(item);
+    else
+      ajouterItem(item);
+  }
+
+  private static void ajouterAcc (Acc acc) {
     ArrayList<Coffre> coffres = new ArrayList<Coffre>();
     for (Item item : listeItems)
       if (item instanceof Coffre)
         coffres.add((Coffre) item);
-    coffres.get( (int) (Math.random() * coffres.size()) ).ajouter(acc);;
+    ( coffres.get( (int) (Math.random() * coffres.size()) ) ).ajouter(acc);
   }
 
   public static void supprimerItem(Item item){
@@ -74,7 +69,18 @@ public class Monde extends JPanel{
     item.setY(-1);
   }
 
-  public static Item chercher(int x,int y){
+  public static void drop (Item item, int x, int y) {
+    for (int i = x - 1; i <= x + 1; i++)
+      for (int j = y - 1; j <= x + 1; j++)
+        if (chercher(i, j) == null){
+          item.setX(i);
+          item.setY(j);
+          listeItems.add(item);
+          return;
+        }
+  }
+
+  public static Item chercher (int x,int y) {
     for(Item i : listeItems)
       if(i.getX() == x && i.getY() == y)
         return i;
@@ -138,7 +144,7 @@ public class Monde extends JPanel{
     }
 		for(Item itemVoisin : listeItems){
 			if( itemVoisin != null){
-				itemVoisin.dessiner(g,this);
+				itemVoisin.dessiner(g);
 			}
 		}
   }
