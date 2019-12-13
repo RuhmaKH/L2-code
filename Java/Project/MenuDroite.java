@@ -58,8 +58,13 @@ public class MenuDroite extends JPanel{
     }
   }
 
-  public void compteDifferentAcc(Sac sac){
-    for ( Acc acc : sac.getTab()){
+  public void compteDifferentAcc(Sac soussac){
+    for ( Acc acc : soussac.getTab()){
+      if (acc instanceof Sac){
+        compteDifferentAcc((Sac) acc);
+        sac++;
+        continue;
+      }
       if (acc instanceof Pomme){
         pomme++;
         continue;
