@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public abstract class Personnage extends Item{
   private double poids;
 
@@ -10,16 +12,18 @@ public abstract class Personnage extends Item{
     this(nom, Math.random() * 100 + 30);
   }
 
-  public double getPoids(){
+  protected double getPoids(){
     return poids;
   }
 
   protected void addPoids(double p){
-    if (p>0)
+    if (p > 0)
       poids += p;
   }
 
   public String toString(){
-    return getNom() + String.format(" %.2f",poids) + "kg";
+    return getNom() + String.format(" %.2f", poids) + "kg";
   }
+
+  public abstract void dessiner (Graphics g);
 }

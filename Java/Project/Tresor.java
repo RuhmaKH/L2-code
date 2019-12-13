@@ -13,5 +13,5 @@ public class Tresor extends Item {
         return tresor;
     }
 
-    public void dessiner ( Graphics g , Monde m){}
+    public void dessiner (Graphics g){}
 }

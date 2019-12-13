@@ -32,10 +32,10 @@ public class Sac extends Acc{
     return tab;
   }
 
-  public boolean ajouter(Acc a){
+  public boolean ajouter(Acc a, boolean msg){
     for(Acc acc : tab)
       if(acc instanceof Sac)
-        if( ((Sac) acc).ajouter(a, "Sous-") )
+        if( ((Sac) acc).ajouter(a, "Sous-", msg) )
           return true;
     int nb;
     if((nb = getNbElements()) < tab.length){
@@ -43,24 +43,27 @@ public class Sac extends Acc{
       return true;
     }
     else{
-      System.out.println("Pas la place !");
+      if (msg)
+        System.out.println("Pas la place !");
       return false;
     }
   }
 
-  private boolean ajouter(Acc a, String niv){
+  private boolean ajouter(Acc a, String niv, boolean msg){
     for(Acc acc : tab)
       if(acc instanceof Sac && (niv == "Sous-" || niv == "Sous-Sous-"))
-        if( ((Sac) acc).ajouter(a, niv + "Sous-"))
+        if( ((Sac) acc).ajouter(a, niv + "Sous-", msg))
           return true;
     int nb;
     if((nb = getNbElements()) < tab.length){
       tab[nb] = a;
-      System.out.println("L'item a été placé dans le " + niv + "sac !");
+      if (msg)
+        System.out.println("L'item a été placé dans le " + niv + "sac !");
       return true;
     }
     else{
-      System.out.println("Pas la place dans le " + niv + "sac !");
+      if (msg)
+        System.out.println("Pas la place dans le " + niv + "sac !");
       return false;
     }
   }
@@ -105,9 +108,9 @@ public class Sac extends Acc{
     return s;
   }
 
-  public void dessiner(Graphics g, Monde m){
-      int tc = m.getTailleCase();
-      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
+  public void dessiner(Graphics g){
+      int tc = Monde.tailleCase;
+      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
     	//g.setColor(new Color(225,255,0)); //couleur courante devient bleu
     	//g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

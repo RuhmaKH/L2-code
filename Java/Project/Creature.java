@@ -17,12 +17,12 @@ public class Creature extends Personnage{
     sac = new Sac();
   }
 
-  public void ajouter(Acc a){
-    if (sac.getPoids() + a.getPoids() < 0.5 * getPoids())
-      sac.ajouter(a);
+  public void ajouter(Acc acc){
+    if (sac.getPoids() + acc.getPoids() < 0.5 * getPoids())
+      sac.ajouter(acc, false);
     else{
       System.out.println("Trop lourd");
-      
+      Monde.drop(acc, getX(), getY());
     }
   }
 
@@ -59,7 +59,7 @@ public class Creature extends Personnage{
         manger();
         sac = sol;
       }
-      sac.ajouter(obj);
+      sac.ajouter(obj, false);
     }
   }
 
@@ -71,8 +71,8 @@ public class Creature extends Personnage{
 		System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
   }
 
-  public void dessiner(Graphics g, Monde m){
-    	int tc = m.getTailleCase();
+  public void dessiner(Graphics g){
+    	int tc = Monde.tailleCase;
     	g.setColor(Color.CYAN); //couleur courante devient bleu
     	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

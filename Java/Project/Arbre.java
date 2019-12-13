@@ -11,5 +11,5 @@ public class Arbre extends Obstacle{
     super( "Arbre",x ,y);
   }
 
-    public void dessiner ( Graphics g , Monde m){}
+    public void dessiner (Graphics g){}
 }

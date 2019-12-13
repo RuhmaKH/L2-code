@@ -12,11 +12,6 @@ public class Jeu extends JFrame{
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
 
-    Monde monde = Monde.getMonde();
-
-    monde.initialize();
-
-
     int NB_TOUR;
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
 		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
@@ -37,7 +32,6 @@ public class Jeu extends JFrame{
 		Avatar mario = new Avatar(nom1 , 60.5, "link_retouche.png");
     Avatar luigi = new Avatar(nom2, 100.50, "mario_retouche.png");
 
-
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
     players[0] = mario;
@@ -49,8 +43,8 @@ public class Jeu extends JFrame{
     ///// Test Graphique
     JFrame f = new JFrame();
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    monde.setLayout(new BorderLayout());
- 		f.add(monde, BorderLayout.CENTER);
+    Monde.world.setLayout(new BorderLayout());
+ 		f.add(Monde.world, BorderLayout.CENTER);
     MenuDroite menuDroite = new MenuDroite();
     f.add(menuDroite, BorderLayout.EAST);
  		f.pack();
@@ -65,15 +59,14 @@ public class Jeu extends JFrame{
     interact = false;
     for (int i = 1; i < NB_TOUR; i++) {
       //m.afficher();
-      monde.repaint();
+      Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == mario){
         Thread.sleep(1000);  //ralenti l'affichage
       }
       System.out.println(mario);
       //m.afficher();
-
-      monde.repaint();
+      Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(1000);  //ralenti l'affichage

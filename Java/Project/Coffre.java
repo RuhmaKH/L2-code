@@ -44,8 +44,8 @@ public class Coffre extends Item {
         return contenu;
     }
 
-    public void dessiner(Graphics g, Monde m){
-        int tc = m.getTailleCase();
-        g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
+    public void dessiner(Graphics g){
+        int tc = Monde.tailleCase;
+        g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
     }
 }

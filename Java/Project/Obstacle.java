@@ -10,5 +10,5 @@ public abstract class Obstacle extends Item{
  public Obstacle (String nom){
    super (nom);
  }
-public abstract void dessiner ( Graphics g , Monde m);
+public abstract void dessiner (Graphics g);
 }

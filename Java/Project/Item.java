@@ -25,7 +25,7 @@ public abstract class Item{
   }
 
   protected void setX(int x){
-    this.x=x;
+    this.x = x;
   }
 
   protected void setY(int y){
@@ -37,7 +37,7 @@ public abstract class Item{
   }
 
   public String toString(){
-    return nom+"("+x+","+y+")";
+    return nom + "(" + x + "," + y + ")";
   }
 
   public int distance(Item item){
@@ -45,6 +45,6 @@ public abstract class Item{
     return Math.abs(x - item.x) + Math.abs( y - item.y);
   }
 
-  public abstract void dessiner ( Graphics g , Monde m);
+  public abstract void dessiner (Graphics g);
 
 }
