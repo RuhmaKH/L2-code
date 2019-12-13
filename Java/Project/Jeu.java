@@ -22,7 +22,6 @@ public class Jeu{
     players[0] = mario;
     monde.ajouterItem(luigi);
     players[1] = luigi;
-		mario.ramasser(new Sac(2), false);;
     monde.initialize();
 
     ///// Test Graphique

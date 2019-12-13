@@ -8,8 +8,8 @@ public class Coffre extends Item {
         contenu = new ArrayList<Item>();
     }
 
-    public void ajouter(Acc acc){
-        contenu.add(acc);
+    public void ajouter(Item item){
+        contenu.add(item);
     }
 
     public ArrayList<Item> getContenu(){
