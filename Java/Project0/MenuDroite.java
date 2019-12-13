@@ -22,7 +22,7 @@ private static Avatar[] players;
     g.setColor(Color.YELLOW);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     g.setColor(Color.RED);
-    g.drawString("LA COURSE DES DIEUX",200,50);
+    g.drawString("LA COUR SE DES DIEUX",150,50);
     g.setColor(Color.BLACK);
     int taille =  50;
     int espace = 10;

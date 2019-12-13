@@ -59,7 +59,7 @@ public class Creature extends Personnage{
 
   public void dessiner(Graphics g, Monde m){
     	int tc = m.getTailleCase();
-    	g.setColor(new Color(0,255,255)); //couleur courante devient bleu
+    	g.setColor(Color.CYAN); //couleur courante devient bleu
     	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }
 }

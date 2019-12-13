@@ -1,4 +1,5 @@
-
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class Obstacle extends Item{
 
@@ -9,5 +10,5 @@ public abstract class Obstacle extends Item{
  public Obstacle (String nom){
    super (nom);
  }
-
+public abstract void dessiner ( Graphics g , Monde m);
 }

@@ -119,7 +119,6 @@ public class Avatar extends Personnage{
       else
         ramasser((Acc) item, true);
     }
-    monde.supprimerItem(coffre);
   }
 
 
@@ -191,7 +190,7 @@ public class Avatar extends Personnage{
     int taille = monde.getTaille();
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
     }

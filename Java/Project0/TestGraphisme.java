@@ -5,6 +5,8 @@ public class TestGraphisme{
 	private static final int NB_CASES=20;
 
 	public static void main (String []args) throws InterruptedException{
+
+		/*
 		// Création de la fenetre graphique et ses caracteristiques
 		JFrame f=new JFrame();
 		f.setLocationRelativeTo(null);
@@ -23,7 +25,7 @@ public class TestGraphisme{
 			jake.seDeplacer();
 			m.repaint(); // Redessine le graphique
 		}
-
+*/
 	}
 
 }

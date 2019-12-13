@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Tresor extends Item {
     private double tresor;
 
@@ -9,4 +12,6 @@ public class Tresor extends Item {
     public double getTresor(){
         return tresor;
     }
+
+    public void dessiner ( Graphics g , Monde m){}
 }

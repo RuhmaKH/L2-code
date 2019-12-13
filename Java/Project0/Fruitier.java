@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
 
 public class Fruitier extends Magasin {
 
@@ -56,4 +58,6 @@ public class Fruitier extends Magasin {
 		stock.add(acc);
 		return prix;
 	}
+
+  public void dessiner ( Graphics g , Monde m){}
 }
