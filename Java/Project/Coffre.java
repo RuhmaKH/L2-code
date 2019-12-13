@@ -24,6 +24,12 @@ public class Coffre extends Item {
         }
     }
 
+    public ArrayList<Item> ouvrir(){
+        ArrayList<Item> tab = contenu;
+        contenu = new ArrayList<Item>();
+        return tab;
+    }
+
     public void ajouter(Item item){
         contenu.add(item);
     }

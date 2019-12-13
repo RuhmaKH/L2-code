@@ -210,19 +210,22 @@ public class Avatar extends Personnage{
 
   public void vendre (Magasin mag) {
     Scanner sc = new Scanner(System.in);
-    String discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
+    String discution;
     int num, i = 0;
     do{
+        discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
-          discution += "\t( " + i + " )-" + acc.getNom() + " : " + acc.getPrix() + "\n";
+          discution += String.format("\t( %d )-%s : %.2f\n", i, acc.getNom(), acc.getPrix());
+          i++;
           if(acc instanceof Sac)
             for(Acc a : ((Sac) acc).getTab()){
-              discution += "\t\t( " + (i++) + " )-" + a.getNom() + " : " + a.getPrix() + "\n";
+              discution += String.format("\t\t( %d )-%s : %.2f\n", i, a.getNom(), a.getPrix());
+              i++;
             }
-          i++;
         }
-        discution += "\t( " + i + " )-Acheter";
-        discution += "\t( " + (i++) + " )-Partir";
+        discution += "\t( " + i + " )-Acheter ?\n";
+        i++;
+        discution += "\t( " + i + " )-Partir ?";
         System.out.println(discution);
         System.out.println("Choisissez l'objet que vous désirez vendre : ");
         num = sc.nextInt();
@@ -249,8 +252,7 @@ public class Avatar extends Personnage{
           }
           num--;
         }
-        System.out.println("Voulez-vous vendre autre chose ? [o/n]");
-    }while( sc.nextLine() != "n");
+    }while(true);
   }
 
   private int inSac(Magasin mag, int num, Sac sac){

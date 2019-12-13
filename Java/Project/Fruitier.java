@@ -45,7 +45,7 @@ public class Fruitier extends Magasin {
 				money += plus;
 				stock.remove(num);
 			}
-		}while( sc.nextLine() != "n");
+		}while(true);
 	}
 
 	public double vendre (Acc acc){
