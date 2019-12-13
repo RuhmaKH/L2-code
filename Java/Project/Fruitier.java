@@ -1,12 +1,21 @@
 import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class Fruitier extends Magasin {
+  private Image image=null;
 
 	public Fruitier(){
 	  super("Fruitier");
 		initialize();
+		try {
+      image = ImageIO.read(new File("marchand.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
 	}
 
 	private void initialize(){
@@ -59,5 +68,8 @@ public class Fruitier extends Magasin {
 		return prix;
 	}
 
-  public void dessiner ( Graphics g , Monde m){}
+  public void dessiner ( Graphics g , Monde m){
+		int tc = m.getTailleCase();
+		g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
+	}
 }
