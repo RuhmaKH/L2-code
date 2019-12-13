@@ -11,18 +11,13 @@ public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
   private ArrayList<Acc> listeAcc;
   private double money;
-  private static int cpt = 0;
-  private final int id;
   private Image image =null;
 
   public Avatar(String nom, double poids, String  nomFichier){
     super(nom, poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
-    money = Math.random() * 10 + 5;
-    id=cpt;
-    cpt++;
-
+    dealMoney(Math.random() * 10 + 5);
     try {
           image = ImageIO.read(new File("./Image/"+nomFichier));
         }
@@ -129,8 +124,9 @@ public class Avatar extends Personnage{
   private void ouvrir(Coffre coffre){
     ArrayList<Item> contenu = coffre.ouvrir();
     for (Item item : contenu){
-      if (item instanceof Tresor)
-        money += ((Tresor) item).getTresor();
+      if (item instanceof Tresor){
+        dealMoney( ((Tresor) item).getTresor() );
+      }
       else
         ramasser((Acc) item, true);
     }
@@ -205,7 +201,7 @@ public class Avatar extends Personnage{
     int taille = Monde.taille;
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (Monde.chercher(x,y)== null)){
+    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
     }
@@ -218,7 +214,7 @@ public class Avatar extends Personnage{
       System.out.println("Vous n'avez pas assez d'argent pour acheter " + acc.getNom());
       return 0.0;
     }
-    money -= prix;
+    dealMoney(-prix);
     ramasser(acc, false);
     return prix;
   }
@@ -226,17 +222,19 @@ public class Avatar extends Personnage{
   public void vendre (Magasin mag) {
     Scanner sc = new Scanner(System.in);
     String discution;
-    int num, i = 0;
+    int num, i = 0, nbItem;
     do{
         discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
           discution += String.format("\t( %d )-%s : %.2f\n", i, acc.getNom(), acc.getPrix());
           i++;
-          if(acc instanceof Sac && ((Sac) acc).getNbElements() != 0)
-            for(Acc a : ((Sac) acc).getTab()){
-              discution += String.format("\t\t( %d )-%s : %.2f\n", i, a.getNom(), a.getPrix());
+          if(acc instanceof Sac && ( nbItem = ((Sac) acc).getNbElements() ) != 0){
+            Acc[] contenu = ((Sac) acc).getTab();
+            for(int j = 0; j < nbItem; j++){
+              discution += String.format("\t\t( %d )-%s : %.2f\n", i, contenu[j].getNom(), contenu[j].getPrix());
               i++;
             }
+          }
         }
         discution += "\t( " + i + " )-Acheter ?\n";
         i++;
@@ -291,6 +289,14 @@ public class Avatar extends Personnage{
       cmpt++;
     }
     return num;
+  }
+
+  private void dealMoney(double argent){
+    if (argent > 0)
+      System.out.println( String.format("%s a gagné %.2f €", getNom(), argent));
+    if (argent < 0)
+      System.out.println( String.format("%s a perdu %.2f €", getNom(), argent));
+    money += argent;
   }
 
   public void dessiner(Graphics g){
