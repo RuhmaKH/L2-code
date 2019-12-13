@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.io.*;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -80,8 +79,8 @@ public class Avatar extends Personnage{
       a = listeAcc.get(0);
       listeAcc.remove(0);
     }
-    
     if (a != null){
+      System.out.println(getNom() + " a donné " + a.getNom() + " à " + crea.getNom());
       crea.ajouter(a);
       if (!this.estAmi(crea) && a.getPoids() < 50)
         this.devenirAmi(crea);
@@ -120,7 +119,6 @@ public class Avatar extends Personnage{
     return j;
   }
 
-
   private void ouvrir(Coffre coffre){
     ArrayList<Item> contenu = coffre.ouvrir();
     for (Item item : contenu){
@@ -131,7 +129,6 @@ public class Avatar extends Personnage{
         ramasser((Acc) item, true);
     }
   }
-
 
   private void ramasser(Acc acc, boolean msg){
     boolean place = false;
@@ -208,6 +205,10 @@ public class Avatar extends Personnage{
     Monde.world.repaint();
   }
 
+  public void update(){
+
+  }
+  
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){
