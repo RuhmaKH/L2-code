@@ -72,14 +72,14 @@ public class MenuDroite extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-    Font font = new Font("Verdana", Font.BOLD, 30);
+    Font font = new Font("Trajan", Font.BOLD, 40);
     Font font1 =new Font ("Trajan", Font.ITALIC,15);
     Font font2 = new Font ("Trajan", Font.ITALIC,10);
     g.setFont(font);
     g.setColor(Color.YELLOW);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     g.setColor(Color.RED);
-    g.drawString("LA COURSE DES DIEUX",150,50);
+    g.drawString("LA COURSE DES DIEUX",70,50);
     g.setColor(Color.RED);
     Avatar[] players= Jeu.getPlayers();
 
