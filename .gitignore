@@ -1,3 +1,4 @@
 SDL
-.epsi
-.pyc
+*.epsi
+*.pyc
+*.class
