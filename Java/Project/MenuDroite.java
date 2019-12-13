@@ -35,7 +35,7 @@ public class MenuDroite extends JPanel{
     }
   }
 
-  public void CompteDifferentAcc(Avatar avatar){
+  public void compteDifferentAcc(Avatar avatar){
     sac = 0;
     pomme = 0;
     pillule = 0 ;
@@ -43,9 +43,23 @@ public class MenuDroite extends JPanel{
     ArrayList<Acc> tab = avatar.getAcc();
     for ( Acc acc : tab){
       if (acc instanceof Sac){
+        compteDifferentAcc((Sac) acc);
         sac++;
         continue;
       }
+      if (acc instanceof Pomme){
+        pomme++;
+        continue;
+      }
+      if(acc instanceof Pills){
+        pillule++;
+        continue;
+      }
+    }
+  }
+
+  public void compteDifferentAcc(Sac sac){
+    for ( Acc acc : sac.getTab()){
       if (acc instanceof Pomme){
         pomme++;
         continue;
@@ -89,7 +103,7 @@ public class MenuDroite extends JPanel{
         g.drawImage(imagePills,  i*taille+espace -5, 404 , 15, 35,this) ;
     }
     g.setColor(Color.WHITE);
-    CompteDifferentAcc(players[0]);
+    compteDifferentAcc(players[0]);
 
 
     g.setFont(font1);
@@ -127,7 +141,7 @@ public class MenuDroite extends JPanel{
       g.drawImage(imageCase,  i*taille+espace,770, taille,taille,this) ;
       espace+=10;
     }
-    CompteDifferentAcc(players[1]);
+    compteDifferentAcc(players[1]);
     g.setFont(font1);
     g.drawString("x"+sac, 90 , 745);
     g.drawString("x"+pomme, 150 , 745);
