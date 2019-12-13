@@ -131,7 +131,7 @@ public class Monde extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-		super.paintComponent(g); //redessine le panneau
+		//super.paintComponent(g); //redessine le panneau
     g.setColor(Color.GREEN);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     for (int i = 0; i<getWidth(); i++){

@@ -60,13 +60,14 @@ public class Jeu extends JFrame{
     for (int i = 1; i < NB_TOUR; i++) {
       //m.afficher();
       Monde.world.repaint();
+      menuDroite.repaint();
       while (currentPlayer == mario){
         Thread.sleep(1000);  //ralenti l'affichage
       }
       System.out.println(mario);
       //m.afficher();
-
       Monde.world.repaint();
+      menuDroite.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(1000);  //ralenti l'affichage
       }
