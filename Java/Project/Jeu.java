@@ -12,7 +12,7 @@ public class Jeu extends JFrame{
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 30;
-    Monde monde = new Monde (taille,30);
+    Monde monde = new Monde (taille, 30);
     monde.initialize();
 
 
@@ -33,7 +33,7 @@ public class Jeu extends JFrame{
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 		Avatar mario = new Avatar(nom1 , 60.5, monde, "link_retouche.png");
-    Avatar luigi = new Avatar(nom1, 100.50, monde, "mario_retouche.png");
+    Avatar luigi = new Avatar(nom2, 100.50, monde, "mario_retouche.png");
 
     //*********************************************** ITEMS *********************************************** */
     monde.ajouterItem(mario);
@@ -48,7 +48,7 @@ public class Jeu extends JFrame{
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     monde.setLayout(new BorderLayout());
  		f.add(monde, BorderLayout.CENTER);
-    MenuDroite menuDroite = new MenuDroite(players);
+    MenuDroite menuDroite = new MenuDroite();
     f.add(menuDroite, BorderLayout.EAST);
  		f.pack();
     f.setVisible(true);
@@ -109,7 +109,7 @@ public class Jeu extends JFrame{
             ggwp += c.getNom();
           ggwp += "\n";
         }
-        ggwp += "Iels ont parcou.e.s " + chicken + "km.\n";
+        ggwp += "Ils ont parcou.e.s " + chicken + "km.\n";
       }
     }
     else {
@@ -141,5 +141,9 @@ public class Jeu extends JFrame{
 
   public static void interact(){
     interact = ! interact;
+  }
+
+  public static Avatar[] getPlayers(){
+    return players;
   }
 }

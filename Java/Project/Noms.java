@@ -1,5 +1,5 @@
 public class Noms{
-  private static String[] tab = {"Serpent", "Chien", "Dragon", "Lion", "Baleine", "Chèvre"};
+  private static String[] tab = {"Chevre", "Chien", "Chat", "Lion", "Baleine", ""};
   private static int id = 0;
   private static int cpt = 1;
 
@@ -11,3 +11,5 @@ public class Noms{
     return tab[id++] + "_" + cpt;
   }
 }
+
+// Dragon Minautore Licorne sonic flash 

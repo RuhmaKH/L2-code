@@ -16,7 +16,7 @@ public class Sac extends Acc{
     super("Sac");
     tab= new Acc[n];
     try {
-      image = ImageIO.read(new File("bag.png"));
+      image = ImageIO.read(new File("./Image/bag.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();

@@ -11,7 +11,7 @@ public class Fruitier extends Magasin {
 	  super("Fruitier");
 		initialize();
 		try {
-      image = ImageIO.read(new File("marchand.png"));
+      image = ImageIO.read(new File("./Image/marchand.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();
@@ -30,7 +30,7 @@ public class Fruitier extends Magasin {
 		double plus;
 		do{
 			if ( (taille = stock.size()) != 0){
-				discution = String.format("Vous possédez %.2f €\nJe vend : \n", avatar.getMoney());
+				discution = String.format("Vous possédez %.2f €\nJe vends : \n", avatar.getMoney());
 
 				for (int i = 0; i < taille; i++)
 					discution += String.format("\t( %d )-%s : %.2f €\n", i, stock.get(i).getNom(), stock.get(i).getPrix());

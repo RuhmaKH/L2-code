@@ -17,7 +17,7 @@ public class Coffre extends Item {
         if (Math.random() < 0.125)
             ajouter(new Tresor());
         try {
-          image = ImageIO.read(new File("coffre_ferme_retouche.png"));
+          image = ImageIO.read(new File("./Image/coffre_ferme_retouche.png"));
         }
         catch(IOException exc) {
           exc.printStackTrace();

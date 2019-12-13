@@ -13,7 +13,7 @@ public class Pills extends Acc implements Mangeable {
         super("Pills");
         poids = Math.random();
         try {
-          image = ImageIO.read(new File("pillule_retouche.png"));
+          image = ImageIO.read(new File("./Image/pillule_retouche.png"));
         }
         catch(IOException exc) {
           exc.printStackTrace();

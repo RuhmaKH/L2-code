@@ -26,7 +26,7 @@ public class Avatar extends Personnage{
     cpt++;
 
     try {
-          image = ImageIO.read(new File(nomFichier));
+          image = ImageIO.read(new File("./Image/"+nomFichier));
         }
         catch(IOException exc) {
           exc.printStackTrace();
@@ -36,6 +36,9 @@ public class Avatar extends Personnage{
 
   public String toString(){
     return super.toString() + " : " + listeAmis.size() + " amis(s) "+ listeAcc.size() + " accessoire(s)";
+  }
+  public Image getImage(){
+    return image;
   }
 
   public ArrayList<Creature> getAmis(){

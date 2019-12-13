@@ -123,15 +123,6 @@ public class Monde extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-    Image image =null;
-    try {
-			image = ImageIO.read(new File("Smiley_Face.JPG"));
-		}
-		catch(IOException exc) {
-			exc.printStackTrace();
-		}
-
-
 		super.paintComponent(g); //redessine le panneau
     g.setColor(Color.GREEN);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
