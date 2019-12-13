@@ -14,8 +14,9 @@ public class Avatar extends Personnage{
   private double money;
   private static int cpt = 0;
   private final int id;
+  private Image image =null;
 
-  public Avatar(String nom, double poids, Monde monde){
+  public Avatar(String nom, double poids, Monde monde, String  nomFichier){
     super(nom,poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
@@ -23,6 +24,14 @@ public class Avatar extends Personnage{
     money = Math.random() * 10 + 5;
     id=cpt;
     cpt++;
+
+    try {
+          image = ImageIO.read(new File(nomFichier));
+        }
+        catch(IOException exc) {
+          exc.printStackTrace();
+        }
+
   }
 
   public String toString(){
@@ -102,6 +111,18 @@ public class Avatar extends Personnage{
     return j;
   }
 
+
+  private void ouvrir(Coffre coffre){
+    for (Item item : coffre.getContenu()){
+      if (item instanceof Tresor)
+        money += ((Tresor) item).getTresor();
+      else
+        ramasser((Acc) item, true);
+    }
+    monde.supprimerItem(coffre);
+  }
+
+
   private void ramasser(Acc a, boolean msg){
     boolean place = false;
     for (Item i : listeAcc)
@@ -120,22 +141,24 @@ public class Avatar extends Personnage{
   public void rencontrerVoisins(){
     Jeu.interact();
     ArrayList<Item> voisins = monde.getVoisins(this);
-    for(Item i : voisins){
-      if(i instanceof Avatar)
-        System.out.println("Salutation mon ami " + i.getNom());
-      if(i instanceof Creature)
-        rencontrer((Creature) i);
-      if(i instanceof Acc)
-        ramasser((Acc) i, true);
-      if(i instanceof Magasin){
+    for (Item item : voisins){
+      if (item instanceof Avatar)
+        System.out.println("Salutation mon ami " + item.getNom());
+      if (item instanceof Creature)
+        rencontrer((Creature) item);
+      if (item instanceof Coffre)
+        ouvrir((Coffre) item);
+      if (item instanceof Acc)
+        ramasser((Acc) item, true);
+      if (item instanceof Magasin){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenu.e dans mon magasin " + i.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
           case 0:
-            ((Magasin) i).acheter(this);
+            ((Magasin) item).acheter(this);
             break;
           case 1:
-            vendre((Magasin) i);
+            vendre((Magasin) item);
         }
       }
       monde.repaint();
@@ -254,26 +277,9 @@ public class Avatar extends Personnage{
     return num;
   }
 
-  public void dessiner(Graphics g, Monde m){
-      int tc = m.getTailleCase();
-      Image image =null;
-      if (id==0){
-        try {
-            image = ImageIO.read(new File("link_retouche.png"));
-          }
-          catch(IOException exc) {
-            exc.printStackTrace();
-          }
-          g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
-      }else{
-        try {
-            image = ImageIO.read(new File("mario_retouche.png"));
-          }
-          catch(IOException exc) {
-            exc.printStackTrace();
-          }
-          g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
-      }
+  public void dessiner(Graphics g, Monde monde){
+      int tc = monde.getTailleCase();
+      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,monde);
       //g.setColor(new Color(0,0,255)); //couleur courante devient bleu
       //g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }

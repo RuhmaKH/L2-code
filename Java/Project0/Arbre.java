@@ -1,0 +1,12 @@
+
+
+public class Arbre extends Obstacle{
+
+  public Arbre (){
+    super("Arbre");
+  }
+
+  public Arbre( int x , int y ){
+    super( "Arbre",x ,y);
+  }
+}

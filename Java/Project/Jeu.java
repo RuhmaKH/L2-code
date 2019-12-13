@@ -1,54 +1,78 @@
-import java.util.Scanner;
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.nio.*;
+import java.util.*;
 
-public class Jeu{
+public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static boolean interact;
-  public static void main (String [] args)throws InterruptedException{
+
+  public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
-    int taille = 20;
-    Monde monde = new Monde (taille,30);
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Nom du joueur 1 :");
-    Avatar mario = new Avatar(sc.nextLine(), 60.5, monde);
-    System.out.println("Nom du joueur 2 :");
-    Avatar luigi = new Avatar(sc.nextLine(), 100.50, monde);
-		int NB_TOUR = 3;
-		
+    int taille = 30;
+    Monde m = new Monde (taille,30);
+
+
+    int NB_TOUR;
+    String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
+		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
+		if(nom1 == "" || nom1 == null) {
+			nom1 = "J1";
+		}
+		if(nom2 == "" || nom2 == null) {
+			nom2 = "J2";
+		}
+
+		try {
+			NB_TOUR = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"))*2;
+		}catch(NumberFormatException e) {
+			NB_TOUR = 10;
+			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
+		}
+		Avatar mario = new Avatar(nom1 , 60.5, m);
+    Avatar luigi = new Avatar(nom1, 100.50, m);
+
     //*********************************************** ITEMS *********************************************** */
     monde.ajouterItem(mario);
     players[0] = mario;
     monde.ajouterItem(luigi);
     players[1] = luigi;
-		mario.ramasser(new Sac(2), false);;
     monde.initialize();
+
+    //m.afficher();
 
     ///// Test Graphique
     JFrame f = new JFrame();
-    f.setLocationRelativeTo(null);
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
- 		f.setContentPane(monde);
+    m.setLayout(new BorderLayout());
+ 		f.add(m, BorderLayout.CENTER);
+    MenuDroite menuDroite = new MenuDroite(players);
+    f.add(menuDroite, BorderLayout.EAST);
  		f.pack();
- 		f.setVisible(true);
+    f.setVisible(true);
+    f.setResizable(false);
     f.setFocusable(true);
+    f.setLocationRelativeTo(null);
     f.addKeyListener(new MyKeyListener());
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     interact = false;
-    for (int i = 0; i < NB_TOUR; i++) {
+    for (int i = 1; i < NB_TOUR; i++) {
+      //m.afficher();
       System.out.println(mario);
-      monde.repaint();
+      m.repaint();
       while (currentPlayer == mario){
-        Thread.sleep(700);  //ralenti l'affichage
+        Thread.sleep(1000);  //ralenti l'affichage
       }
+
+      //m.afficher();
       System.out.println(luigi);
-      monde.repaint();
+      m.repaint();
       while (currentPlayer == luigi){
-        Thread.sleep(700);  //ralenti l'affichage
+        Thread.sleep(1000);  //ralenti l'affichage
       }
     }
 
@@ -75,7 +99,7 @@ public class Jeu{
           winner = luigi;
         }
 
-        ggwp += winner.getNom() + " a gagné la course grâce à ses amis :\n";
+        ggwp += winner.getNom() + " a gagné.e la course grâce à ses amis :\n";
         daFast = winner.getCreaturePlusRapide();
         for (Creature c : winner.getAmis()){
           ggwp += "\t - ";
@@ -85,21 +109,21 @@ public class Jeu{
             ggwp += c.getNom();
           ggwp += "\n";
         }
-        ggwp += "IZels ont parcou.e.s " + chicken + "km.\n";
+        ggwp += "Iels ont parcou.e.s " + chicken + "km.\n";
       }
     }
     else {
       if (amisMario == 0 && amisLuigi == 0)
-        ggwp += "La course n'a pas eu lieu car " + mario.getNom() + " et " + luigi.getNom() + " n'ont pas d'amis";
+        ggwp += "La course n'a pas eu lieu car " + mario.getNom() + " et " + luigi.getNom() + " n'ont pas d'ami.e.s";
       else {  if(amisMario == 0)
-          ggwp += luigi.getNom() + " a gagné la course car " + mario.getNom() + " n'a pas d'amis";
+          ggwp += luigi.getNom() + " a gagné.e la course car " + mario.getNom() + " n'a pas d'ami.e.s";
         else
-        ggwp += mario.getNom() + " a gagné la course car " + luigi.getNom() + " n'a pas d'amis";
+        ggwp += mario.getNom() + " a gagné.e la course car " + luigi.getNom() + " n'a pas d'ami.e.s";
       }
     }
 
     System.out.println(ggwp);
-    sc.close();
+  //  sc.close();
 
   }
 

@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.awt.*;
+import java.io.*;
 import javax.swing.*;
+import javax.imageio.ImageIO;
+
 
 public class Monde extends JPanel{
   private ArrayList<Item> listeItems;
   private int taille;
   private int tailleCase;
+
 
   public Monde(int taille, int tailleCase){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
@@ -40,8 +44,7 @@ public class Monde extends JPanel{
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterItem(new Pills());
     //############# Magasin #############
-    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-      ajouterItem(new Fruitier());
+    ajouterItem(new Fruitier());
   }
 
   public void ajouterItem(Item item){
@@ -126,10 +129,29 @@ public class Monde extends JPanel{
   }
 
   public void paintComponent(Graphics g){
+    Image image =null;
+    try {
+			image = ImageIO.read(new File("Smiley_Face.JPG"));
+		}
+		catch(IOException exc) {
+			exc.printStackTrace();
+		}
+
+
 		super.paintComponent(g); //redessine le panneau
+    g.setColor(Color.GREEN);
+    g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
+    for (int i = 0; i<getWidth(); i++){
+      g.setColor(Color.ORANGE);
+      g.drawLine( i*tailleCase, 0, i*tailleCase, getHeight());
+    }
+    for (int i = 0; i<getWidth(); i++){
+      g.setColor(Color.ORANGE);
+      g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
+    }
 		for(Item itemVoisin : listeItems){
 			if( itemVoisin != null){
-				itemVoisin.dessiner(g, this);
+				itemVoisin.dessiner(g,this);
 			}
 		}
   }

@@ -10,10 +10,17 @@ import javax.imageio.ImageIO;
 
 public class Sac extends Acc{
   private Acc[] tab;
+  private Image image =null;
 
   public Sac(int n) {
     super("Sac");
     tab= new Acc[n];
+    try {
+      image = ImageIO.read(new File("bag.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
   }
 
   public Sac(){
@@ -100,13 +107,6 @@ public class Sac extends Acc{
 
   public void dessiner(Graphics g, Monde m){
       int tc = m.getTailleCase();
-      Image image =null;
-      try {
-        image = ImageIO.read(new File("bag.png"));
-      }
-      catch(IOException exc) {
-        exc.printStackTrace();
-      }
       g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2,m);
     	//g.setColor(new Color(225,255,0)); //couleur courante devient bleu
     	//g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein

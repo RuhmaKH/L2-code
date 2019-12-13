@@ -29,9 +29,46 @@ public class Monde extends JPanel{
     return taille;
   }
 
+  public void initialize(){
+    //############# Creature #############
+    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
+      ajouterItem(new Creature());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+      ajouterItem(new Ryuk());
+    //############# Accessoire #############
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
+      ajouterItem(new Sac());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+      ajouterItem(new Pomme());
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
+      ajouterItem(new Pills());
+    //############# Magasin #############
+    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+      ajouterItem(new Fruitier());
+  }
+
   public void ajouterItem(Item item){
     item.setX(getPositionAlea());
     item.setY(getPositionAlea());
+    if (item instanceof Acc){
+      for (Item i : listeItems)
+        if ( i.getX() == item.getX() && i.getY() == item.getY() && i instanceof Coffre) {
+          ((Coffre) i).ajouter(item);
+          return;
+        }
+      Coffre coffre = new Coffre();
+      if (Math.random() < 0.125)
+        coffre.ajouter(new Tresor());
+      ajouterItem(coffre, item.getX(), item.getY());
+      coffre.ajouter(item);
+    }
+    else
+      listeItems.add(item);
+  }
+
+  private void ajouterItem(Item item, int x, int y){
+    item.setX(x);
+    item.setY(y);
     listeItems.add(item);
   }
 

@@ -12,7 +12,8 @@ public class Jeu extends JFrame{
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
     int taille = 30;
-    Monde m = new Monde (taille,30);
+    Monde monde = new Monde (taille,30);
+    monde.initialize();
 
 
     int NB_TOUR;
@@ -31,32 +32,22 @@ public class Jeu extends JFrame{
 			NB_TOUR = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
-		Avatar mario = new Avatar(nom1 , 60.5, m);
-    Avatar luigi = new Avatar(nom1, 100.50, m);
+		Avatar mario = new Avatar(nom1 , 60.5, monde, "link_retouche.png");
+    Avatar luigi = new Avatar(nom1, 100.50, monde, "mario_retouche.png");
 
     //*********************************************** ITEMS *********************************************** */
-    m.ajouterItem(mario);
+    monde.ajouterItem(mario);
     players[0] = mario;
-    m.ajouterItem(luigi);
+    monde.ajouterItem(luigi);
     players[1] = luigi;
-
-    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
-        m.ajouterItem(new Creature());
-
-    for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
-      m.ajouterItem(new Sac());
-
-    for (int j = 0; j < Math.random() * (taille /4 ) + taille /2; j++)
-      m.ajouterItem(new Pomme());
-
 
     //m.afficher();
 
     ///// Test Graphique
     JFrame f = new JFrame();
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    m.setLayout(new BorderLayout());
- 		f.add(m, BorderLayout.CENTER);
+    monde.setLayout(new BorderLayout());
+ 		f.add(monde, BorderLayout.CENTER);
     MenuDroite menuDroite = new MenuDroite(players);
     f.add(menuDroite, BorderLayout.EAST);
  		f.pack();
@@ -72,14 +63,14 @@ public class Jeu extends JFrame{
     for (int i = 1; i < NB_TOUR; i++) {
       //m.afficher();
       System.out.println(mario);
-      m.repaint();
+      monde.repaint();
       while (currentPlayer == mario){
         Thread.sleep(1000);  //ralenti l'affichage
       }
 
       //m.afficher();
       System.out.println(luigi);
-      m.repaint();
+      monde.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(1000);  //ralenti l'affichage
       }
