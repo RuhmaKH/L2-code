@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 
-
 public class Creature extends Personnage{
   protected Sac sac;
   private Avatar bff;
