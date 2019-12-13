@@ -36,40 +36,35 @@ public class Monde extends JPanel{
       ajouterItem(new Creature());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
       ajouterItem(new Ryuk());
+    //############# Coffre #############
+    for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
+      ajouterItem(new Coffre());
     //############# Accessoire #############
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 4; j++)
-      ajouterItem(new Sac());
+      ajouterAcc(new Sac());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-      ajouterItem(new Pomme());
+      ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
-      ajouterItem(new Pills());
+      ajouterAcc(new Pills());
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }
 
   public void ajouterItem(Item item){
-    item.setX(getPositionAlea());
-    item.setY(getPositionAlea());
-    if (item instanceof Acc){
-      for (Item i : listeItems)
-        if ( i.getX() == item.getX() && i.getY() == item.getY() && i instanceof Coffre) {
-          ((Coffre) i).ajouter(item);
-          return;
-        }
-      Coffre coffre = new Coffre();
-      if (Math.random() < 0.125)
-        coffre.ajouter(new Tresor());
-      ajouterItem(coffre, item.getX(), item.getY());
-      coffre.ajouter(item);
-    }
-    else
-      listeItems.add(item);
+    do {
+      item.setX(getPositionAlea());
+      item.setY(getPositionAlea());
+    } while (chercher(item.getX(), item.getY()) != null);
+    listeItems.add(item);
+    
   }
 
-  private void ajouterItem(Item item, int x, int y){
-    item.setX(x);
-    item.setY(y);
-    listeItems.add(item);
+  private void ajouterAcc(Acc acc){
+    ArrayList<Coffre> coffres = new ArrayList<Coffre>();
+    for (Item item : listeItems)
+      if (item instanceof Coffre)
+        coffres.add((Coffre) item);
+    coffres.get( (int) (Math.random() * coffres.size()) ).ajouter(acc);;
   }
 
   public void supprimerItem(Item item){
@@ -78,7 +73,7 @@ public class Monde extends JPanel{
     item.setY(-1);
   }
 
-  public Item chercher(int x,int y){
+  public Item chercher(int x, int y){
     for(Item i : listeItems)
       if(i.getX() == x && i.getY() == y)
         return i;
@@ -129,7 +124,7 @@ public class Monde extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-    Image image =null;
+    Image image = null;
     try {
 			image = ImageIO.read(new File("Smiley_Face.JPG"));
 		}

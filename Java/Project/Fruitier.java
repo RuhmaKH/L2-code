@@ -8,7 +8,7 @@ public class Fruitier extends Magasin {
 	}
 	
 	private void initialize(){
-		for (int i = 0; i < Math.random() * 8 + 5; i++)
+		for (int i = 0; i < Math.random() * 10 + 7; i++)
 			stock.add(new Pomme());
 	}
 

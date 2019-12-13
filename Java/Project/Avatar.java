@@ -93,13 +93,12 @@ public class Avatar extends Personnage{
   }
 
   private void ouvrir(Coffre coffre){
-    for (Item item : coffre.getContenu()){
+    for (Item item : coffre.ouvrir()){
       if (item instanceof Tresor)
         money += ((Tresor) item).getTresor();
       else
         ramasser((Acc) item, true);
     }
-    monde.supprimerItem(coffre);
   }
 
   public void ramasser(Acc a, boolean msg){
@@ -170,7 +169,7 @@ public class Avatar extends Personnage{
     int taille = monde.getTaille();
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1)){
+    if ( (x > 0 && x < taille - 1)  && (y > 0 && y < taille - 1) && (monde.chercher(x, y) == null)){
       setX(x);
       setY(y);
     }
