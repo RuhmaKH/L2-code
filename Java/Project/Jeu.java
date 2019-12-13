@@ -11,12 +11,9 @@ public class Jeu extends JFrame{
 
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
-<<<<<<< HEAD
-    int taille = 30;
-    Monde monde = new Monde (taille, 30);
-=======
+
     Monde monde = Monde.getMonde();
->>>>>>> 153e114fc0433f98f305dae2487d0358d9fff64e
+
     monde.initialize();
 
 
@@ -36,13 +33,10 @@ public class Jeu extends JFrame{
 			NB_TOUR = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
-<<<<<<< HEAD
-		Avatar mario = new Avatar(nom1 , 60.5, monde, "link_retouche.png");
-    Avatar luigi = new Avatar(nom2, 100.50, monde, "mario_retouche.png");
-=======
+
 		Avatar mario = new Avatar(nom1 , 60.5, "link_retouche.png");
     Avatar luigi = new Avatar(nom2, 100.50, "mario_retouche.png");
->>>>>>> 153e114fc0433f98f305dae2487d0358d9fff64e
+
 
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
@@ -77,7 +71,7 @@ public class Jeu extends JFrame{
       }
       System.out.println(mario);
       //m.afficher();
-      
+
       monde.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(1000);  //ralenti l'affichage
