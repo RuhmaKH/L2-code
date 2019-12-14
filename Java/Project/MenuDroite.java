@@ -6,20 +6,20 @@ import javax.imageio.ImageIO;
 
 
 public class MenuDroite extends JPanel{
-  private Image imageCase= null;
-  private Image imageArgent=null;
-  private Image imageSac=null;
-  private Image imagePomme=null;
-  private Image imagePills=null;
+  private Image imageCase = null;
+  private Image imageArgent = null;
+  private Image imageSac = null;
+  private Image imagePomme = null;
+  private Image imagePills = null;
   private double money;
   private int sac;
   private int pomme;
   private int pillule;
 
 
-  public MenuDroite(){
+  public MenuDroite () {
     setPreferredSize(new Dimension(650,0));
-    money =0;
+    money = 0;
     sac = 0;
     pomme = 0;
     pillule = 0;
@@ -41,7 +41,7 @@ public class MenuDroite extends JPanel{
     pillule = 0 ;
     money = avatar.getMoney();
     ArrayList<Acc> tab = avatar.getAcc();
-    for ( Acc acc : tab){
+    for (Acc acc : tab){
       if (acc instanceof Sac){
         compteDifferentAcc((Sac) acc);
         sac++;
@@ -59,7 +59,7 @@ public class MenuDroite extends JPanel{
   }
 
   public void compteDifferentAcc(Sac soussac){
-    for ( Acc acc : soussac.getTab()){
+    for (Acc acc : soussac.getTab()){
       if (acc instanceof Sac){
         compteDifferentAcc((Sac) acc);
         sac++;
@@ -78,13 +78,13 @@ public class MenuDroite extends JPanel{
 
   public void paintComponent(Graphics g){
     Font font = new Font("Trajan", Font.BOLD, 40);
-    Font font1 =new Font ("Trajan", Font.ITALIC,15);
-    Font font2 = new Font ("Trajan", Font.ITALIC,10);
+    Font font1 = new Font ("Trajan", Font.ITALIC, 15);
+    Font font2 = new Font ("Trajan", Font.ITALIC, 10);
     g.setFont(font);
     g.setColor(Color.YELLOW);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     g.setColor(Color.RED);
-    g.drawString("LA COURSE DES DIEUX",70,50);
+    g.drawString("LA COURSE DES DIEUX", 70, 50);
     g.setColor(Color.RED);
     Avatar[] players= Jeu.getPlayers();
 
@@ -112,15 +112,15 @@ public class MenuDroite extends JPanel{
 
 
     g.setFont(font1);
-    g.drawString("x"+sac, 90 , 445);
-    g.drawString("x"+pomme, 150 , 445);
-    g.drawString("x"+pillule, 210 , 445);
+    g.drawString("x" + sac, 90 , 445);
+    g.drawString("x" + pomme, 150 , 445);
+    g.drawString("x" + pillule, 210 , 445);
     g.setFont(font2);
-    g.drawString(String.format("%.2f",money)+"€", 25 , 442);
+    g.drawString(String.format("%.2f", money) + "€", 25 , 442);
 
 
-    espace =10;
-    for (int i = 0; i< 10; i++ ){
+    espace = 10;
+    for (int i = 0; i < 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,470, taille ,taille ,this) ;
       espace+=10;
     }
@@ -141,16 +141,16 @@ public class MenuDroite extends JPanel{
       if (i==3)
         g.drawImage(imagePills,  i*taille+espace -5, 704 , 15, 35,this) ;
     }
-    espace =10;
+    espace = 10;
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,770, taille,taille,this) ;
       espace+=10;
     }
     compteDifferentAcc(players[1]);
     g.setFont(font1);
-    g.drawString("x"+sac, 90 , 745);
-    g.drawString("x"+pomme, 150 , 745);
-    g.drawString("x"+pillule, 210 , 745);
+    g.drawString("x" + sac, 90 , 745);
+    g.drawString("x" + pomme, 150 , 745);
+    g.drawString("x" + pillule, 210 , 745);
     g.setFont(font2);
     g.drawString(String.format("%.2f",money)+"€", 25 , 742);
   }

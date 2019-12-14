@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.*;
 
 public class MyKeyListener implements KeyListener {
-    private boolean leftHeld, rightHeld, upHeld, downHeld;
+    private static boolean leftHeld, rightHeld, upHeld, downHeld;
 
     public MyKeyListener () {
         leftHeld = false;
@@ -11,13 +11,29 @@ public class MyKeyListener implements KeyListener {
         downHeld = false;
     }
 
-    public boolean[] getDirection(){
-        boolean[] direction = {leftHeld, rightHeld, upHeld, downHeld};
-        return direction;
+    public static int[] getDirection(){
+        int[] coord = {0, 0};
+        if (leftHeld){
+            coord[0] = -1;
+            coord[1] = 0;
+        }
+        if (rightHeld){
+            coord[0] = +1;
+            coord[1] = 0;
+        }
+        if (upHeld){
+            coord[0] = 0;
+            coord[1] = -1;
+        }
+        if (downHeld){
+            coord[0] = 0;
+            coord[1] = +1;
+        }
+        return coord;
     }
     
     public void keyReleased (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -37,7 +53,7 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyPressed (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -57,7 +73,7 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyTyped (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         Avatar player = Jeu.getCurrPlay();
         char id = e.getKeyChar();

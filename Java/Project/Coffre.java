@@ -13,7 +13,7 @@ public class Coffre extends Item {
         super("Coffre");
         //state=false;
         contenu = new ArrayList<Item>();
-        if (Math.random() < 0.125)
+        if (Math.random() < 0.8)
             ajouter(new Tresor());
         image=Images.getImage("Coffre_ferme");
     }

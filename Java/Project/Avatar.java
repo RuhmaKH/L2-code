@@ -61,19 +61,15 @@ public class Avatar extends Personnage{
   }
 
   private void devenirAmi(Creature crea){
-    if (! this.estAmi(crea)){
-      crea.newBFF(this);
-      listeAmis.add(crea);
-      System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
-    }
+    crea.newBFF(this);
+    listeAmis.add(crea);
+    System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
   }
 
-  private void PerdreAmi(Creature crea){
-    if (this.estAmi(crea)){
-      crea.looseBFF();
-      listeAmis.remove(crea);
-      System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
-    }
+  protected void perdreAmi(Creature crea){
+    crea.newBFF(this);
+    listeAmis.remove(crea);
+    System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
   }
 
   private void rencontrer(Creature crea){
@@ -90,7 +86,7 @@ public class Avatar extends Personnage{
     }
     else
       if (this.estAmi(crea))
-        this.PerdreAmi(crea);
+        this.perdreAmi(crea);
   }
 
   public double course(){
@@ -137,14 +133,18 @@ public class Avatar extends Personnage{
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac){
-          if((place = ((Sac) i ).ajouter(acc, true)))
-            break;
+          if((place = ((Sac) i ).ajouter(acc, msg))){
+            if (msg)
+              System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
+            return;
+          }
         }
-    if (! place)
+    if (! place){
       listeAcc.add(acc);
-    if (msg){
-      System.out.println(getNom() + " ramasse " + acc.getNom());
-      Monde.supprimerItem(acc);
+      if (msg){
+        System.out.println(getNom() + " ramasse " + acc.getNom());
+    }
+    Monde.supprimerItem(acc);
     }
   }
 
@@ -161,6 +161,7 @@ public class Avatar extends Personnage{
       if (item instanceof Acc)
         ramasser((Acc) item, true);
       if (item instanceof Magasin){
+        //Monde.dessinerShop();
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
@@ -209,7 +210,8 @@ public class Avatar extends Personnage{
   }
 
   public void update(){
-
+    int[] coord = MyKeyListener.getDirection();
+    seDeplacer(coord[0], coord[1]);
   }
 
   public double acheter (Acc acc){
@@ -255,8 +257,8 @@ public class Avatar extends Personnage{
         }
         for (Acc acc : listeAcc){
           if (num == 0){
-            money += mag.vendre(acc);
-            if ( acc instanceof Sac)
+            dealMoney( mag.vendre(acc) );
+            if (acc instanceof Sac)
               for (Acc a : ((Sac) acc).getTab())
                 ramasser(a , false);
             listeAcc.remove(acc);
@@ -273,24 +275,12 @@ public class Avatar extends Personnage{
   }
 
   private int inSac(Magasin mag, int num, Sac sac){
-    int cmpt = 0;
-    for (Acc acc : sac.getTab()){
+    for (int i = 0; i < sac.getNbElements(); i++){
       num--;
       if (num == 0){
-        money += mag.vendre(acc);
-        if (acc instanceof Sac)
-          for (Acc a : sac.getTab())
-            ramasser(a, false);
-        sac.obtenir(cmpt);
+        dealMoney( mag.vendre( sac.obtenir(i) ) );
         return 0;
       }
-      if(acc instanceof Sac){
-        if ((num = inSac(mag, num, (Sac) acc)) == 0){
-          return 0;
-        }
-
-      }
-      cmpt++;
     }
     return num;
   }
@@ -306,7 +296,5 @@ public class Avatar extends Personnage{
   public void dessiner(Graphics g){
       int tc = Monde.tailleCase;
       g.drawImage(image, getX() * tc + 1, getY() * tc + 1, tc - 2, tc - 2, Monde.world);
-      //g.setColor(new Color(0,0,255)); //couleur courante devient bleu
-      //g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
     }
 }

@@ -34,38 +34,15 @@ public class Sac extends Acc{
     return tab;
   }
 
-  public boolean ajouter(Acc a, boolean msg){
-    for(Acc acc : tab)
-      if(acc instanceof Sac)
-        if( ((Sac) acc).ajouter(a, "Sous-", msg) )
-          return true;
+  public boolean ajouter(Acc acc, boolean msg){
     int nb;
     if((nb = getNbElements()) < tab.length){
-      tab[nb] = a;
+      tab[nb] = acc;
       return true;
     }
     else{
       if (msg)
-        System.out.println("Pas la place !");
-      return false;
-    }
-  }
-
-  private boolean ajouter(Acc a, String niv, boolean msg){
-    for(Acc acc : tab)
-      if(acc instanceof Sac && (niv == "Sous-" || niv == "Sous-Sous-"))
-        if( ((Sac) acc).ajouter(a, niv + "Sous-", msg))
-          return true;
-    int nb;
-    if((nb = getNbElements()) < tab.length){
-      tab[nb] = a;
-      if (msg)
-        System.out.println("L'item a été placé dans le " + niv + "sac !");
-      return true;
-    }
-    else{
-      if (msg)
-        System.out.println("Pas la place dans le " + niv + "sac !");
+        System.out.println("Pas la place dans le " + getNom());
       return false;
     }
   }

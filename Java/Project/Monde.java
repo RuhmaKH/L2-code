@@ -10,7 +10,7 @@ public class Monde extends JPanel{
   public static final int taille = 30;
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
-  private Image imageHerbe=null;
+  private Image imageHerbe = null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
@@ -68,7 +68,7 @@ public class Monde extends JPanel{
     listeItems.add(item);
   }
 
-  public static void ajouterItemAtCoor(Item item){
+  public static void ajouterItemAtCoord(Item item){
     if (chercher(item.getX(), item.getY()) == null)
       listeItems.add(item);
     else
@@ -149,22 +149,25 @@ public class Monde extends JPanel{
     }
   System.out.println(aff);
   }
-  public void dessinermap(Graphics g){
+  public void dessinerMap(Graphics g){
     int longueur = getWidth();
     int hauteur = getHeight();
-    for (int i = 0; i< longueur/6; i++){
-      for (int j = 0; j< hauteur/6; j++){
-        g.drawImage( imageHerbe , i*tailleCase*5 , j*tailleCase*5 , tailleCase*5 , tailleCase*5 , this) ;
-      }
-    }
+    for (int i = 0; i < longueur / 6; i++)
+      for (int j = 0; j < hauteur / 6; j++)
+        g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
+  }
 
+  public void dessinerShop(Graphics g){
+    int size = taille * tailleCase;
+    g.setColor(new Color(95, 0, 0));
+    g.fillRect(15, size - 200, size - 30, 185);
   }
 
   public void paintComponent(Graphics g){
 		super.paintComponent(g); //redessine le panneau
     //g.setColor(Color.GREEN);
     //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
-    dessinermap(g);
+    dessinerMap(g);
     //super.paintComponent(g); //redessine le panneau
     /*
     for (int i = 0; i<getWidth(); i++){
@@ -175,10 +178,21 @@ public class Monde extends JPanel{
       g.setColor(Color.ORANGE);
       g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
     }*/
-		for(Item itemVoisin : listeItems){
-			if( itemVoisin != null){
+		for(Item itemVoisin : listeItems)
+			if( itemVoisin != null)
 				itemVoisin.dessiner(g);
-			}
-		}
+    
+    
+    dessinerShop(g);
+    Image imageShop = null;
+    int size = taille * tailleCase;
+    try {
+      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
+    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
+		
   }
 }
