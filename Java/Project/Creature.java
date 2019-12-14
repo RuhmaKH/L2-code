@@ -10,7 +10,7 @@ public class Creature extends Personnage{
     super(Noms.getNom());
     sac = new Sac();
     bff = null;
-    image=Images.getImage(Noms.getTab_icourant());
+    image = Images.getImage(Noms.getTab_icourant());
   }
 
   public Creature(String nom){

@@ -17,7 +17,7 @@ public class Monde extends JPanel{
     listeItems = new ArrayList<Item>();
     new Images();
     initialize();
-    imageHerbe=Images.getImage("Herbe");
+    imageHerbe = Images.getImage("Herbe");
     /*
     try {
       imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
@@ -34,13 +34,13 @@ public class Monde extends JPanel{
   private void initialize(){
     //############# Arbre #############
     for (int j = 0; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(0,j));
+      ajouterItemAtCoord(new Arbre(0,j));
     for (int j = 1; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(j,0));
+      ajouterItemAtCoord(new Arbre(j,0));
     for (int j = 1; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(taille-1,j));
+      ajouterItemAtCoord(new Arbre(taille-1,j));
     for (int j = 1; j < taille-1; j++)
-      ajouterItemAtCoor(new Arbre(j,taille-1));
+      ajouterItemAtCoord(new Arbre(j,taille-1));
 
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
@@ -162,7 +162,7 @@ public class Monde extends JPanel{
     int size = taille * tailleCase;
     Image imageShop = null;
     try {
-      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
+      imageShop = ImageIO.read(new File("./Image/dialogue.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();

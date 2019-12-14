@@ -10,7 +10,7 @@ public class Fruitier extends Magasin {
 	public Fruitier(){
 	  super("Fruitier");
 		initialize();
-		image=Images.getImage("Marchand");
+		image = Images.getImage("Marchand");
 	}
 
 	private void initialize(){
