@@ -17,7 +17,7 @@ public class MenuDroite extends JPanel{
   private int pillule;
 
 
-  public MenuDroite(){
+  public MenuDroite () {
     setPreferredSize(new Dimension(650,0));
     money = 0;
     sac = 0;

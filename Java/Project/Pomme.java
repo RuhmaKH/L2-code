@@ -35,7 +35,5 @@ public class Pomme extends Acc implements Mangeable{
   public void dessiner(Graphics g){
       int tc = Monde.tailleCase;
       g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
-    //g.setColor(new Color(255,0,0));// rouge
-    //g.fillOval(getX()*tc, getY()*tc,tc,tc); //cercle plein
   }
 }
