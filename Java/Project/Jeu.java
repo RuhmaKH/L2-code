@@ -47,7 +47,6 @@ public class Jeu extends JFrame{
  		f.add(Monde.world, BorderLayout.CENTER);
     MenuDroite menuDroite = new MenuDroite();
     f.add(menuDroite, BorderLayout.EAST);
-    f.add(new Shop(), BorderLayout.SOUTH);
  		f.pack();
     f.setVisible(true);
     f.setResizable(false);

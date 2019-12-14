@@ -145,7 +145,7 @@ public class Monde extends JPanel{
     int hauteur = getHeight();
     for (int i = 0; i< longueur/6; i++){
       for (int j = 0; j< hauteur/6; j++){
-        g.drawImage( imageHerbe , i*tailleCase*5 , j*tailleCase*5 , tailleCase*5 , tailleCase*5 , this) ;
+        g.drawImage( imageHerbe, i*tailleCase*5 , j*tailleCase*5 , tailleCase*5 , tailleCase*5 , this) ;
       }
     }
 
