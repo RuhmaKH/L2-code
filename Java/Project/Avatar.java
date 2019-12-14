@@ -58,19 +58,15 @@ public class Avatar extends Personnage{
   }
 
   private void devenirAmi(Creature crea){
-    if (! this.estAmi(crea)){
-      crea.newBFF(this);
-      listeAmis.add(crea);
-      System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
-    }
+    crea.newBFF(this);
+    listeAmis.add(crea);
+    System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
   }
 
   protected void perdreAmi(Creature crea){
-    if (this.estAmi(crea)){
-      crea.newBFF(null);
-      listeAmis.remove(crea);
-      System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
-    }
+    crea.newBFF(this);
+    listeAmis.remove(crea);
+    System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
   }
 
   private void rencontrer(Creature crea){
@@ -136,7 +132,7 @@ public class Avatar extends Personnage{
         if (i instanceof Sac){
           if((place = ((Sac) i ).ajouter(acc, msg))){
             if (msg)
-              System.out.println(acc.getNom() + " a été mis dans placé dans le " + i.getNom() + " de " + this.getNom());
+              System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
             return;
           }
         }

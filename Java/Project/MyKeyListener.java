@@ -33,7 +33,7 @@ public class MyKeyListener implements KeyListener {
     }
     
     public void keyReleased (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -53,7 +53,7 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyPressed (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -73,7 +73,7 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyTyped (KeyEvent e) {
-        if (Jeu.getInteract())
+        if (! Jeu.getInteract())
             return;
         Avatar player = Jeu.getCurrPlay();
         char id = e.getKeyChar();

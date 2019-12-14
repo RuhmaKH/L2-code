@@ -6,11 +6,11 @@ import javax.imageio.ImageIO;
 
 
 public class MenuDroite extends JPanel{
-  private Image imageCase= null;
-  private Image imageArgent=null;
-  private Image imageSac=null;
-  private Image imagePomme=null;
-  private Image imagePills=null;
+  private Image imageCase = null;
+  private Image imageArgent = null;
+  private Image imageSac = null;
+  private Image imagePomme = null;
+  private Image imagePills = null;
   private double money;
   private int sac;
   private int pomme;
@@ -19,7 +19,7 @@ public class MenuDroite extends JPanel{
 
   public MenuDroite(){
     setPreferredSize(new Dimension(650,0));
-    money =0;
+    money = 0;
     sac = 0;
     pomme = 0;
     pillule = 0;
@@ -41,7 +41,7 @@ public class MenuDroite extends JPanel{
     pillule = 0 ;
     money = avatar.getMoney();
     ArrayList<Acc> tab = avatar.getAcc();
-    for ( Acc acc : tab){
+    for (Acc acc : tab){
       if (acc instanceof Sac){
         compteDifferentAcc((Sac) acc);
         sac++;
@@ -59,7 +59,7 @@ public class MenuDroite extends JPanel{
   }
 
   public void compteDifferentAcc(Sac soussac){
-    for ( Acc acc : soussac.getTab()){
+    for (Acc acc : soussac.getTab()){
       if (acc instanceof Sac){
         compteDifferentAcc((Sac) acc);
         sac++;
@@ -112,11 +112,11 @@ public class MenuDroite extends JPanel{
 
 
     g.setFont(font1);
-    g.drawString("x"+sac, 90 , 445);
-    g.drawString("x"+pomme, 150 , 445);
-    g.drawString("x"+pillule, 210 , 445);
+    g.drawString("x" + sac, 90 , 445);
+    g.drawString("x" + pomme, 150 , 445);
+    g.drawString("x" + pillule, 210 , 445);
     g.setFont(font2);
-    g.drawString(String.format("%.2f",money)+"€", 25 , 442);
+    g.drawString(String.format("%.2f", money) + "€", 25 , 442);
 
 
     espace =10;

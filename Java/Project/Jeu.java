@@ -23,7 +23,7 @@ public class Jeu extends JFrame{
 		}
 
 		try {
-			NB_TOUR = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"))*2;
+			NB_TOUR = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"));
 		}catch(NumberFormatException e) {
 			NB_TOUR = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
@@ -56,8 +56,8 @@ public class Jeu extends JFrame{
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
-    interact = false;
-    for (int i = 1; i < NB_TOUR; i++) {
+    interact = true;
+    for (int i = 0; i < NB_TOUR; i++) {
       //m.afficher();
       Monde.world.repaint();
       menuDroite.repaint();
@@ -75,17 +75,20 @@ public class Jeu extends JFrame{
       }
       System.out.println(luigi);
     }
+    interact = false;
 
     //*********************************************** GAGNANT *********************************************** */
     int amisMario = mario.getAmis().size();
     int amisLuigi = luigi.getAmis().size();
-    double distMario = mario.course();
-    double distLuigi = luigi.course();
+    double distMario;
+    double distLuigi;
     String ggwp = "";
     double chicken;
     Avatar winner;
     Creature daFast;
     if (amisMario != 0 && amisLuigi != 0) {
+      distMario = mario.course();
+      distLuigi = luigi.course();
       if( distMario == distLuigi){
         ggwp += mario.getNom() + " et " + luigi.getNom() + " ont gagné(e)s par égalité";
       }

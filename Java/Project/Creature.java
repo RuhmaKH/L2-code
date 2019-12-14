@@ -20,7 +20,7 @@ public class Creature extends Personnage{
     if (sac.getPoids() + acc.getPoids() < 0.5 * getPoids())
       sac.ajouter(acc, false);
     else{
-      System.out.println("Trop lourd");
+      System.out.println(acc.getNom() + " est trop lourd pour " + getNom() + ", l'objet est tombé par terre");
       Monde.drop(acc, getX(), getY());
     }
   }
@@ -33,11 +33,14 @@ public class Creature extends Personnage{
   }
 
   protected void newBFF (Avatar newBFF){
-    if (bff != null){
+    if (bff != null && bff != newBFF){
       bff.perdreAmi(this);
       System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
     }
-    bff = newBFF;
+    if (newBFF == bff)
+      bff = null;
+    else
+      bff = newBFF;
   }
 
   public void manger(){
