@@ -151,8 +151,7 @@ public class Monde extends JPanel{
   public void dessinerShop(Graphics g){
     int size = taille * tailleCase;
     g.setColor(new Color(95, 0, 0));
-    g.fillRect(50, size - 200, size - 100, 150);
-    //g.drawImage(imageShop, )
+    g.fillRect(15, size - 200, size - 30, 185);
   }
 
   public void paintComponent(Graphics g){
@@ -160,7 +159,6 @@ public class Monde extends JPanel{
     //g.setColor(Color.GREEN);
     //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     dessinerMap(g);
-    dessinerShop(g);
     //super.paintComponent(g); //redessine le panneau
     /*
     for (int i = 0; i<getWidth(); i++){
@@ -171,10 +169,21 @@ public class Monde extends JPanel{
       g.setColor(Color.ORANGE);
       g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
     }*/
-		for(Item itemVoisin : listeItems){
-			if( itemVoisin != null){
+		for(Item itemVoisin : listeItems)
+			if( itemVoisin != null)
 				itemVoisin.dessiner(g);
-			}
-		}
+    
+    
+    dessinerShop(g);
+    Image imageShop = null;
+    int size = taille * tailleCase;
+    try {
+      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
+    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
+		
   }
 }
