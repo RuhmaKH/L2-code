@@ -210,6 +210,8 @@ public class Avatar extends Personnage{
   }
 
   public void update(){
+    int[] coord = MyKeyListener.getDirection();
+    seDeplacer(coord[0], coord[1]);
   }
   
   public double acheter (Acc acc){

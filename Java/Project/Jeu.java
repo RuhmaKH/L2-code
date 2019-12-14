@@ -63,6 +63,7 @@ public class Jeu extends JFrame{
       menuDroite.repaint();
       while (currentPlayer == mario){
         Thread.sleep(1000);  //ralenti l'affichage
+        mario.update();
       }
       System.out.println(mario);
       //m.afficher();
@@ -70,6 +71,7 @@ public class Jeu extends JFrame{
       menuDroite.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(1000);  //ralenti l'affichage
+        luigi.update();
       }
       System.out.println(luigi);
     }
