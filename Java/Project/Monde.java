@@ -10,11 +10,18 @@ public class Monde extends JPanel{
   public static final int taille = 30;
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
+  private Image imageHerbe=null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
     initialize();
+    try {
+      imageHerbe= ImageIO.read(new File("./Image/herbe_retouche.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
   }
 
   private static int getPositionAlea(){
@@ -22,6 +29,10 @@ public class Monde extends JPanel{
   }
 
   private void initialize(){
+    //############# Arbre #############
+    for (int j = 0; j < 2; j++)
+      ajouterItem(new Arbre(0,0));
+
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());
@@ -129,19 +140,32 @@ public class Monde extends JPanel{
     }
   System.out.println(aff);
   }
+  public void dessinermap(Graphics g){
+    int longueur = getWidth();
+    int hauteur = getHeight();
+    for (int i = 0; i< longueur/6; i++){
+      for (int j = 0; j< hauteur/6; j++){
+        g.drawImage( imageHerbe , i*tailleCase*5 , j*tailleCase*5 , tailleCase*5 , tailleCase*5 , this) ;
+      }
+    }
+
+  }
 
   public void paintComponent(Graphics g){
-		//super.paintComponent(g); //redessine le panneau
-    g.setColor(Color.GREEN);
-    g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
+		super.paintComponent(g); //redessine le panneau
+    //g.setColor(Color.GREEN);
+    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
+    dessinermap(g);
+    //super.paintComponent(g); //redessine le panneau
+    /*
     for (int i = 0; i<getWidth(); i++){
       g.setColor(Color.ORANGE);
       g.drawLine( i*tailleCase, 0, i*tailleCase, getHeight());
     }
-    for (int i = 0; i<getWidth(); i++){
+    for (int i = 0; i<getHeight(); i++){
       g.setColor(Color.ORANGE);
       g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
-    }
+    }*/
 		for(Item itemVoisin : listeItems){
 			if( itemVoisin != null){
 				itemVoisin.dessiner(g);
