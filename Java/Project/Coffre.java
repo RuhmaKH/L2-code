@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 public class Coffre extends Item {
     private ArrayList<Item> contenu;
     private Image image=null;
-    //private boolean state; //false = ferme et true = ouvert
+
 
     public Coffre(){
         super("Coffre");
@@ -15,23 +15,13 @@ public class Coffre extends Item {
         contenu = new ArrayList<Item>();
         if (Math.random() < 0.8)
             ajouter(new Tresor());
-        try {
-          image = ImageIO.read(new File("./Image/coffre_ferme_retouche.png"));
-        }
-        catch(IOException exc) {
-          exc.printStackTrace();
-        }
+        image=Images.getImage("Coffre_ferme");
     }
 
     public ArrayList<Item> ouvrir(){
         ArrayList<Item> tab = contenu;
         contenu = new ArrayList<Item>();
-        try {
-          image = ImageIO.read(new File("./Image/coffre_ouvert_retouche.png"));
-        }
-        catch(IOException exc) {
-          exc.printStackTrace();
-        }
+        image=Images.getImage("Coffre_ouvert");
         return tab;
     }
 

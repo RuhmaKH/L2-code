@@ -12,17 +12,20 @@ public class Avatar extends Personnage{
   private double money;
   private Image image =null;
 
-  public Avatar(String nom, double poids, String  nomFichier){
+
+  public Avatar(String nom, double poids, String nomFichier){
     super(nom, poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
     dealMoney(Math.random() * 10 + 5);
+    //image = Images.getImage(str);
     try {
           image = ImageIO.read(new File("./Image/"+nomFichier));
         }
         catch(IOException exc) {
           exc.printStackTrace();
         }
+
 
   }
 
@@ -210,7 +213,7 @@ public class Avatar extends Personnage{
     int[] coord = MyKeyListener.getDirection();
     seDeplacer(coord[0], coord[1]);
   }
-  
+
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){

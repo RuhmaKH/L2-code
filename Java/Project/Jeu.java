@@ -29,7 +29,7 @@ public class Jeu extends JFrame{
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 
-		Avatar mario = new Avatar(nom1 , 60.5, "link_retouche.png");
+    Avatar mario = new Avatar(nom1 , 60.5, "link_retouche.png");
     Avatar luigi = new Avatar(nom2, 100.50, "mario_retouche.png");
 
     //*********************************************** ITEMS *********************************************** */

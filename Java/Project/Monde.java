@@ -15,13 +15,16 @@ public class Monde extends JPanel{
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
+    new Images();
     initialize();
+    imageHerbe=Images.getImage("Herbe");
+    /*
     try {
-      imageHerbe= ImageIO.read(new File("./Image/herbe_retouche.png"));
+      imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();
-    }
+    }*/
   }
 
   private static int getPositionAlea(){
@@ -30,8 +33,14 @@ public class Monde extends JPanel{
 
   private void initialize(){
     //############# Arbre #############
-    for (int j = 0; j < 2; j++)
-      ajouterItem(new Arbre(0,0));
+    for (int j = 0; j < taille; j++)
+      ajouterItemAtCoor(new Arbre(0,j));
+    for (int j = 1; j < taille; j++)
+      ajouterItemAtCoor(new Arbre(j,0));
+    for (int j = 1; j < taille; j++)
+      ajouterItemAtCoor(new Arbre(taille-1,j));
+    for (int j = 1; j < taille-1; j++)
+      ajouterItemAtCoor(new Arbre(j,taille-1));
 
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)

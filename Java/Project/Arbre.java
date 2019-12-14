@@ -9,22 +9,27 @@ public class Arbre extends Obstacle{
 
   public Arbre (){
     super("Arbre");
+    image=Images.getImage("Arbre");
+    /*
     try {
       image= ImageIO.read(new File("./Image/arbreblanc_retouche.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();
-    }
+    }*/
   }
 
   public Arbre( int x , int y ){
     super( "Arbre" , x ,y);
+    image=Images.getImage("Arbre");
+    /*
     try {
       image= ImageIO.read(new File("./Image/arbreblanc_retouche.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();
     }
+    */
   }
 
     public void dessiner (Graphics g){

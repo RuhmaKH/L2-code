@@ -12,12 +12,14 @@ public class Pills extends Acc implements Mangeable {
     public Pills(){
         super("Pills");
         poids = Math.random();
+        image=Images.getImage("Pills");
+        /*
         try {
           image = ImageIO.read(new File("./Image/pillule_retouche.png"));
         }
         catch(IOException exc) {
           exc.printStackTrace();
-        }
+        }*/
       }
 
     public double getPoids(){
