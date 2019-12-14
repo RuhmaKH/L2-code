@@ -158,6 +158,7 @@ public class Avatar extends Personnage{
       if (item instanceof Acc)
         ramasser((Acc) item, true);
       if (item instanceof Magasin){
+        //Monde.dessinerShop();
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
