@@ -65,9 +65,9 @@ public class Avatar extends Personnage{
     }
   }
 
-  private void PerdreAmi(Creature crea){
+  protected void perdreAmi(Creature crea){
     if (this.estAmi(crea)){
-      crea.looseBFF();
+      crea.newBFF(null);
       listeAmis.remove(crea);
       System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
     }
@@ -87,7 +87,7 @@ public class Avatar extends Personnage{
     }
     else
       if (this.estAmi(crea))
-        this.PerdreAmi(crea);
+        this.perdreAmi(crea);
   }
 
   public double course(){
@@ -134,14 +134,18 @@ public class Avatar extends Personnage{
     boolean place = false;
     for (Item i : listeAcc)
         if (i instanceof Sac){
-          if((place = ((Sac) i ).ajouter(acc, true)))
-            break;
+          if((place = ((Sac) i ).ajouter(acc, msg))){
+            if (msg)
+              System.out.println(acc.getNom() + " a été mis dans placé dans le " + i.getNom() + " de " + this.getNom());
+            return;
+          }
         }
-    if (! place)
+    if (! place){
       listeAcc.add(acc);
-    if (msg){
-      System.out.println(getNom() + " ramasse " + acc.getNom());
-      Monde.supprimerItem(acc);
+      if (msg){
+        System.out.println(getNom() + " ramasse " + acc.getNom());
+    }
+    Monde.supprimerItem(acc);
     }
   }
 
@@ -206,7 +210,6 @@ public class Avatar extends Personnage{
   }
 
   public void update(){
-
   }
   
   public double acheter (Acc acc){
@@ -252,8 +255,8 @@ public class Avatar extends Personnage{
         }
         for (Acc acc : listeAcc){
           if (num == 0){
-            money += mag.vendre(acc);
-            if ( acc instanceof Sac)
+            dealMoney( mag.vendre(acc) );
+            if (acc instanceof Sac)
               for (Acc a : ((Sac) acc).getTab())
                 ramasser(a , false);
             listeAcc.remove(acc);
@@ -270,24 +273,12 @@ public class Avatar extends Personnage{
   }
 
   private int inSac(Magasin mag, int num, Sac sac){
-    int cmpt = 0;
-    for (Acc acc : sac.getTab()){
+    for (int i = 0; i < sac.getNbElements(); i++){
       num--;
       if (num == 0){
-        money += mag.vendre(acc);
-        if (acc instanceof Sac)
-          for (Acc a : sac.getTab())
-            ramasser(a, false);
-        sac.obtenir(cmpt);
+        dealMoney( mag.vendre( sac.obtenir(i) ) );
         return 0;
       }
-      if(acc instanceof Sac){
-        if ((num = inSac(mag, num, (Sac) acc)) == 0){
-          return 0;
-        }
-
-      }
-      cmpt++;
     }
     return num;
   }

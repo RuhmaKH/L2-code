@@ -32,14 +32,14 @@ public class Sac extends Acc{
     return tab;
   }
 
-  public boolean ajouter(Acc a, boolean msg){
-    for(Acc acc : tab)
+  public boolean ajouter(Acc acc, boolean msg){
+  /*  for(Acc acc : tab)
       if(acc instanceof Sac)
-        if( ((Sac) acc).ajouter(a, "Sous-", msg) )
-          return true;
+        if( ((Sac) acc).ajouter(acc, "Sous-", msg) )
+          return true;*/
     int nb;
     if((nb = getNbElements()) < tab.length){
-      tab[nb] = a;
+      tab[nb] = acc;
       return true;
     }
     else{
@@ -48,17 +48,17 @@ public class Sac extends Acc{
       return false;
     }
   }
-
-  private boolean ajouter(Acc a, String niv, boolean msg){
+/*
+  private boolean ajouter(Acc acc, String niv, boolean msg){
     for(Acc acc : tab)
-      if(acc instanceof Sac && (niv == "Sous-" || niv == "Sous-Sous-"))
-        if( ((Sac) acc).ajouter(a, niv + "Sous-", msg))
+      if(acc instanceof Sac && niv == "Sous-")
+        if( ((Sac) acc).ajouter(acc, niv + "Sous-", msg))
           return true;
     int nb;
     if((nb = getNbElements()) < tab.length){
-      tab[nb] = a;
+      tab[nb] = acc;
       if (msg)
-        System.out.println("L'item a été placé dans le " + niv + "sac !");
+        System.out.println("L'item acc été placé dans le " + niv + "sac !");
       return true;
     }
     else{
@@ -67,7 +67,7 @@ public class Sac extends Acc{
       return false;
     }
   }
-
+*/
   public Acc obtenir(int i){
     if (i < getNbElements()){
       Acc finale = tab[i];

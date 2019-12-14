@@ -48,7 +48,7 @@ public class Monde extends JPanel{
     listeItems.add(item);
   }
 
-  public static void ajouterItemAtCoor(Item item){
+  public static void ajouterItemAtCoord(Item item){
     if (chercher(item.getX(), item.getY()) == null)
       listeItems.add(item);
     else

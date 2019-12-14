@@ -32,14 +32,12 @@ public class Creature extends Personnage{
     return v;
   }
 
-  public void newBFF (Avatar newBFF){
-    if (bff != null)
+  protected void newBFF (Avatar newBFF){
+    if (bff != null){
+      bff.perdreAmi(this);
       System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
+    }
     bff = newBFF;
-  }
-
-  public void looseBFF (){
-    bff = null;
   }
 
   public void manger(){
