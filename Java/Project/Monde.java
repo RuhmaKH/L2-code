@@ -151,7 +151,7 @@ public class Monde extends JPanel{
   public void dessinerShop(Graphics g){
     int size = taille * tailleCase;
     g.setColor(new Color(95, 0, 0));
-    g.fillRect(50, size - 200, size - 50, size - 50);
+    g.fillRect(50, size - 200, size - 100, 150);
     //g.drawImage(imageShop, )
   }
 
