@@ -12,12 +12,14 @@ public class Pomme extends Acc implements Mangeable{
   public Pomme(){
     super("Pomme");
     rayon = Math.random() * 4 + 3;
-    try {
+    image=Images.getImage("Pomme");
+    /*try {
       image = ImageIO.read(new File("./Image/pomme_retouche.png"));
     }
     catch(IOException exc) {
       exc.printStackTrace();
     }
+    */
   }
 
   public double getPoids(){

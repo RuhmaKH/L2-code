@@ -4,11 +4,13 @@ import javax.swing.*;
 public class Creature extends Personnage{
   protected Sac sac;
   private Avatar bff;
+  private Image image= null;
 
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
     bff = null;
+    image=Images.getImage(Noms.getTab_icourant());
   }
 
   public Creature(String nom){
@@ -72,7 +74,6 @@ public class Creature extends Personnage{
 
   public void dessiner(Graphics g){
     	int tc = Monde.tailleCase;
-    	g.setColor(Color.CYAN); //couleur courante devient bleu
-    	g.fillRect(getX()*tc, getY()*tc, tc, tc); //carre plein
+    	g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
     }
 }

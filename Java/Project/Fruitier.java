@@ -10,12 +10,7 @@ public class Fruitier extends Magasin {
 	public Fruitier(){
 	  super("Fruitier");
 		initialize();
-		try {
-      image = ImageIO.read(new File("./Image/marchand.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
+		image=Images.getImage("Marchand");
 	}
 
 	private void initialize(){
