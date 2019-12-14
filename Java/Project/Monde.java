@@ -13,7 +13,7 @@ public class Monde extends JPanel{
   private Image imageHerbe = null;
 
   private Monde(){
-    setPreferredSize(new Dimension(taille * tailleCase , taille * tailleCase));
+    setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
     initialize();
     try {
@@ -149,9 +149,10 @@ public class Monde extends JPanel{
   }
 
   public void dessinerShop(Graphics g){
-    int size = taille * tailleCase;
+    int longueur = getWidth();
+    int hauteur = getHeight();
     g.setColor(new Color(95, 0, 0));
-    g.fillRect(50, size - 200, size - 50, size - 50);
+    g.fillRect(50, hauteur - 200, longueur - 50, hauteur - 50);
     //g.drawImage(imageShop, )
   }
 
