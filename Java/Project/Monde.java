@@ -140,6 +140,7 @@ public class Monde extends JPanel{
     }
   System.out.println(aff);
   }
+
   public void dessinerMap(Graphics g){
     int longueur = getWidth();
     int hauteur = getHeight();
@@ -148,10 +149,18 @@ public class Monde extends JPanel{
         g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
   }
 
-  public void dessinerShop(Graphics g){
+  public void dessinerTalk(Graphics g, int height){
     int size = taille * tailleCase;
+    Image imageShop = null;
+    try {
+      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
     g.setColor(new Color(95, 0, 0));
-    g.fillRect(15, size - 200, size - 30, 185);
+    g.fillRect(15, size - height, size - 30, height - 15);
+    g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
   }
 
   public void paintComponent(Graphics g){
@@ -172,18 +181,5 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
 				itemVoisin.dessiner(g);
-    
-    
-    dessinerShop(g);
-    Image imageShop = null;
-    int size = taille * tailleCase;
-    try {
-      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
-    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
-		
   }
 }
