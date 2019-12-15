@@ -34,13 +34,13 @@ public class Monde extends JPanel{
   private void initialize(){
     //############# Arbre #############
     for (int j = 0; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(0,j));
+      ajouterItemAtCoord(new Arbre(0,j));
     for (int j = 1; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(j,0));
+      ajouterItemAtCoord(new Arbre(j,0));
     for (int j = 1; j < taille; j++)
-      ajouterItemAtCoor(new Arbre(taille-1,j));
+      ajouterItemAtCoord(new Arbre(taille-1,j));
     for (int j = 1; j < taille-1; j++)
-      ajouterItemAtCoor(new Arbre(j,taille-1));
+      ajouterItemAtCoord(new Arbre(j,taille-1));
 
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
@@ -181,8 +181,8 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
 				itemVoisin.dessiner(g);
-    
-    
+
+
     dessinerShop(g);
     Image imageShop = null;
     int size = taille * tailleCase;
@@ -193,6 +193,6 @@ public class Monde extends JPanel{
       exc.printStackTrace();
     }
     g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
-		
+
   }
 }
