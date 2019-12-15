@@ -44,6 +44,7 @@ public class Monde extends JPanel{
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());
+    ajouterItem(new Gobelin());
     //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
     //  ajouterItem(new Ryuk());
     //############# Coffre #############
@@ -191,17 +192,12 @@ public class Monde extends JPanel{
 				itemVoisin.dessiner(g);
 
 
-    //dessinerShop(g);
+    /*dessinerShop(g);
     Image imageShop = null;
     int size = taille * tailleCase;
-    try {
-      imageShop= ImageIO.read(new File("./Image/dialogue.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
+    imageShop= Images.getImage("Dialogue");
     g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
-
+    */
 
   }
 }

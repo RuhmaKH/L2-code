@@ -16,6 +16,7 @@ public class Creature extends Personnage{
   public Creature(String nom){
     super(nom);
     sac = new Sac();
+    image = Images.getImage(nom);
   }
 
   public Image getImage(){

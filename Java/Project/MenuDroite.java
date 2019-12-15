@@ -6,12 +6,16 @@ import javax.imageio.ImageIO;
 
 
 public class MenuDroite extends JPanel{
+  private Image imageHerbe = null;
+  private Image imageArbre = null;
   private Image imageCase = null;
   private Image imageArgent = null;
   private Image imageSac = null;
   private Image imagePomme = null;
   private Image imagePills = null;
   private Image imageCreature=null;
+  private Image imageBande = null;
+  private Image imagebanderouge = null;
   private double money;
   private int sac;
   private int pomme;
@@ -19,7 +23,7 @@ public class MenuDroite extends JPanel{
 
 
   public MenuDroite () {
-    setPreferredSize(new Dimension(650,0));
+    setPreferredSize(new Dimension(660,0));
     money = 0;
     sac = 0;
     pomme = 0;
@@ -29,9 +33,13 @@ public class MenuDroite extends JPanel{
     imageSac = Images.getImage("Sac");
     imagePomme = Images.getImage("Pomme");
     imagePills = Images.getImage("Pills");
-  }
+    imageHerbe = Images.getImage("Herbe");
+    imageArbre = Images.getImage("Arbre");
+    imageBande = Images.getImage("Case");
+    imagebanderouge = Images.getImage("Banderouge");
+    }
 
-  public void compteDifferentAcc(Avatar avatar){
+  private void compteDifferentAcc(Avatar avatar){
     sac = 0;
     pomme = 0;
     pillule = 0 ;
@@ -54,7 +62,7 @@ public class MenuDroite extends JPanel{
     }
   }
 
-  public void compteDifferentAcc(Sac soussac){
+  private void compteDifferentAcc(Sac soussac){
     for (Acc acc : soussac.getTab()){
       if (acc instanceof Sac){
         compteDifferentAcc((Sac) acc);
@@ -87,23 +95,34 @@ public class MenuDroite extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-    Font font = new Font("Trajan", Font.BOLD, 40);
+    Font font = new Font("Bookman Old Style", Font.ITALIC, 35);
     Font font1 = new Font ("Trajan", Font.ITALIC, 15);
     Font font2 = new Font ("Trajan", Font.ITALIC, 8);
+    Font font3 = new Font ("Arial", Font.ITALIC,25);
     g.setFont(font);
-    g.setColor(Color.YELLOW);
-    g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
-    g.setColor(Color.RED);
-    g.drawString("LA COURSE DES DIEUX", 70, 50);
-    g.setColor(Color.RED);
+
+
+    g.drawImage( imageHerbe, 0 ,0 , getWidth(), getHeight(), this) ;
+    //g.setColor(Color.YELLOW);
+    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
+
+    for ( int i = 0 ; i < 22 ; i++ )
+      for ( int j = 0; j < 30 ; j++ )
+              g.drawImage(imageArbre,i*30, j*30, 30, 30,this);
+
+    g.drawImage(imagebanderouge,  30 ,20 , 570  ,80 , this) ;
+    g.setColor(Color.WHITE);
+    g.drawString("LA COURSE DES DIEUX", 114, 72);
+    g.setFont(font3);
     Avatar[] players= Jeu.getPlayers();
 
     int taille =  50;
     int espace = 10;
     g.drawImage(imageCase,  10 ,330 , 45 ,45 , this) ;
-    g.drawImage(players[0].getImage(),  8,330, 45 , 42 ,this) ;
-    g.drawString(players[0].getNom(),70,360);
-    g.drawString(players[1].getNom(),70, 660);
+    g.drawImage(players[0].getImage(),  10,330, 40 , 40 ,this) ;
+    g.drawImage(imagebanderouge,  73 ,330 , 525  ,45 , this) ;
+    g.drawString(players[0].getNom(),170,360);
+;
 
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,400, taille , taille , this) ;
@@ -136,9 +155,14 @@ public class MenuDroite extends JPanel{
     g.setFont(font2);
     dessinerCreature(g, players[0], taille, 472 );
 
-
+    g.setFont(font3);
     g.drawImage(imageCase,10,630, taille,taille,this) ;
     g.drawImage(players[1].getImage(),  12 , 635 , 45 , 39,this) ;
+    g.drawImage(imagebanderouge,  73 ,630 , 525  ,50 , this) ;
+    g.drawString(players[1].getNom(),170, 662);
+
+
+
     espace =10;
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,700, taille , taille , this) ;

@@ -158,6 +158,8 @@ public class Avatar extends Personnage{
         ouvrir((Coffre) item);
       if (item instanceof Acc)
         ramasser((Acc) item, true);
+      if (item instanceof Gobelin)
+        toutPerdre();
       if (item instanceof Magasin){
         //Monde.dessinerShop();
         Scanner sc = new Scanner(System.in);
@@ -289,6 +291,12 @@ public class Avatar extends Personnage{
     if (argent < 0)
       System.out.println( String.format("%s a perdu %.2f €", getNom(), argent));
     money += argent;
+  }
+
+  public void toutPerdre(){
+    money = 0;
+    for ( int i =0 ; i< listeAcc.size() ; i++)
+      listeAcc.remove(listeAcc.get(0));
   }
 
   public void dessiner(Graphics g){
