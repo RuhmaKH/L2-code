@@ -36,8 +36,8 @@ public class Creature extends Personnage{
 
   protected void newBFF (Avatar newBFF){
     if (bff != null && bff != newBFF){
-      bff.perdreAmi(this);
       System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
+      bff.perdreAmi(this);
     }
     if (newBFF == bff)
       bff = null;

@@ -11,12 +11,14 @@ public class Monde extends JPanel{
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
   private Image imageHerbe = null;
+  private Image imageTalk = null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
     initialize();
     imageHerbe = Images.getImage("Herbe");
+    imageTalk = Images.getImage("Discution");
     /*
     try {
       imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
@@ -156,18 +158,14 @@ public class Monde extends JPanel{
         g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
   }
 
-  public void dessinerTalk(Graphics g, int height){
+  public void dessinerTalk(Graphics g, int height, String str){
     int size = taille * tailleCase;
-    Image imageShop = null;
-    try {
-      imageShop = ImageIO.read(new File("./Image/dialogue.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
     g.setColor(new Color(95, 0, 0));
     g.fillRect(15, size - height, size - 30, height - 15);
-    g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
+    g.drawImage(imageTalk, 20, size - height + 3, size - 40, height - 20, this);
+    String[] disc = str.split(" ");
+    for(int i = 0; i < 200; i++)
+      g.drawString("" + i, 25, size - height + 8);
   }
 
   public void paintComponent(Graphics g){
@@ -187,6 +185,6 @@ public class Monde extends JPanel{
     }*/
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
-				itemVoisin.dessiner(g);
+        itemVoisin.dessiner(g);
   }
 }
