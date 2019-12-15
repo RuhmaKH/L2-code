@@ -6,8 +6,9 @@ import javax.imageio.ImageIO;
 public class Images{
   private static String[] tab = {"Avatar1" , "Avatar2", "Arbre", "Tresor", "Sac", "Pomme",
   "Pills", "Herbe", "Coffre_ouvert", "Coffre_ferme", "Marchand",
-    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe"};
-  private static Image[] tabimage=  new Image[22];
+    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe",
+  "Case"};
+  private static Image[] tabimage=  new Image[23];
 
   public Images(){
 
@@ -34,6 +35,7 @@ public class Images{
   tabimage[19]=ImageIO.read(new File("./Image/Rat.png"));
   tabimage[20]=ImageIO.read(new File("./Image/Tigre.png"));
   tabimage[21]=ImageIO.read(new File("./Image/Singe.png"));
+  tabimage[22]=ImageIO.read(new File("./Image/case.jpg"));
 } catch(IOException exc) {
     exc.printStackTrace();
   }

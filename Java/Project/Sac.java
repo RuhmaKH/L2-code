@@ -15,7 +15,7 @@ public class Sac extends Acc{
   public Sac(int n) {
     super("Sac");
     tab= new Acc[n];
-    image=Images.getImage("Sac");
+    image = Images.getImage("Sac");
     /*
     try {
       image = ImageIO.read(new File("./Image/bag.png"));

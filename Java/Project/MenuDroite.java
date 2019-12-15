@@ -11,6 +11,7 @@ public class MenuDroite extends JPanel{
   private Image imageSac = null;
   private Image imagePomme = null;
   private Image imagePills = null;
+  private Image imageCreature=null;
   private double money;
   private int sac;
   private int pomme;
@@ -23,16 +24,11 @@ public class MenuDroite extends JPanel{
     sac = 0;
     pomme = 0;
     pillule = 0;
-    try {
-      imageCase= ImageIO.read(new File("./Image/case.jpg"));
-      imageArgent = ImageIO.read(new File("./Image/argent_retouche.png"));
-      imageSac = ImageIO.read(new File("./Image/bag.png"));
-      imagePomme = ImageIO.read(new File("./Image/pomme_retouche.png"));
-      imagePills = ImageIO.read(new File("./Image/pillule_retouche.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
+    imageCase= Images.getImage("Case");
+    imageArgent = Images.getImage("Tresor");
+    imageSac = Images.getImage("Sac");
+    imagePomme = Images.getImage("Pomme");
+    imagePills = Images.getImage("Pills");
   }
 
   public void compteDifferentAcc(Avatar avatar){
@@ -76,10 +72,24 @@ public class MenuDroite extends JPanel{
     }
   }
 
+  private void dessinerCreature( Graphics g, Avatar joueur, int taille, int y){
+    ArrayList<Creature> tab=joueur.getAmis();
+    int i = 0 ;
+    int espace=14 ;
+    for ( Creature creature : tab ) {
+      imageCreature = creature.getImage();
+      g.drawImage(imageCreature,  taille*i+espace  , y , 30 , 30 ,this) ;
+      g.drawString(creature.getNom(), taille*i+espace , y+40);
+      espace+=10;
+      i++;
+    }
+
+  }
+
   public void paintComponent(Graphics g){
     Font font = new Font("Trajan", Font.BOLD, 40);
     Font font1 = new Font ("Trajan", Font.ITALIC, 15);
-    Font font2 = new Font ("Trajan", Font.ITALIC, 10);
+    Font font2 = new Font ("Trajan", Font.ITALIC, 8);
     g.setFont(font);
     g.setColor(Color.YELLOW);
     g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
@@ -110,7 +120,6 @@ public class MenuDroite extends JPanel{
     g.setColor(Color.WHITE);
     compteDifferentAcc(players[0]);
 
-
     g.setFont(font1);
     g.drawString("x" + sac, 90 , 445);
     g.drawString("x" + pomme, 150 , 445);
@@ -124,7 +133,9 @@ public class MenuDroite extends JPanel{
       g.drawImage(imageCase,  i*taille+espace,470, taille ,taille ,this) ;
       espace+=10;
     }
-// repaint
+    g.setFont(font2);
+    dessinerCreature(g, players[0], taille, 472 );
+
 
     g.drawImage(imageCase,10,630, taille,taille,this) ;
     g.drawImage(players[1].getImage(),  12 , 635 , 45 , 39,this) ;
@@ -147,6 +158,8 @@ public class MenuDroite extends JPanel{
       espace+=10;
     }
     compteDifferentAcc(players[1]);
+    g.setFont(font2);
+    dessinerCreature(g, players[1], taille, 772);
     g.setFont(font1);
     g.drawString("x" + sac, 90 , 745);
     g.drawString("x" + pomme, 150 , 745);

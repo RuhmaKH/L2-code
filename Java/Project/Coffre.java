@@ -15,13 +15,13 @@ public class Coffre extends Item {
         contenu = new ArrayList<Item>();
         if (Math.random() < 0.8)
             ajouter(new Tresor());
-        image=Images.getImage("Coffre_ferme");
+        image = Images.getImage("Coffre_ferme");
     }
 
     public ArrayList<Item> ouvrir(){
         ArrayList<Item> tab = contenu;
         contenu = new ArrayList<Item>();
-        image=Images.getImage("Coffre_ouvert");
+        image = Images.getImage("Coffre_ouvert");
         return tab;
     }
 

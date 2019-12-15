@@ -17,7 +17,7 @@ public class Monde extends JPanel{
     listeItems = new ArrayList<Item>();
     new Images();
     initialize();
-    imageHerbe=Images.getImage("Herbe");
+    imageHerbe = Images.getImage("Herbe");
     /*
     try {
       imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
@@ -45,8 +45,8 @@ public class Monde extends JPanel{
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());
-    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-      ajouterItem(new Ryuk());
+    //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+    //  ajouterItem(new Ryuk());
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new Coffre());
@@ -149,6 +149,7 @@ public class Monde extends JPanel{
     }
   System.out.println(aff);
   }
+
   public void dessinerMap(Graphics g){
     int longueur = getWidth();
     int hauteur = getHeight();
@@ -157,10 +158,18 @@ public class Monde extends JPanel{
         g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
   }
 
-  public void dessinerShop(Graphics g){
+  public void dessinerTalk(Graphics g, int height){
     int size = taille * tailleCase;
+    Image imageShop = null;
+    try {
+      imageShop = ImageIO.read(new File("./Image/dialogue.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
     g.setColor(new Color(95, 0, 0));
-    g.fillRect(15, size - 200, size - 30, 185);
+    g.fillRect(15, size - height, size - 30, height - 15);
+    g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
   }
 
   public void paintComponent(Graphics g){
@@ -183,7 +192,7 @@ public class Monde extends JPanel{
 				itemVoisin.dessiner(g);
 
 
-    dessinerShop(g);
+    //dessinerShop(g);
     Image imageShop = null;
     int size = taille * tailleCase;
     try {
@@ -193,6 +202,7 @@ public class Monde extends JPanel{
       exc.printStackTrace();
     }
     g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
+
 
   }
 }
