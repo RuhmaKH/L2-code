@@ -15,7 +15,6 @@ public class Monde extends JPanel{
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
-    new Images();
     initialize();
     imageHerbe = Images.getImage("Herbe");
     /*
@@ -33,15 +32,14 @@ public class Monde extends JPanel{
 
   private void initialize(){
     //############# Arbre #############
-    for (int j = 0; j < taille; j++)
+    for (int j = 0; j < taille; j++){
       ajouterItemAtCoord(new Arbre(0,j));
-    for (int j = 1; j < taille; j++)
       ajouterItemAtCoord(new Arbre(j,0));
-    for (int j = 1; j < taille; j++)
+    }      
+    for (int j = 1; j < taille; j++){
       ajouterItemAtCoord(new Arbre(taille-1,j));
-    for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(j,taille-1));
-
+    }
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());

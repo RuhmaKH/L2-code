@@ -16,10 +16,9 @@ public class Noms{
     return tab[id++] + "_" + cpt;
   }
 
-public static String getTab_icourant(){
-  return  tab[id%11];
-}
-
+  public static String getTab_icourant(){
+    return  tab[id%11];
+  }
 }
 
 // Dragon Minautore Licorne sonic flash Phoenix Pegasus
