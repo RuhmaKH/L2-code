@@ -15,7 +15,6 @@ public class Monde extends JPanel{
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
-    new Images();
     initialize();
     imageHerbe = Images.getImage("Herbe");
     /*

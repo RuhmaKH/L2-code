@@ -4,7 +4,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 public class Arbre extends Obstacle{
-  private Image image= null;
+  private Image image = null;
 
 
   public Arbre (){

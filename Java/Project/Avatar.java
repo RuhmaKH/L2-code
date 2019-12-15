@@ -10,7 +10,7 @@ public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
   private ArrayList<Acc> listeAcc;
   private double money;
-  private Image image =null;
+  private Image image = null;
 
 
   public Avatar(String nom, double poids, String nomFichier){
@@ -20,13 +20,11 @@ public class Avatar extends Personnage{
     dealMoney(Math.random() * 10 + 5);
     //image = Images.getImage(str);
     try {
-          image = ImageIO.read(new File("./Image/"+nomFichier));
-        }
-        catch(IOException exc) {
-          exc.printStackTrace();
-        }
-
-
+      image = ImageIO.read(new File("./Image/"+nomFichier));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
   }
 
   public String toString(){
