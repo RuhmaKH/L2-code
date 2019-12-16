@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class Images {
   public final static String[] tab = {"Avatar1" , "Avatar2", "Arbre", "Tresor", "Sac", "Pomme","Pills", "Herbe", "Coffre_ouvert", "Coffre_ferme", "Marchand",
-    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe", "Dialogue", "Cursor", "Case", "Gobelin", "Banderouge"};
+    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe", "Dialogue", "Cursor", "Case", "Gobelin", "Banderouge",
+  "Redcursor"};
   private static ArrayList<Image> tabimage;
   private final static Images pic = new Images();
 
@@ -40,6 +41,7 @@ public class Images {
   tabimage.add( ImageIO.read(new File("./Image/case.jpg")));
   tabimage.add( ImageIO.read(new File("./Image/gobelin.png")));
   tabimage.add( ImageIO.read(new File("./Image/blood_red_bar.png")));
+  tabimage.add( ImageIO.read(new File("./Image/redcursor.png")));
 } catch(IOException exc) {
     exc.printStackTrace();
   }

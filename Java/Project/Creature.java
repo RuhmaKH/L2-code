@@ -70,6 +70,18 @@ public class Creature extends Personnage{
     }
   }
 
+  public void seDeplacer(){
+    int taille = Monde.taille;
+    int x = getX() + (int)(Math.random()*7) - 3 ;
+    int y = getY() + (int)(Math.random()*7) - 3 ;
+    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
+      setX(x);
+      setY(y);
+    }
+    Monde.world.repaint();
+
+  }
+
   public void manger(Mangeable m){
     this.addPoids(m.getPoids());
   }

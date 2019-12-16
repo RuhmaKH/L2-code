@@ -8,11 +8,12 @@ public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static boolean interact;
+  private static int NB_TOUR_MAX;
+  private static int NB_TOUR;
 
   public static void main (String [] args) throws InterruptedException{
-    System.setProperty("file.encoding", "UTF-8");
+    //System.setProperty("file.encoding", "UTF-8");
 
-    int NB_TOUR;
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
 		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
 		if(nom1 == "" || nom1 == null) {
@@ -23,9 +24,9 @@ public class Jeu extends JFrame{
 		}
 
 		try {
-			NB_TOUR = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"));
+			NB_TOUR_MAX = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"));
 		}catch(NumberFormatException e) {
-			NB_TOUR = 10;
+			NB_TOUR_MAX = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 
@@ -57,7 +58,8 @@ public class Jeu extends JFrame{
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     interact = true;
-    for (int i = 0; i < NB_TOUR; i++) {
+    for (int i = 0; i < NB_TOUR_MAX; i++) {
+      NB_TOUR = i;
       //m.afficher();
       Monde.world.repaint();
       menuDroite.repaint();
@@ -73,7 +75,9 @@ public class Jeu extends JFrame{
         Thread.sleep(1000);  //ralenti l'affichage
         luigi.update();
       }
+      Monde.deplacerCreature();
       System.out.println(luigi);
+
     }
     interact = false;
 
@@ -146,5 +150,13 @@ public class Jeu extends JFrame{
 
   public static Avatar[] getPlayers(){
     return players;
+  }
+
+  public static int getNb_tours(){
+    return NB_TOUR;
+  }
+
+  public static int getNb_tours_max(){
+    return NB_TOUR_MAX;
   }
 }

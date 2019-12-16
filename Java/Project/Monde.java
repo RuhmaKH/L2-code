@@ -7,16 +7,20 @@ import javax.imageio.ImageIO;
 
 public class Monde extends JPanel{
   private static ArrayList<Item> listeItems;
+  private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
   private Image imageHerbe = null;
+  private Image imageredcursor = null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
+    listeCreature = new ArrayList<Creature>();
     initialize();
     imageHerbe = Images.getImage("Herbe");
+    imageredcursor = Images.getImage("Redcursor");
     /*
     try {
       imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
@@ -42,8 +46,12 @@ public class Monde extends JPanel{
       ajouterItemAtCoord(new Arbre(j,taille-1));
 
     //############# Creature #############
-    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
-      ajouterItem(new Creature());
+    Creature creature;
+    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++){
+      creature = new Creature();
+      listeCreature.add(creature);
+      ajouterItem(creature);
+    }
     ajouterItem(new Gobelin());
     //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
     //  ajouterItem(new Ryuk());
@@ -60,6 +68,13 @@ public class Monde extends JPanel{
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }
+
+  public static void deplacerCreature(){
+    for ( Creature c : listeCreature)
+      c.seDeplacer();
+  }
+
+
   public static void ajouterItem (Item item) {
     do {
       item.setX(getPositionAlea());
@@ -190,6 +205,8 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
 				itemVoisin.dessiner(g);
+    Avatar currentPlayer = Jeu.getCurrPlay();
+    g.drawImage( imageredcursor, currentPlayer.getX()*tailleCase +7  , currentPlayer.getY()*tailleCase -17  , 20 , 20 , this);
 
 
     /*dessinerShop(g);
