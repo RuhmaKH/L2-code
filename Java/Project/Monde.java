@@ -5,15 +5,25 @@ import javax.swing.*;
 
 public class Monde extends JPanel{
   private static ArrayList<Item> listeItems;
+  private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
   private static final Image imageHerbe = Images.getImage("Herbe");
+  private Image imageredcursor = Images.getImage("Redcursor");
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
+    listeCreature = new ArrayList<Creature>();
     initialize();
+    /*
+    try {
+      imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }*/
   }
 
   private static int getPositionAlea(){
@@ -32,8 +42,12 @@ public class Monde extends JPanel{
       ajouterItemAtCoord(new Arbre(j,taille-1));
 
     //############# Creature #############
-    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
-      ajouterItem(new Creature());
+    Creature creature;
+    for (int j = 0; j < Math.random() * (taille / 2) + 6; j++){
+      creature = new Creature();
+      listeCreature.add(creature);
+      ajouterItem(creature);
+    }
     ajouterItem(new Gobelin());
     //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
     //  ajouterItem(new Ryuk());
@@ -50,6 +64,13 @@ public class Monde extends JPanel{
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }
+
+  public static void deplacerCreature(){
+    for ( Creature c : listeCreature)
+      c.seDeplacer();
+  }
+
+
   public static void ajouterItem (Item item) {
     do {
       item.setX(getPositionAlea());
@@ -171,5 +192,17 @@ public class Monde extends JPanel{
       System.out.println("LAL");
       Interact.dessinerTalk(g);
     }
+    
+    Avatar currentPlayer = Jeu.getCurrPlay();
+    g.drawImage( imageredcursor, currentPlayer.getX()*tailleCase +7  , currentPlayer.getY()*tailleCase -17  , 20 , 20 , this);
+
+
+    /*dessinerShop(g);
+    Image imageShop = null;
+    int size = taille * tailleCase;
+    imageShop= Images.getImage("Dialogue");
+    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
+    */
+
   }
 }

@@ -101,17 +101,19 @@ public class MenuDroite extends JPanel{
 
 
     g.drawImage( imageHerbe, 0 ,0 , getWidth(), getHeight(), this) ;
-    //g.setColor(Color.YELLOW);
-    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
 
     for ( int i = 0 ; i < 22 ; i++ )
       for ( int j = 0; j < 30 ; j++ )
-              g.drawImage(imageArbre,i*30, j*30, 30, 30,this);
+        g.drawImage(imageArbre,i*30, j*30, 30, 30,this);
 
     g.drawImage(imagebanderouge,  30 ,20 , 570  ,80 , this) ;
     g.setColor(Color.WHITE);
     g.drawString("LA COURSE DES DIEUX", 114, 72);
     g.setFont(font3);
+
+    g.drawImage(imagebanderouge,  400 , 100 , 200  ,80 , this) ;
+    g.drawString("Tour : "+ (Jeu.getNb_tours()+1) +"/"+Jeu.getNb_tours_max() , 430, 150);
+
     Avatar[] players= Jeu.getPlayers();
 
     int taille =  50;
