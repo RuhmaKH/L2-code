@@ -32,15 +32,6 @@ public class Interact {
     public static void talk (String str) {
         state = "talk";
         talk = str;
-        while (state != "meet"){
-            Monde.world.repaint();
-            System.out.println("LOUL");
-            try{
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                System.out.println(e);
-             }
-        }
     }
 
     public static void shop (String str) {
@@ -57,11 +48,11 @@ public class Interact {
     }
 
     public static void cursorUp () {
-        cursor++;
+        cursor--;
     }
 
     public static void cursorDown () {
-        cursor--;
+        cursor++;
     }
     
     public static int getCursor () {

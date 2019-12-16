@@ -21,7 +21,7 @@ public class Jeu extends JFrame{
 
 		try {
 			NB_TOUR_MAX = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"));
-		}catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			NB_TOUR_MAX = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
@@ -62,7 +62,7 @@ public class Jeu extends JFrame{
         Thread.sleep(1500);  //ralenti l'affichage
         mario.update();
       }
-      Interact.talk(mario.toString());
+      //Interact.talk(mario.toString());
       //System.out.println(mario);
       //m.afficher();
       Monde.world.repaint();
@@ -71,10 +71,9 @@ public class Jeu extends JFrame{
         Thread.sleep(1500);  //ralenti l'affichage
         luigi.update();
       }
-      Interact.talk(luigi.toString());
+      //Interact.talk(luigi.toString());
       //System.out.println(luigi);
       Monde.deplacerCreature();
-      System.out.println(luigi);
 
     }
     Interact.end();
@@ -149,5 +148,17 @@ public class Jeu extends JFrame{
 
   public static int getNb_tours_max(){
     return NB_TOUR_MAX;
+  }
+
+  public static void waitState(String str){
+    while (Interact.getState() != str){
+      Monde.world.repaint();
+      System.out.println("LOUL");
+      try{
+          Thread.sleep(1000);
+      } catch (Exception e) {
+          System.out.println(e);
+       }
+  }
   }
 }

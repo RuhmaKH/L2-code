@@ -53,7 +53,6 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyPressed (KeyEvent e) {
-        System.out.println("LEL");
         if (Interact.getState() != "play")
             return;
         char id = e.getKeyChar();
@@ -90,7 +89,7 @@ public class MyKeyListener implements KeyListener {
                             Interact.cursorUp();
                         return;
                     case 's' :
-                        if (Interact.getCursor() < 0)
+                        if (Interact.getCursor() < 3)
                             Interact.cursorDown();
                         return;
                     case ' ' :
