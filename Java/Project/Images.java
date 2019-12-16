@@ -38,7 +38,8 @@ public class Images {
   tabimage.add( ImageIO.read(new File("./Image/Singe.png")) );
   tabimage.add( ImageIO.read(new File("./Image/dialogue.png")));
   tabimage.add( ImageIO.read(new File("./Image/cursor.png")));
-} catch(IOException exc) {
+  }
+  catch(IOException exc) {
     exc.printStackTrace();
   }
 }
@@ -47,6 +48,7 @@ public class Images {
     for ( int i = 0 ; i < tab.length ; i++)
       if (tab[i] == image)
         return tabimage.get(i);
+    System.out.println("Pas d'image trouvé pour " + image);
     return null;
   }
 

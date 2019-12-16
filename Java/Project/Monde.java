@@ -18,14 +18,7 @@ public class Monde extends JPanel{
     listeItems = new ArrayList<Item>();
     initialize();
     imageHerbe = Images.getImage("Herbe");
-    imageTalk = Images.getImage("Discution");
-    /*
-    try {
-      imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }*/
+    imageTalk = Images.getImage("Dialogue");
   }
 
   private static int getPositionAlea(){
@@ -150,22 +143,70 @@ public class Monde extends JPanel{
   System.out.println(aff);
   }
 
+  private int cursor(String str){
+    if (str.contains("cursor : "))
+      return Integer.parseInt( String.valueOf(str.charAt(15)) );
+    else 
+      return -1;
+  }
+
+  private ArrayList<String> talk(String str){
+    String temp = str.replace("talk : ", "").replace("cursor : ", "");
+    String[] disc = temp.split(" ");
+    String[] split = new String[2];
+    ArrayList<String> talk = new ArrayList<String>();
+    for (String s : disc) {
+      s = s.replace("\t", "    ");
+      if (s.contains("\n")) {
+        split = s.split("\n");
+        temp += split[0];
+        talk.add(temp);
+        if (split.length > 1) {
+          temp = split[1] + " ";
+      }
+        continue;
+      }
+      if ( (temp + s).length() > 64 ) {
+        talk.add(temp);
+        temp = "";
+      }
+      temp += s + " ";
+    }
+    talk.add(temp);
+    return talk;
+  }
+
+  private void dessinerTalk (Graphics g, String str) {
+    int cursor = cursor(str);
+    ArrayList<String> talk = talk(str);
+    String space = "";
+    int height;
+    if (talk.size() < 5)
+      height = 200;
+    else
+      height = 200 + 20 * (talk.size() - 4);
+    int size = Monde.taille * Monde.tailleCase;
+    g.setFont(new Font ("Trajan", Font.BOLD, 22));
+    g.setColor(new Color(95, 0, 0));
+    g.fillRect(15, size - height, size - 30, height - 15);
+    g.drawImage(Images.getImage("Dialogue"), 20, size - height + 3, size - 40, height - 20, Monde.world);
+    g.setColor(Color.BLACK);
+    for (int i = 0; i < talk.size(); i++){
+      /*
+      if (talk.get(i).contains("\t"))
+        space = "    ";
+      else
+        space = "";*/
+      g.drawString(space + talk.get(i), 55, size - height + 50 + 25 * i);
+    }
+  }
+
   public void dessinerMap(Graphics g){
     int longueur = getWidth();
     int hauteur = getHeight();
     for (int i = 0; i < longueur / 6; i++)
       for (int j = 0; j < hauteur / 6; j++)
         g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
-  }
-
-  public void dessinerTalk(Graphics g, int height, String str){
-    int size = taille * tailleCase;
-    g.setColor(new Color(95, 0, 0));
-    g.fillRect(15, size - height, size - 30, height - 15);
-    g.drawImage(imageTalk, 20, size - height + 3, size - 40, height - 20, this);
-    String[] disc = str.split(" ");
-    for(int i = 0; i < 200; i++)
-      g.drawString("" + i, 25, size - height + 8);
   }
 
   public void paintComponent(Graphics g){
@@ -186,5 +227,9 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
         itemVoisin.dessiner(g);
+    
+    if (! Jeu.getInteract().contains("play")){
+      dessinerTalk(g, Jeu.getInteract());
+    }
   }
 }

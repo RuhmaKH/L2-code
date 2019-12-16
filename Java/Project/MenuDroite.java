@@ -86,14 +86,14 @@ public class MenuDroite extends JPanel{
     g.setColor(Color.RED);
     g.drawString("LA COURSE DES DIEUX", 70, 50);
     g.setColor(Color.RED);
-    Avatar[] players= Jeu.getPlayers();
+    Avatar[] players = Jeu.getPlayers();
 
     int taille =  50;
     int espace = 10;
     g.drawImage(imageCase,  10 ,330 , 45 ,45 , this) ;
-    g.drawImage(players[0].getImage(),  8,330, 45 , 42 ,this) ;
-    g.drawString(players[0].getNom(),70,360);
-    g.drawString(players[1].getNom(),70, 660);
+    g.drawImage(players[0].getImage(),  8, 330, 45 , 42 ,this) ;
+    g.drawString(players[0].getNom(), 70, 360);
+    g.drawString(players[1].getNom(), 70, 660);
 
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,400, taille , taille , this) ;

@@ -18,13 +18,7 @@ public class Avatar extends Personnage{
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
     dealMoney(Math.random() * 10 + 5);
-    //image = Images.getImage(str);
-    try {
-      image = ImageIO.read(new File("./Image/"+nomFichier));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
+    image = Images.getImage(nomFichier);
   }
 
   public String toString(){
@@ -132,26 +126,31 @@ public class Avatar extends Personnage{
     for (Item i : listeAcc)
         if (i instanceof Sac){
           if((place = ((Sac) i ).ajouter(acc, msg))){
-            if (msg)
-              System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
+            if (msg){
+              Jeu.interact("talk : " + acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
+              //System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
+            }
             return;
           }
         }
     if (! place){
       listeAcc.add(acc);
       if (msg){
-        System.out.println(getNom() + " ramasse " + acc.getNom());
-    }
+        Jeu.interact("talk : " + getNom() + " ramasse " + acc.getNom());
+        //System.out.println(getNom() + " ramasse " + acc.getNom());
+      }
     Monde.supprimerItem(acc);
     }
   }
 
   public void rencontrerVoisins(){
-    Jeu.interact();
+    Jeu.interact("meet");
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
-      if (item instanceof Avatar)
-        System.out.println("Salutation mon ami " + item.getNom());
+      if (item instanceof Avatar){
+        Jeu.interact("talk : Salutation mon ami " + item.getNom());
+        //System.out.println("Salutation mon ami " + item.getNom());
+      }
       if (item instanceof Creature)
         rencontrer((Creature) item);
       if (item instanceof Coffre)
@@ -159,20 +158,22 @@ public class Avatar extends Personnage{
       if (item instanceof Acc)
         ramasser((Acc) item, true);
       if (item instanceof Magasin){
-        //Monde.dessinerShop();
-        Scanner sc = new Scanner(System.in);
+        Jeu.interact("talk : Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir");
+        /*Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
-          case 0:
+          case 0 :
             ((Magasin) item).acheter(this);
             break;
-          case 1:
+          case 1 :
             vendre((Magasin) item);
-        }
+            break;
+          case 2 :
+            break;
+        }*/
       }
       Monde.world.repaint();
-    }
-    Jeu.interact();
+    } 
     Jeu.nextPlayer();
   }
 
@@ -284,15 +285,20 @@ public class Avatar extends Personnage{
   }
 
   private void dealMoney(double argent){
-    if (argent > 0)
-      System.out.println( String.format("%s a gagné %.2f €", getNom(), argent));
-    if (argent < 0)
-      System.out.println( String.format("%s a perdu %.2f €", getNom(), argent));
+    if (argent > 0){
+      Jeu.interact("talk : " + String.format("%s a gagné %.2f €", getNom(), argent));
+      //System.out.println( String.format("%s a gagné %.2f €", getNom(), argent));
+    }
+    if (argent < 0){
+      Jeu.interact("talk : " + String.format("%s a perdu %.2f €", getNom(), -argent));
+      //System.out.println( String.format("%s a perdu %.2f €", getNom(), -argent));
+    }
     money += argent;
+    Jeu.play();
   }
 
   public void dessiner(Graphics g){
-      int tc = Monde.tailleCase;
-      g.drawImage(image, getX() * tc + 1, getY() * tc + 1, tc - 2, tc - 2, Monde.world);
-    }
+    int tc = Monde.tailleCase;
+    g.drawImage(image, getX() * tc + 1, getY() * tc + 1, tc - 2, tc - 2, Monde.world);
+  }
 }

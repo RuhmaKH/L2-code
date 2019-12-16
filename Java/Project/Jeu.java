@@ -7,7 +7,7 @@ import java.util.*;
 public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
-  private static boolean interact;
+  private static String interact;
 
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
@@ -29,8 +29,8 @@ public class Jeu extends JFrame{
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 
-    Avatar mario = new Avatar(nom1 , 60.5, "link_retouche.png");
-    Avatar luigi = new Avatar(nom2, 100.50, "mario_retouche.png");
+    Avatar mario = new Avatar(nom1 , 60.5, "Avatar1");
+    Avatar luigi = new Avatar(nom2, 100.50, "Avatar2");
 
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
@@ -56,13 +56,13 @@ public class Jeu extends JFrame{
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
-    interact = true;
+    interact = "play";
     for (int i = 0; i < NB_TOUR; i++) {
-      //m.afficher();
       Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == mario){
-        Thread.sleep(1000);  //ralenti l'affichage
+        Monde.world.repaint();
+        Thread.sleep(1500);  //ralenti l'affichage
         mario.update();
       }
       System.out.println(mario);
@@ -70,12 +70,12 @@ public class Jeu extends JFrame{
       Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == luigi){
-        Thread.sleep(1000);  //ralenti l'affichage
+        Thread.sleep(1500);  //ralenti l'affichage
         luigi.update();
       }
       System.out.println(luigi);
     }
-    interact = false;
+    interact = "end";
 
     //*********************************************** GAGNANT *********************************************** */
     int amisMario = mario.getAmis().size();
@@ -136,12 +136,17 @@ public class Jeu extends JFrame{
     currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
   }
 
-  public static boolean getInteract(){
+  public static String getInteract(){
     return interact;
   }
 
-  public static void interact(){
-    interact = ! interact;
+  public static void interact(String str){
+    interact = str;
+    Monde.world.repaint();
+  }
+
+  public static void play () {
+    interact = "play";
   }
 
   public static Avatar[] getPlayers(){
