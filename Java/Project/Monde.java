@@ -12,6 +12,7 @@ public class Monde extends JPanel{
   public final static Monde world = new Monde();
   private Image imageHerbe = null;
   private Image imageTalk = null;
+  private Image imageCursor = null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
@@ -19,6 +20,7 @@ public class Monde extends JPanel{
     initialize();
     imageHerbe = Images.getImage("Herbe");
     imageTalk = Images.getImage("Dialogue");
+    imageCursor = Images.getImage("Cursor");
   }
 
   private static int getPositionAlea(){
@@ -27,19 +29,21 @@ public class Monde extends JPanel{
 
   private void initialize(){
     //############# Arbre #############
-    for (int j = 0; j < taille; j++){
+    for (int j = 0; j < taille; j++)
       ajouterItemAtCoord(new Arbre(0,j));
+    for (int j = 1; j < taille; j++)
       ajouterItemAtCoord(new Arbre(j,0));
-    }      
-    for (int j = 1; j < taille; j++){
+    for (int j = 1; j < taille; j++)
       ajouterItemAtCoord(new Arbre(taille-1,j));
+    for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(j,taille-1));
-    }
+
     //############# Creature #############
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++)
       ajouterItem(new Creature());
-    for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-      ajouterItem(new Ryuk());
+    ajouterItem(new Gobelin());
+    //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
+    //  ajouterItem(new Ryuk());
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new Coffre());
@@ -189,7 +193,7 @@ public class Monde extends JPanel{
     g.setFont(new Font ("Trajan", Font.BOLD, 22));
     g.setColor(new Color(95, 0, 0));
     g.fillRect(15, size - height, size - 30, height - 15);
-    g.drawImage(Images.getImage("Dialogue"), 20, size - height + 3, size - 40, height - 20, Monde.world);
+    g.drawImage(imageTalk, 20, size - height + 3, size - 40, height - 20, Monde.world);
     g.setColor(Color.BLACK);
     for (int i = 0; i < talk.size(); i++){
       /*

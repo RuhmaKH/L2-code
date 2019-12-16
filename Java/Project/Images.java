@@ -5,9 +5,8 @@ import javax.imageio.ImageIO;
 import java.util.ArrayList;
 
 public class Images {
-  public final static String[] tab = {"Avatar1" , "Avatar2", "Arbre", "Tresor", "Sac", "Pomme",
-  "Pills", "Herbe", "Coffre_ouvert", "Coffre_ferme", "Marchand",
-    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe", "Dialogue", "Cursor"};
+  public final static String[] tab = {"Avatar1" , "Avatar2", "Arbre", "Tresor", "Sac", "Pomme","Pills", "Herbe", "Coffre_ouvert", "Coffre_ferme", "Marchand",
+    "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe", "Dialogue", "Cursor", "Case", "Gobelin", "Banderouge"};
   private static ArrayList<Image> tabimage;
   private final static Images pic = new Images();
 
@@ -21,7 +20,7 @@ public class Images {
   tabimage.add( ImageIO.read(new File("./Image/bag.png")) );
   tabimage.add( ImageIO.read(new File("./Image/pomme_retouche.png")) );
   tabimage.add( ImageIO.read(new File("./Image/pillule_retouche.png")) );
-  tabimage.add( ImageIO.read(new File("./Image/herbe_retouche.png")) );
+  tabimage.add( ImageIO.read(new File("./Image/herbe.png")) );
   tabimage.add( ImageIO.read(new File("./Image/coffre_ouvert_retouche.png")) );
   tabimage.add( ImageIO.read(new File("./Image/coffre_ferme_retouche.png")) );
   tabimage.add( ImageIO.read(new File("./Image/marchand.png")) );
@@ -38,8 +37,10 @@ public class Images {
   tabimage.add( ImageIO.read(new File("./Image/Singe.png")) );
   tabimage.add( ImageIO.read(new File("./Image/dialogue.png")));
   tabimage.add( ImageIO.read(new File("./Image/cursor.png")));
-  }
-  catch(IOException exc) {
+  tabimage.add( ImageIO.read(new File("./Image/case.jpg")));
+  tabimage.add( ImageIO.read(new File("./Image/gobelin.png")));
+  tabimage.add( ImageIO.read(new File("./Image/blood_red_bar.png")));
+} catch(IOException exc) {
     exc.printStackTrace();
   }
 }

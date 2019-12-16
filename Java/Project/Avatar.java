@@ -157,6 +157,8 @@ public class Avatar extends Personnage{
         ouvrir((Coffre) item);
       if (item instanceof Acc)
         ramasser((Acc) item, true);
+      if (item instanceof Gobelin)
+        toutPerdre();
       if (item instanceof Magasin){
         Jeu.interact("talk : Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir");
         /*Scanner sc = new Scanner(System.in);
@@ -295,6 +297,12 @@ public class Avatar extends Personnage{
     }
     money += argent;
     Jeu.play();
+  }
+
+  public void toutPerdre(){
+    money = 0;
+    for ( int i =0 ; i< listeAcc.size() ; i++)
+      listeAcc.remove(listeAcc.get(0));
   }
 
   public void dessiner(Graphics g){

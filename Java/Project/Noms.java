@@ -17,7 +17,7 @@ public class Noms{
   }
 
   public static String getTab_icourant(){
-    return  tab[id%11];
+    return  tab[(id-1)%11];
   }
 }
 
