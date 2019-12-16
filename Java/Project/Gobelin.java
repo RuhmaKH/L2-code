@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import javax.imageio.ImageIO;
 
 public class Gobelin extends Personnage{
   private Image image = null ;

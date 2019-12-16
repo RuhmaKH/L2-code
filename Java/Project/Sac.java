@@ -1,12 +1,4 @@
 import java.awt.*;
-import java.io.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
-
 
 public class Sac extends Acc{
   private Acc[] tab;
@@ -41,8 +33,10 @@ public class Sac extends Acc{
       return true;
     }
     else{
-      if (msg)
-        System.out.println("Pas la place dans le " + getNom());
+      if (msg){
+        Interact.talk( "Pas la place dans le " + getNom() );
+        //System.out.println("Pas la place dans le " + getNom());
+      }
       return false;
     }
   }

@@ -1,9 +1,4 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
 
 public class Pomme extends Acc implements Mangeable{
   private double rayon;

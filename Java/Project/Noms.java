@@ -1,8 +1,3 @@
-import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import javax.imageio.ImageIO;
-
 public class Noms{
   private static String[] tab = {"Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe"};
   private static int id = 0;

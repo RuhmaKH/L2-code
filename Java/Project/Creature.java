@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.swing.*;
 
 public class Creature extends Personnage{
   protected Sac sac;
@@ -27,7 +26,8 @@ public class Creature extends Personnage{
     if (sac.getPoids() + acc.getPoids() < 0.5 * getPoids())
       sac.ajouter(acc, false);
     else{
-      System.out.println(acc.getNom() + " est trop lourd pour " + getNom() + ", l'objet est tombé par terre");
+      Interact.talk( acc.getNom() + " est trop lourd pour " + getNom() + ", l'objet est tombé par terre" );
+      //System.out.println(acc.getNom() + " est trop lourd pour " + getNom() + ", l'objet est tombé par terre");
       Monde.drop(acc, getX(), getY());
     }
   }
@@ -41,7 +41,8 @@ public class Creature extends Personnage{
 
   protected void newBFF (Avatar newBFF){
     if (bff != null && bff != newBFF){
-      System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
+      Interact.talk( String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()) );
+      //System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
       bff.perdreAmi(this);
     }
     if (newBFF == bff)
@@ -57,7 +58,8 @@ public class Creature extends Personnage{
     for(i=0; i <= nbElm; i++){
       if ((obj = sac.obtenir(0)) instanceof Mangeable) {
         manger((Mangeable) obj);
-        System.out.println(getNom() + " a mangé " + obj.toString());
+        Interact.talk( getNom() + " a mangé " + obj.toString() );
+        //System.out.println(getNom() + " a mangé " + obj.toString());
         continue;
       }
       if ((obj = sac.obtenir(0)) instanceof Sac) {
@@ -75,7 +77,8 @@ public class Creature extends Personnage{
   }
 
   public void courir(){
-		System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
+    Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
+		//System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
   }
 
   public void dessiner(Graphics g){

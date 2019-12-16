@@ -1,13 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
-import java.nio.*;
-import java.util.*;
 
 public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
-  private static String interact;
 
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
@@ -56,7 +52,7 @@ public class Jeu extends JFrame{
 
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
-    interact = "play";
+    Interact.play();
     for (int i = 0; i < NB_TOUR; i++) {
       Monde.world.repaint();
       menuDroite.repaint();
@@ -65,7 +61,8 @@ public class Jeu extends JFrame{
         Thread.sleep(1500);  //ralenti l'affichage
         mario.update();
       }
-      System.out.println(mario);
+      Interact.talk(mario.toString());
+      //System.out.println(mario);
       //m.afficher();
       Monde.world.repaint();
       menuDroite.repaint();
@@ -73,9 +70,10 @@ public class Jeu extends JFrame{
         Thread.sleep(1500);  //ralenti l'affichage
         luigi.update();
       }
-      System.out.println(luigi);
+      Interact.talk(luigi.toString());
+      //System.out.println(luigi);
     }
-    interact = "end";
+    Interact.end();
 
     //*********************************************** GAGNANT *********************************************** */
     int amisMario = mario.getAmis().size();
@@ -124,7 +122,8 @@ public class Jeu extends JFrame{
         ggwp += mario.getNom() + " a gagné.e la course car " + luigi.getNom() + " n'a pas d'ami.e.s";
       }
     }
-    System.out.println(ggwp);
+    Interact.talk(ggwp);
+    //System.out.println(ggwp);
 
   }
 
@@ -134,19 +133,6 @@ public class Jeu extends JFrame{
 
   public static void nextPlayer(){
     currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
-  }
-
-  public static String getInteract(){
-    return interact;
-  }
-
-  public static void interact(String str){
-    interact = str;
-    Monde.world.repaint();
-  }
-
-  public static void play () {
-    interact = "play";
   }
 
   public static Avatar[] getPlayers(){

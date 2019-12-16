@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.awt.*;
-import javax.swing.*;
-
 
 public abstract class Magasin extends Item {
     protected ArrayList<Acc> stock;

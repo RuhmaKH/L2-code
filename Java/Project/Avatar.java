@@ -1,10 +1,6 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
+//import java.util.Scanner;
 
 public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
@@ -17,7 +13,7 @@ public class Avatar extends Personnage{
     super(nom, poids);
     listeAmis = new ArrayList<Creature>();
     listeAcc = new ArrayList<Acc>();
-    dealMoney(Math.random() * 10 + 5);
+    money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
   }
 
@@ -55,13 +51,15 @@ public class Avatar extends Personnage{
   private void devenirAmi(Creature crea){
     crea.newBFF(this);
     listeAmis.add(crea);
-    System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
+    Interact.talk( crea.getNom() + " est devenu l'ami de " + getNom() );
+    //System.out.println(crea.getNom() + " est devenu l'ami de " + getNom());
   }
 
   protected void perdreAmi(Creature crea){
     crea.newBFF(this);
     listeAmis.remove(crea);
-    System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
+    Interact.talk( crea.getNom() + " n'est plus l'ami de " + getNom() );
+    //System.out.println(crea.getNom() + " n'est plus l'ami de " + getNom());
   }
 
   private void rencontrer(Creature crea){
@@ -71,7 +69,8 @@ public class Avatar extends Personnage{
       listeAcc.remove(0);
     }
     if (a != null){
-      System.out.println(getNom() + " a donné " + a.getNom() + " à " + crea.getNom());
+      Interact.talk( getNom() + " a donné " + a.getNom() + " à " + crea.getNom() );
+      //System.out.println(getNom() + " a donné " + a.getNom() + " à " + crea.getNom());
       crea.ajouter(a);
       if (!this.estAmi(crea) && a.getPoids() < 50)
         this.devenirAmi(crea);
@@ -127,7 +126,7 @@ public class Avatar extends Personnage{
         if (i instanceof Sac){
           if((place = ((Sac) i ).ajouter(acc, msg))){
             if (msg){
-              Jeu.interact("talk : " + acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
+              Interact.talk( acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom() );
               //System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
             }
             return;
@@ -136,7 +135,7 @@ public class Avatar extends Personnage{
     if (! place){
       listeAcc.add(acc);
       if (msg){
-        Jeu.interact("talk : " + getNom() + " ramasse " + acc.getNom());
+        Interact.talk( getNom() + " ramasse " + acc.getNom() );
         //System.out.println(getNom() + " ramasse " + acc.getNom());
       }
     Monde.supprimerItem(acc);
@@ -144,11 +143,11 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrerVoisins(){
-    Jeu.interact("meet");
+    Interact.meet();
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
       if (item instanceof Avatar){
-        Jeu.interact("talk : Salutation mon ami " + item.getNom());
+        Interact.talk( "Salutation mon ami " + item.getNom() );
         //System.out.println("Salutation mon ami " + item.getNom());
       }
       if (item instanceof Creature)
@@ -160,7 +159,7 @@ public class Avatar extends Personnage{
       if (item instanceof Gobelin)
         toutPerdre();
       if (item instanceof Magasin){
-        Jeu.interact("talk : Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir");
+        Interact.talk("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
         /*Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
@@ -175,10 +174,11 @@ public class Avatar extends Personnage{
         }*/
       }
       Monde.world.repaint();
-    } 
+    }
     Jeu.nextPlayer();
+    Interact.play();
   }
-
+/*
   public void seDeplacer(){
     int absi, ordo, taille = Monde.taille;
     Scanner sc = new Scanner(System.in);
@@ -198,7 +198,7 @@ public class Avatar extends Personnage{
     // Rencontre ses voisins
     rencontrerVoisins();
   }
-
+*/
   public void seDeplacer(int dx, int dy){
     int taille = Monde.taille;
     int x = getX() + dx;
@@ -218,7 +218,8 @@ public class Avatar extends Personnage{
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){
-      System.out.println("Vous n'avez pas assez d'argent pour acheter " + acc.getNom());
+      Interact.talk( "Vous n'avez pas assez d'argent pour acheter " + acc.getNom() );
+      //System.out.println("Vous n'avez pas assez d'argent pour acheter " + acc.getNom());
       return 0.0;
     }
     dealMoney(-prix);
@@ -227,7 +228,7 @@ public class Avatar extends Personnage{
   }
 
   public void vendre (Magasin mag) {
-    Scanner sc = new Scanner(System.in);
+    //Scanner sc = new Scanner(System.in);
     String discution;
     int num, i = 0, nbItem;
     do{
@@ -246,9 +247,11 @@ public class Avatar extends Personnage{
         discution += "\t( " + i + " )-Acheter ?\n";
         i++;
         discution += "\t( " + i + " )-Partir ?";
-        System.out.println(discution);
+        Interact.shop( discution );
+        /*System.out.println(discution);
         System.out.println("Choisissez l'objet que vous désirez vendre : ");
-        num = sc.nextInt();
+        num = sc.nextInt();*/
+        num = Interact.getCursor();
         if (num == i - 1){
           mag.acheter(this);
           return;
@@ -288,15 +291,14 @@ public class Avatar extends Personnage{
 
   private void dealMoney(double argent){
     if (argent > 0){
-      Jeu.interact("talk : " + String.format("%s a gagné %.2f €", getNom(), argent));
+      Interact.talk( String.format("%s a gagné %.2f €", getNom(), argent) );
       //System.out.println( String.format("%s a gagné %.2f €", getNom(), argent));
     }
     if (argent < 0){
-      Jeu.interact("talk : " + String.format("%s a perdu %.2f €", getNom(), -argent));
+      Interact.talk( String.format("%s a perdu %.2f €", getNom(), -argent) );
       //System.out.println( String.format("%s a perdu %.2f €", getNom(), -argent));
     }
     money += argent;
-    Jeu.play();
   }
 
   public void toutPerdre(){

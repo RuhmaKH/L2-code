@@ -33,7 +33,7 @@ public class MyKeyListener implements KeyListener {
     }
     
     public void keyReleased (KeyEvent e) {
-        if (Jeu.getInteract() != "play")
+        if (Interact.getState() != "play")
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -53,7 +53,8 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyPressed (KeyEvent e) {
-        if (Jeu.getInteract() != "play")
+        System.out.println("LEL");
+        if (Interact.getState() != "play")
             return;
         char id = e.getKeyChar();
         switch (id) {
@@ -73,32 +74,52 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyTyped (KeyEvent e) {
-        if (Jeu.getInteract().contains("talk")){
-            Jeu.interact("play");
-            return;
-        }
-        if (Jeu.getInteract() != "play")
-            return;
         Avatar player = Jeu.getCurrPlay();
         char id = e.getKeyChar();
-        switch (id) {
-            case 'q' :
-                player.seDeplacer(-1, 0);
-               break;
-            case 'd' :
-                player.seDeplacer(+1, 0);
-                break;
-            case 'z' :
-                player.seDeplacer(0, -1);
-                break;
-            case 's' :
-                player.seDeplacer(0, +1);
-                break;
-            case ' ' :
-                id = '\n';
-            case '\n' :
-                player.rencontrerVoisins();
-                break;
+        switch (Interact.getState()) {
+
+            case "talk" :
+                System.out.println("LIL");
+                Interact.meet();
+                return;
+
+            case "shop" :
+                switch (id) {
+                    case 'z' :
+                        if (Interact.getCursor() > 0)
+                            Interact.cursorUp();
+                        return;
+                    case 's' :
+                        if (Interact.getCursor() < 0)
+                            Interact.cursorDown();
+                        return;
+                    case ' ' :
+                        id = '\n';
+                    case '\n' :
+                        Interact.choose();
+                        return;
+                }
+
+            case "play" :
+                switch (id) {
+                    case 'q' :
+                        player.seDeplacer(-1, 0);
+                        return;
+                    case 'd' :
+                        player.seDeplacer(+1, 0);
+                        return;
+                    case 'z' :
+                        player.seDeplacer(0, -1);
+                        return;
+                    case 's' :
+                        player.seDeplacer(0, +1);
+                        return;
+                    case ' ' :
+                        id = '\n';
+                    case '\n' :
+                        player.rencontrerVoisins();
+                        return;
+                }
         }
     }
 }

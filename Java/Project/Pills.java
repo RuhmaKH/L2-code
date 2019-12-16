@@ -1,9 +1,4 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-
 
 public class Pills extends Acc implements Mangeable {
     private double poids;

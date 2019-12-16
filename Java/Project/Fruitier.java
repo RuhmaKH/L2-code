@@ -1,16 +1,11 @@
-import java.util.Scanner;
-import javax.swing.*;
+//import java.util.Scanner;
 import java.awt.*;
-import javax.imageio.ImageIO;
-import java.io.*;
-
 public class Fruitier extends Magasin {
-  private Image image=null;
+  	private static final Image image = Images.getImage("Marchand");
 
 	public Fruitier(){
 	  super("Fruitier");
 		initialize();
-		image = Images.getImage("Marchand");
 	}
 
 	private void initialize(){
@@ -19,7 +14,7 @@ public class Fruitier extends Magasin {
 	}
 
 	public void acheter (Avatar avatar) {
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		String discution = "";
 		int num, taille;
 		double plus;
@@ -34,18 +29,21 @@ public class Fruitier extends Magasin {
 				discution = "Je ne possède plus rien à vendre\nVoulez-vous :\n";
 			discution += "\t( " + taille + " )-Vendre ?\n";
 			discution += "\t( " + (taille + 1) + " )-Partir ?";
-			System.out.println(discution);
+			Interact.shop( discution );
+			/*ystem.out.println(discution);
 			System.out.println("Choisissez l'objet que vous désirez acquérir : ");
 			do {
 				num = sc.nextInt();
 			}while(num < 0 || num > taille + 1);
+			*/
+			num = Interact.getCursor();
 			if (num == taille){
 				avatar.vendre(this);
 				return;
 			}
 			if (num == taille + 1)
 				return;
-			if ( (plus = avatar.acheter(stock.get(num))) != 0.0){
+			if ( (plus = avatar.acheter( stock.get(num) )) != 0.0){
 				money += plus;
 				stock.remove(num);
 			}
@@ -55,8 +53,9 @@ public class Fruitier extends Magasin {
 	public double vendre (Acc acc){
 		double prix = acc.getPrix() * 0.9;
 		if (prix > money){
-		  System.out.println("Je n'ai pas assez d'argent pour vous acheter " + acc.getNom());
-		  return 0.0;
+			Interact.talk( "Je n'ai pas assez d'argent pour vous acheter " + acc.getNom() );
+			//System.out.println("Je n'ai pas assez d'argent pour vous acheter " + acc.getNom());
+		  	return 0.0;
 		}
 		money -= prix;
 		stock.add(acc);

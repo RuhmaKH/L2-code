@@ -1,8 +1,5 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 
 public class Coffre extends Item {
     private ArrayList<Item> contenu;
