@@ -189,24 +189,18 @@ public class Avatar extends Personnage{
 
       if (item instanceof Magasin){
         Interact.shop("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
-        // try{
-        //   this.wait();
-        // } catch (Exception e) {
-        //   System.out.println(e);
-        // }
-        // switch ( Interact.getCursor() ) {
-        //   case 9 :
-        //     ((Magasin) item).acheter(this);
-        //     break;
-        //   case 1 :
-        //     vendre((Magasin) item);
-        //     break;
-        //   case 2 :
-        //     Interact.play();
-        //     break;
-        //   default:
-        //     System.out.println("switch");
-        // }
+        switch ( Interact.getCursor() ) {
+          case 0 :
+            ((Magasin) item).acheter(this);
+            break;
+          case 1 :
+            vendre((Magasin) item);
+            break;
+          case 2 :
+            Interact.play();
+            break;
+        }
+        /*
         Scanner sc = new Scanner(System.in);
         //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
@@ -219,7 +213,7 @@ public class Avatar extends Personnage{
           case 2 :
             Interact.play();
             break;
-        }
+        }*/
       }
       Monde.world.repaint();
     }
@@ -276,19 +270,19 @@ public class Avatar extends Personnage{
     do{
         discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
-          discution += String.format("\t( %d )-%s : %.2f\n", i, acc.getNom(), acc.getPrix());
+          discution += String.format("\t- %s : %.2f\n", acc.getNom(), acc.getPrix());
           i++;
           if(acc instanceof Sac && ( nbItem = ((Sac) acc).getNbElements() ) != 0){
             Acc[] contenu = ((Sac) acc).getTab();
             for(int j = 0; j < nbItem; j++){
-              discution += String.format("\t\t( %d )-%s : %.2f\n", i, contenu[j].getNom(), contenu[j].getPrix());
+              discution += String.format("\t\t- %s : %.2f\n", contenu[j].getNom(), contenu[j].getPrix());
               i++;
             }
           }
         }
-        discution += "\t( " + i + " )-Acheter ?\n";
+        discution += "\t- Acheter ?\n";
         i++;
-        discution += "\t( " + i + " )-Partir ?";
+        discution += "\t- Partir ?";
         Interact.shop( discution );
         /*System.out.println(discution);
         System.out.println("Choisissez l'objet que vous désirez vendre : ");

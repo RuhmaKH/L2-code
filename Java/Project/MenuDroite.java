@@ -105,8 +105,8 @@ public class MenuDroite extends JPanel{
     int espace=14 ;
     for ( Creature creature : tab ) {
       imageCreature = creature.getImage();
-      g.drawImage(imageCreature,  taille*i+espace  , y , 30 , 30 ,this) ;
-      g.drawString(creature.getNom(), taille*i+espace , y+40);
+      g.drawImage(imageCreature,  taille * i + espace  , y , 30 , 30 ,this) ;
+      g.drawString(creature.getNom(), taille * i + espace , y + 40);
       espace+=10;
       i++;
     }
@@ -133,9 +133,9 @@ public class MenuDroite extends JPanel{
     g.setFont(font3);
 
     g.drawImage(imagebanderouge,  400 , 100 , 200  ,80 , this) ;
-    g.drawString("Tour : "+ (Jeu.getNb_tours()+1) +"/"+Jeu.getNb_tours_max() , 420, 150);
+    g.drawString("Tour : "+ (Jeu.getNb_tours()) +"/"+Jeu.getNb_tours_max() , 420, 150);
 
-    Avatar[] players= Jeu.getPlayers();
+    Avatar[] players = Jeu.getPlayers();
 
     int taille =  50;
     int espace = 10;
@@ -146,11 +146,11 @@ public class MenuDroite extends JPanel{
 ;
 
     for (int i = 0; i< 10; i++ ){
-      g.drawImage(imageCase,  i*taille+espace,400, taille , taille , this) ;
-      espace+=10;
+      g.drawImage(imageCase,  i * taille + espace, 400, taille, taille, this) ;
+      espace += 10;
     }
     g.drawImage(imageArgent,  13 , 404 , 30 , 30 ,this) ;
-    g.drawImage(imageSac,  70  ,405 , 30 , 30 ,this) ;
+    g.drawImage(imageSac,  70, 405 , 30 , 30 ,this) ;
     g.drawImage(imagePomme,  130 , 405 , 33 ,30 ,this) ;
     g.drawImage(imagePills,  195, 404 , 15, 35,this) ;
     g.drawImage(imageLivremagique,  250 , 402 , 40, 40,this) ;
