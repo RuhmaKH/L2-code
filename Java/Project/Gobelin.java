@@ -14,4 +14,8 @@ public class Gobelin extends Personnage{
       g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
   }
 
+public Image getImage(){
+  return image;
+}
+
 }

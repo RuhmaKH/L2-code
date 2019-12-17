@@ -1,0 +1,26 @@
+import java.awt.*;
+import java.io.*;
+import javax.swing.*;
+import javax.imageio.ImageIO;
+
+public class Epee extends Acc{
+  private Image image=null;
+
+  public Epee(){
+    super("Epee");
+    image = Images.getImage("Epee");
+  }
+
+  public double getPoids(){
+    return 15;
+  }
+
+  public double getPrix(){
+    return 100;
+  }
+
+  public void dessiner(Graphics g){
+      int tc = Monde.tailleCase;
+      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
+  }
+}

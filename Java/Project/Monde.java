@@ -17,13 +17,6 @@ public class Monde extends JPanel{
     listeItems = new ArrayList<Item>();
     listeCreature = new ArrayList<Creature>();
     initialize();
-    /*
-    try {
-      imageHerbe= ImageIO.read(new File("./Image/herbe.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }*/
   }
 
   private static int getPositionAlea(){
@@ -40,6 +33,9 @@ public class Monde extends JPanel{
       ajouterItemAtCoord(new Arbre(taille-1,j));
     for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(j,taille-1));
+    //############# ArbreMagique #############
+    for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
+      ajouterItem(new ArbreMagique());
 
     //############# Creature #############
     Creature creature;
@@ -47,8 +43,9 @@ public class Monde extends JPanel{
       creature = new Creature();
       listeCreature.add(creature);
       ajouterItem(creature);
+      ajouterCreatureOP(new Sonic());
     }
-    ajouterItem(new Gobelin());
+    ajouterCreatureOP(new Gobelin());
     //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
     //  ajouterItem(new Ryuk());
     //############# Coffre #############
@@ -61,6 +58,8 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
+    ajouterAcc(new LivreMagique());
+    ajouterAcc(new Epee());
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }
@@ -84,6 +83,14 @@ public class Monde extends JPanel{
       listeItems.add(item);
     else
       ajouterItem(item);
+  }
+
+  public static void ajouterCreatureOP(Item chanceoupaschance){
+    ArrayList<ArbreMagique> listeArbreMagique = new ArrayList<ArbreMagique>();
+    for (Item item : listeItems)
+      if (item instanceof ArbreMagique)
+        listeArbreMagique.add((ArbreMagique) item);
+    ( listeArbreMagique.get( (int) (Math.random() * listeArbreMagique.size()) ) ).ajouter(chanceoupaschance);
   }
 
   private static void ajouterAcc (Acc acc) {
