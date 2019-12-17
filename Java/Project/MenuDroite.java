@@ -148,20 +148,14 @@ public class MenuDroite extends JPanel{
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,400, taille , taille , this) ;
       espace+=10;
-      if (i==0)
-        g.drawImage(imageArgent,  i*taille +13 , 404 , 30 , 30 ,this) ;
-      if (i==1)
-        g.drawImage(imageSac,  i*taille+espace - 10  ,405 , 30 , 30 ,this) ;
-      if (i==2)
-        g.drawImage(imagePomme,  i*taille+espace - 10 , 405 , 33 ,30 ,this) ;
-      if (i==3)
-        g.drawImage(imagePills,  i*taille+espace -5, 404 , 15, 35,this) ;
-      if (i==4)
-        g.drawImage(imageLivremagique,  i*taille+espace-10 , 402 , 40, 40,this) ;
-      if (i==5)
-          g.drawImage(imageepee,  i*taille+espace-10 , 402 , 40, 40,this) ;
     }
-    g.setColor(Color.WHITE);
+    g.drawImage(imageArgent,  13 , 404 , 30 , 30 ,this) ;
+    g.drawImage(imageSac,  70  ,405 , 30 , 30 ,this) ;
+    g.drawImage(imagePomme,  130 , 405 , 33 ,30 ,this) ;
+    g.drawImage(imagePills,  195, 404 , 15, 35,this) ;
+    g.drawImage(imageLivremagique,  250 , 402 , 40, 40,this) ;
+    g.drawImage(imageepee,  310 , 402 , 40, 40,this) ;
+
     compteDifferentAcc(players[0]);
 
     g.setFont(font1);
@@ -183,7 +177,7 @@ public class MenuDroite extends JPanel{
     dessinerCreature(g, players[0], taille, 472 );
 
     g.setFont(font3);
-    g.drawImage(imageCase,10,630, taille,taille,this) ;
+    g.drawImage(imageCase,10 , 630 , taille ,taille ,this) ;
     g.drawImage(players[1].getImage(),  12 , 635 , 45 , 39,this) ;
     g.drawImage(imagebanderouge,  73 ,630 , 525  ,50 , this) ;
     g.drawString(players[1].getNom(),170, 662);
@@ -194,19 +188,15 @@ public class MenuDroite extends JPanel{
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,700, taille , taille , this) ;
       espace+=10;
-      if (i==0)
-        g.drawImage(imageArgent,  i*taille +13 , 704 , 30 , 30 ,this) ;
-      if (i==1)
-        g.drawImage(imageSac,  i*taille+espace - 10  ,705 , 30 , 30 ,this) ;
-      if (i==2)
-        g.drawImage(imagePomme,  i*taille+espace - 10 , 705 , 33 ,30 ,this) ;
-      if (i==3)
-        g.drawImage(imagePills,  i*taille+espace -5, 704 , 15, 35,this) ;
-      if (i==4)
-          g.drawImage(imageLivremagique,  i*taille+espace-10 , 702 , 40, 40,this) ;
-      if (i==5)
-          g.drawImage(imageepee,  i*taille+espace-10 , 702 , 40, 40,this) ;
     }
+
+    g.drawImage(imageArgent,  13 , 704 , 30 , 30 ,this) ;
+    g.drawImage(imageSac,  70  ,705 , 30 , 30 ,this) ;
+    g.drawImage(imagePomme,  130 , 705 , 33 ,30 ,this) ;
+    g.drawImage(imagePills,  195 , 704 , 15, 35,this) ;
+    g.drawImage(imageLivremagique,  250 , 702 , 40, 40,this) ;
+    g.drawImage(imageepee,  310 , 702 , 40, 40,this) ;
+
     espace = 10;
     for (int i = 0; i< 10; i++ ){
       g.drawImage(imageCase,  i*taille+espace,770, taille,taille,this) ;

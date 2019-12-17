@@ -18,10 +18,10 @@ public class Arbre extends Obstacle{
     image = Images.getImage("Arbre");
   }
 
-    public void dessiner (Graphics g){
-      int tc = Monde.tailleCase;
-      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
-    }
+  public void dessiner (Graphics g){
+    int tc = Monde.tailleCase;
+    g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
+  }
 
 
 }

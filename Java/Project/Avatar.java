@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.lang.*;
 import java.util.Scanner;
 
 public class Avatar extends Personnage{
@@ -172,6 +173,10 @@ public class Avatar extends Personnage{
         ramasser((Acc) item, true);
         continue;
         }
+      if (item instanceof Eau){
+        ((Eau)item).changeImage();
+        continue;
+      }
       if (item instanceof ArbreMagique){
         ArbreMagique arbremagique = (ArbreMagique) item ;
         if( arbremagique.getContenu() instanceof Gobelin){
@@ -185,10 +190,13 @@ public class Avatar extends Personnage{
 
       if (item instanceof Magasin){
         Interact.shop("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
-        //Scanner sc = new Scanner(System.in);
-        //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
-        // switch (sc.nextInt()) {
-        //   case 0 :
+        // try{
+        //   this.wait();
+        // } catch (Exception e) {
+        //   System.out.println(e);
+        // }
+        // switch ( Interact.getCursor() ) {
+        //   case 9 :
         //     ((Magasin) item).acheter(this);
         //     break;
         //   case 1 :
@@ -197,8 +205,24 @@ public class Avatar extends Personnage{
         //   case 2 :
         //     Interact.play();
         //     break;
+        //   default:
+        //     System.out.println("switch");
         // }
+        Scanner sc = new Scanner(System.in);
+        //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        switch (sc.nextInt()) {
+          case 0 :
+            ((Magasin) item).acheter(this);
+            break;
+          case 1 :
+            vendre((Magasin) item);
+            break;
+          case 2 :
+            Interact.play();
+            break;
+        }
       }
+      Monde.world.repaint();
     }
     //Interact.play();
     Jeu.nextPlayer();
@@ -232,7 +256,14 @@ public class Avatar extends Personnage{
       setX(x);
       setY(y);
     }
+    Monde.world.repaint();
   }
+
+  public void update(){
+    int[] coord = MyKeyListener.getDirection();
+    seDeplacer(coord[0], coord[1]);
+  }
+
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){

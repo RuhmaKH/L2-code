@@ -8,13 +8,6 @@ public class Pills extends Acc implements Mangeable {
         super("Pills");
         poids = Math.random();
         image = Images.getImage("Pills");
-        /*
-        try {
-          image = ImageIO.read(new File("./Image/pillule_retouche.png"));
-        }
-        catch(IOException exc) {
-          exc.printStackTrace();
-        }*/
       }
 
     public double getPoids(){
@@ -29,8 +22,8 @@ public class Pills extends Acc implements Mangeable {
         return super.toString();
       }
 
-        public void dessiner ( Graphics g){
-          int tc = Monde.tailleCase;
-          g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
-        }
+    public void dessiner ( Graphics g){
+      int tc = Monde.tailleCase;
+      g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
+    }
 }

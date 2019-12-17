@@ -4,11 +4,13 @@ public class Creature extends Personnage{
   protected Sac sac;
   private Avatar bff;
   private Image image= null;
+  private double coefPills;
 
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
     bff = null;
+    coefPills= 1;
     image = Images.getImage(Noms.getTab_icourant());
   }
 
@@ -36,12 +38,12 @@ public class Creature extends Personnage{
      double v = 0.25 * getPoids() - sac.getPoids();
     if (v < 0)
       return 0;
-    return v;
+    return v * coefPills;
   }
 
   protected void newBFF (Avatar newBFF){
     if (bff != null && bff != newBFF){
-      Interact.talk( String.format(getNom() + " : Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()) );
+      Interact.talk( String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()) );
       //System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
       bff.perdreAmi(this);
     }
@@ -85,6 +87,10 @@ public class Creature extends Personnage{
   }
 
   public void manger(Mangeable m){
+    if (m instanceof Pills){
+      coefPills= coefPills * 1.5;
+      return;
+    }
     this.addPoids(m.getPoids());
   }
 

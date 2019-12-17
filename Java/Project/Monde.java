@@ -1,23 +1,26 @@
 import java.util.ArrayList;
 import java.awt.*;
+import java.io.*;
 import javax.swing.*;
+import javax.imageio.ImageIO;
 
 
 public class Monde extends JPanel{
-  private static final long serialVersionUID = 1L;
   private static ArrayList<Item> listeItems;
   private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
   public static final int tailleCase = 30;
   public final static Monde world = new Monde();
-  private static final Image imageHerbe = Images.getImage("Herbe");
-  private Image imageredcursor = Images.getImage("Redcursor");
+  private Image imageHerbe = null;
+  private Image imageredcursor = null;
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
     listeItems = new ArrayList<Item>();
     listeCreature = new ArrayList<Creature>();
     initialize();
+    imageHerbe = Images.getImage("Herbe");
+    imageredcursor = Images.getImage("Redcursor");
   }
 
   private static int getPositionAlea(){
@@ -37,7 +40,9 @@ public class Monde extends JPanel{
     //############# ArbreMagique #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new ArbreMagique());
-
+    //############# Eau #############
+    for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
+      ajouterItem(new Eau());
     //############# Creature #############
     Creature creature;
     for (int j = 0; j < Math.random() * (taille / 2) + 6; j++){
@@ -177,17 +182,48 @@ public class Monde extends JPanel{
         g.drawImage( imageHerbe, i * tailleCase * 5, j * tailleCase * 5, tailleCase * 5, tailleCase * 5, this) ;
   }
 
+  public void dessinerTalk(Graphics g, int height){
+    int size = taille * tailleCase;
+    Image imageShop = null;
+    try {
+      imageShop = ImageIO.read(new File("./Image/dialogue.png"));
+    }
+    catch(IOException exc) {
+      exc.printStackTrace();
+    }
+    g.setColor(new Color(95, 0, 0));
+    g.fillRect(15, size - height, size - 30, height - 15);
+    g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
+  }
+
   public void paintComponent(Graphics g){
+		super.paintComponent(g); //redessine le panneau
+    //g.setColor(Color.GREEN);
+    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     dessinerMap(g);
+    //super.paintComponent(g); //redessine le panneau
+    /*
+    for (int i = 0; i<getWidth(); i++){
+      g.setColor(Color.ORANGE);
+      g.drawLine( i*tailleCase, 0, i*tailleCase, getHeight());
+    }
+    for (int i = 0; i<getHeight(); i++){
+      g.setColor(Color.ORANGE);
+      g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
+    }*/
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
-        itemVoisin.dessiner(g);
-    if (Interact.getState() == "talk" || Interact.getState() == "shop"){
-      Interact.dessinerTalk(g);
-    }
-
+				itemVoisin.dessiner(g);
     Avatar currentPlayer = Jeu.getCurrPlay();
     g.drawImage( imageredcursor, currentPlayer.getX()*tailleCase +7  , currentPlayer.getY()*tailleCase -17  , 20 , 20 , this);
+
+
+    /*dessinerShop(g);
+    Image imageShop = null;
+    int size = taille * tailleCase;
+    imageShop= Images.getImage("Dialogue");
+    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
+    */
 
   }
 }
