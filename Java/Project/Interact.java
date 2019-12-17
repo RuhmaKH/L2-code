@@ -1,10 +1,5 @@
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Interact {
     private static String state;
@@ -37,25 +32,12 @@ public class Interact {
         state = "talk";
         talk = getTalk(str);
         Monde.world.repaint();
-        while (state != "meet") { }
     }
 
     public static void shop (String str) {
         state = "shop";
         talk = getTalk(str);
         
-    }
-
-    public static Action updateState(){
-        return new AbstractAction("updateState"){
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("binding");
-                meet();
-            }
-        };
     }
 
     public static void cursorUp () {

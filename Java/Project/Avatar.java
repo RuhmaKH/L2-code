@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import java.lang.*;
 import java.util.Scanner;
 
 public class Avatar extends Personnage{

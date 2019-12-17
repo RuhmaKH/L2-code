@@ -1,7 +1,7 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class Jeu extends JFrame{
+  private static final long serialVersionUID = 1L;
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX;

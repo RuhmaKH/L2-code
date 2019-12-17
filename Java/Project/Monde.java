@@ -4,6 +4,7 @@ import javax.swing.*;
 
 
 public class Monde extends JPanel{
+  private static final long serialVersionUID = 1L;
   private static ArrayList<Item> listeItems;
   private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
