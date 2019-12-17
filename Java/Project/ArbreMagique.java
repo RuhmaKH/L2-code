@@ -19,5 +19,7 @@ public class ArbreMagique extends Arbre{
       super.image = Gobelin.image;
     if (contenu instanceof Sonic)
       super.image = Sonic.image;
+    if (contenu instanceof Yoda)
+      super.image = Yoda.image;
   }
 }

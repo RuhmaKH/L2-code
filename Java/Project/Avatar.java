@@ -183,7 +183,7 @@ public class Avatar extends Personnage{
 
       if (item instanceof ArbreMagique){
         ArbreMagique arbremagique = (ArbreMagique) item ;
-        if( arbremagique.getContenu() instanceof Gobelin){
+        if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
           if (listeAcc.contains(Epee.epee)){
             Interact.talk("Un gobelin vous a sautez dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
@@ -201,7 +201,11 @@ public class Avatar extends Personnage{
           continue;
         }
         if (arbremagique.getContenu() instanceof Sonic){
-          rencontrerSonic ( (Sonic)(arbremagique.getContenu()), item);
+          rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
+          continue;
+        }
+        if (arbremagique.getContenu() instanceof Yoda){
+          rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
           continue;
         }
       }
@@ -366,21 +370,25 @@ public class Avatar extends Personnage{
     }
   }
 
-  public void rencontrerSonic(Sonic sonic, Item item){
+  public void rencontrerCreatureOP(Creature creature, Item item){
     for ( int i =0 ; i< listeAcc.size(); i++){
       if (listeAcc.get(i) instanceof LivreMagique){
         ((ArbreMagique) item ).changeImage();
-        sonic.newBFF(this);
-        listeAmis.add(sonic);
+        creature.newBFF(this);
+        listeAmis.add(creature);
         listeAcc.remove(i);
       }
     }
   }
 
-  public void killCreature( Avatar avatar){
+  public void killCreature(Avatar avatar){
     ArrayList<Creature> listeCreature = avatar.getAmis();
     if ( listeCreature != null){
       if (listeAcc.contains(Epee.epee)){
+        if (avatar.listeAcc.contains(Epee.epee)){
+          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.");
+          return;
+        }
         listeAcc.remove(Epee.epee);
         Monde.supprimerItem( listeCreature.get(0) );
         avatar.supprimePremierAmi();
