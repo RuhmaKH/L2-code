@@ -183,7 +183,10 @@ public class Avatar extends Personnage{
           toutPerdre();
         }
         if (arbremagique.getContenu() instanceof Sonic){
-          rencontrerSonic ( (Sonic)(arbremagique.getContenu()) , item);
+          rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
+        }
+        if (arbremagique.getContenu() instanceof Yoda){
+          rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
         }
       }
 
@@ -358,12 +361,12 @@ public class Avatar extends Personnage{
     }
   }
 
-  public void rencontrerSonic(Sonic sonic, Item item){
+  public void rencontrerCreatureOP(Creature creature, Item item){
     for ( int i =0 ; i< listeAcc.size(); i++){
       if (listeAcc.get(i) instanceof LivreMagique){
         ((ArbreMagique) item ).changeImage();
-        sonic.newBFF(this);
-        listeAmis.add(sonic);
+        creature.newBFF(this);
+        listeAmis.add(creature);
         listeAcc.remove(i);
       }
     }
@@ -371,13 +374,13 @@ public class Avatar extends Personnage{
 
   public void killCreature( Avatar avatar){
     ArrayList<Creature> listeCreature = avatar.getAmis();
-    if ( listeCreature != null){
-      for ( int i = 0; i < listeAcc.size();  i++){
-        if (listeAcc.get(i) instanceof Epee){
-          listeAcc.remove(i);
-          Monde.supprimerItem( listeCreature.get(0) );
-          avatar.supprimePremierAmi();
-        }
+    if ( listeCreature == null)
+      return;
+    for ( int i = 0; i < listeAcc.size();  i++){
+      if (listeAcc.get(i) instanceof Epee){
+        listeAcc.remove(i);
+        avatar.supprimePremierAmi();
+        Monde.supprimerItem( listeCreature.get(0) );
       }
     }
   }

@@ -5,7 +5,6 @@ public class Sonic extends Creature{
 
   public Sonic (){
     super("Sonic");
-    image = Images.getImage("Sonic");
   }
 
   public double getVitesse(){

@@ -50,6 +50,7 @@ public class Monde extends JPanel{
       listeCreature.add(creature);
       ajouterItem(creature);
       ajouterCreatureOP(new Sonic());
+      ajouterCreatureOP(new Yoda());
     }
     ajouterCreatureOP(new Gobelin());
     //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
@@ -64,8 +65,10 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    ajouterAcc(new LivreMagique());
-    ajouterAcc(new Epee());
+    for (int j = 0; j < 3 ; j++){
+      ajouterAcc(new LivreMagique());
+      ajouterAcc(new Epee());
+    }
     //############# Magasin #############
     ajouterItem(new Fruitier());
   }

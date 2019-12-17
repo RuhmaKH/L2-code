@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Images {
   public final static String[] tab = {"Avatar1" , "Avatar2", "Arbre", "Tresor", "Sac", "Pomme","Pills", "Herbe", "Coffre_ouvert", "Coffre_ferme", "Marchand",
     "Chevre", "Bird", "Cheval", "Lion", "Baleine", "Pingouin", "Poule", "Lapin", "Rat", "Tigre", "Singe", "Dialogue", "Cursor", "Case", "Gobelin", "Banderouge",
-  "Redcursor", "LivreMagique", "Epee", "Sonic", "Eau", "Eau_vide"};
+  "Redcursor", "LivreMagique", "Epee", "Sonic", "Eau", "Eau_vide", "Yoda"};
   private static ArrayList<Image> tabimage;
   private final static Images pic = new Images();
 
@@ -47,8 +47,9 @@ public class Images {
   tabimage.add( ImageIO.read(new File("./Image/sonic.png")));
   tabimage.add( ImageIO.read(new File("./Image/eau.png")));
   tabimage.add( ImageIO.read(new File("./Image/eau_vide.png")));
+  tabimage.add( ImageIO.read(new File("./Image/yoda.png")));
 } catch(IOException exc) {
-    exc.printStackTrace();
+    System.out.println("Il manque une image");
   }
 }
 

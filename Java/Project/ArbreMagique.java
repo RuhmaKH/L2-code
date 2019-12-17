@@ -20,5 +20,7 @@ public class ArbreMagique extends Arbre{
       super.image= Images.getImage("Gobelin");
     if (nom== "Sonic")
       super.image= Images.getImage("Sonic");
+    if (nom== "Yoda")
+      super.image= Images.getImage("Yoda");
   }
 }
