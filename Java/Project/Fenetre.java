@@ -10,12 +10,14 @@ public class Fenetre extends JFrame {
     JFrame frame = new JFrame();
     Monde monde = Monde.world;
     MenuDroite menuDroite = new MenuDroite();
+    MenuGauche menuGauche = new MenuGauche();
 
     public Fenetre() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Monde.world.setLayout(new BorderLayout());
         frame.add(monde, BorderLayout.CENTER);
         frame.add(menuDroite, BorderLayout.EAST);
+        frame.add(menuGauche, BorderLayout.WEST);
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);

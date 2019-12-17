@@ -12,11 +12,11 @@ public class Jeu extends JFrame{
 
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
     String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
-    
+
 		if(nom1 == "" || nom1 == null) {
 			nom1 = "J1";
     }
-    
+
 		if(nom2 == "" || nom2 == null) {
 			nom2 = "J2";
 		}
