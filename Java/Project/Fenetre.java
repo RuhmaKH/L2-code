@@ -41,7 +41,7 @@ public class Fenetre extends JFrame {
                     break;
                 case "shop" :
                     if (Interact.getCursor() > 0)
-                    Interact.cursorUp();
+                        Interact.cursorUp();
                     break;
             }
             repaint();
@@ -69,13 +69,15 @@ public class Fenetre extends JFrame {
                 case "talk" :
                     Interact.play();
                     break;
+                case "choose" :
+                    Interact.play();
+                    break;
             }
             repaint();
         });
     }
 
-    public void paintComponent(Graphics g) {
-        paintComponent(g);
+    public void repaint() {
         monde.repaint();
         menuDroite.repaint();
     }

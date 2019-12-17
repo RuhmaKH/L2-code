@@ -185,13 +185,10 @@ public class Avatar extends Personnage{
 
       if (item instanceof Magasin){
         Interact.shop("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
-        // try{
-        //   this.wait();
-        // } catch (Exception e) {
-        //   System.out.println(e);
-        // }
-        // switch ( Interact.getCursor() ) {
-        //   case 9 :
+        //Scanner sc = new Scanner(System.in);
+        //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        // switch (sc.nextInt()) {
+        //   case 0 :
         //     ((Magasin) item).acheter(this);
         //     break;
         //   case 1 :
@@ -200,24 +197,8 @@ public class Avatar extends Personnage{
         //   case 2 :
         //     Interact.play();
         //     break;
-        //   default:
-        //     System.out.println("switch");
         // }
-        Scanner sc = new Scanner(System.in);
-        //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
-        switch (sc.nextInt()) {
-          case 0 :
-            ((Magasin) item).acheter(this);
-            break;
-          case 1 :
-            vendre((Magasin) item);
-            break;
-          case 2 :
-            Interact.play();
-            break;
-        }
       }
-      Monde.world.repaint();
     }
     //Interact.play();
     Jeu.nextPlayer();
@@ -251,9 +232,7 @@ public class Avatar extends Personnage{
       setX(x);
       setY(y);
     }
-    Monde.world.repaint();
   }
-
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){

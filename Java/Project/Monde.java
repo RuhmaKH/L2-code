@@ -179,11 +179,9 @@ public class Monde extends JPanel{
 
   public void paintComponent(Graphics g){
     dessinerMap(g);
-    
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
         itemVoisin.dessiner(g);
-    System.out.println(Interact.getState());
     if (Interact.getState() == "talk" || Interact.getState() == "shop"){
       Interact.dessinerTalk(g);
     }

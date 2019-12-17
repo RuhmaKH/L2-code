@@ -31,13 +31,11 @@ public class Interact {
     public static void talk (String str) {
         state = "talk";
         talk = getTalk(str);
-        Monde.world.repaint();
     }
 
     public static void shop (String str) {
         state = "shop";
-        talk = getTalk(str);
-        
+        talk = getTalk(str);   
     }
 
     public static void cursorUp () {

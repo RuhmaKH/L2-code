@@ -7,7 +7,6 @@ public class Jeu extends JFrame{
   private static int NB_TOUR_MAX;
   private static int NB_TOUR;
   private static final int RATE = 1500;
-
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
 
@@ -29,8 +28,8 @@ public class Jeu extends JFrame{
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 
-    Avatar mario = new Avatar(nom1, 60.5, "Avatar1");
-    Avatar luigi = new Avatar(nom2, 100.5, "Avatar2");
+    Avatar mario = new Avatar(nom1, 60.5, "Avatar2");
+    Avatar luigi = new Avatar(nom2, 100.5, "Avatar1");
 
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
@@ -47,7 +46,7 @@ public class Jeu extends JFrame{
     Interact.play();
     for (int i = 0; i < NB_TOUR_MAX; i++) {
       while (currentPlayer == mario){
-        Thread.sleep(RATE);  //ralenti l'affichage
+        //Thread.sleep(RATE);  //ralenti l'affichage
       }
       //Interact.talk(mario.toString());
       //System.out.println(mario);
@@ -61,7 +60,6 @@ public class Jeu extends JFrame{
       NB_TOUR++;
     }
     Interact.end();
-    Monde.world.repaint();
     //*********************************************** GAGNANT *********************************************** */
     int amisMario = mario.getAmis().size();
     int amisLuigi = luigi.getAmis().size();
