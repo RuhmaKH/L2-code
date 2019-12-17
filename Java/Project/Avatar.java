@@ -257,11 +257,6 @@ public class Avatar extends Personnage{
     Monde.world.repaint();
   }
 
-  public void update(){
-    int[] coord = MyKeyListener.getDirection();
-    seDeplacer(coord[0], coord[1]);
-  }
-
   public double acheter (Acc acc){
     double prix = acc.getPrix();
     if (prix > money){
