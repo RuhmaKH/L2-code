@@ -8,8 +8,4 @@ public class Chevredelamort extends Creature{
     image = Images.getImage("Chevre");
   }
 
-  public double getVitesse(){
-    return 50;
-  }
-
 }

@@ -16,6 +16,8 @@ public class MenuGauche extends JPanel{
   private Image imageGobelin= null;
   private Image imageCreature=null;
   private Image imageSonic= null;
+  private Image imageYoda= null;
+  private Image imageChevre= null;
 
   public MenuGauche () {
     setPreferredSize(new Dimension(300,0));
@@ -32,6 +34,8 @@ public class MenuGauche extends JPanel{
     imageGobelin = Images.getImage("Gobelin");
     imageCreature = Images.getImage("Poule");
     imageSonic = Images.getImage("Sonic");
+    imageYoda = Images.getImage("Yoda");
+    imageChevre = Images.getImage("Chevre");
   }
 
 
@@ -48,7 +52,7 @@ public class MenuGauche extends JPanel{
       for ( int j = 0; j < 30 ; j++ )
         g.drawImage(imageArbre,i*30, j*30, 30, 30,this);
 
-    for (int i = 0; i< 10; i++ ){
+    for (int i = 0; i< 12; i++ ){
       g.drawImage(imageCase, 20 ,i*taille+espace , taille , taille , this) ;
       g.drawImage(imageCase, 80 ,i*taille+espace , 220 , taille , this) ;
       espace+=10;
@@ -102,6 +106,18 @@ public class MenuGauche extends JPanel{
           g.drawImage(imageSonic,  25 , i*taille+espace-7 , 40, 40,this) ;
           g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
           g.drawString("manifeste que quand vous possédez un LivreMagique", 100 , i*taille+espace+25);
+      }
+      if (i==10){
+          g.setFont(font2);
+          g.drawImage(imageYoda,  25 , i*taille+espace-7 , 40, 40,this) ;
+          g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
+          g.drawString("manifeste que quand vous possédez un LivreMagique", 100 , i*taille+espace+25);
+      }
+      if (i==11){
+          g.setFont(font2);
+          g.drawImage(imageChevre,  25 , i*taille+espace-7 , 40, 40,this) ;
+          g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
+          g.drawString("Si vous finissez avec la chevre, vous avez gagné", 100 , i*taille+espace+25);
       }
     }
   }
