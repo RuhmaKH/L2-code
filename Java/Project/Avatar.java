@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.lang.*;
 import java.util.Scanner;
@@ -253,11 +254,6 @@ public class Avatar extends Personnage{
       setY(y);
     }
     Monde.world.repaint();
-  }
-
-  public void update(){
-    int[] coord = MyKeyListener.getDirection();
-    seDeplacer(coord[0], coord[1]);
   }
 
   public double acheter (Acc acc){
