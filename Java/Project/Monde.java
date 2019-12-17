@@ -213,17 +213,13 @@ public class Monde extends JPanel{
     }*/
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
-				itemVoisin.dessiner(g);
+        itemVoisin.dessiner(g);
+
     Avatar currentPlayer = Jeu.getCurrPlay();
-    g.drawImage( imageredcursor, currentPlayer.getX()*tailleCase +7  , currentPlayer.getY()*tailleCase -17  , 20 , 20 , this);
-
-
-    /*dessinerShop(g);
-    Image imageShop = null;
-    int size = taille * tailleCase;
-    imageShop= Images.getImage("Dialogue");
-    g.drawImage(imageShop, 20, size - 200, size - 40, 180, this);
-    */
+    g.drawImage( imageredcursor, currentPlayer.getX() * tailleCase + 7  , currentPlayer.getY() * tailleCase - 17  , 20 , 20 , this);
+    if (Interact.getState() == "talk" || Interact.getState() == "shop"){
+      Interact.dessinerTalk(g);
+    }
 
   }
 }

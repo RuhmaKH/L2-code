@@ -7,12 +7,15 @@ import javax.swing.AbstractAction;
 
 public class Fenetre extends JFrame {
     private static final long serialVersionUID = 1L;
-    JFrame frame = new JFrame();
-    Monde monde = Monde.world;
-    MenuDroite menuDroite = new MenuDroite();
-    MenuGauche menuGauche = new MenuGauche();
+    private static final JFrame frame = new JFrame();
+    private static final Monde monde = Monde.world;
+    private static final MenuDroite menuDroite = new MenuDroite();
+    private static final MenuGauche menuGauche = new MenuGauche();
+    private static Fenetre fenetre;
 
     public Fenetre() {
+        if (fenetre == null)
+            fenetre = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Monde.world.setLayout(new BorderLayout());
         frame.add(monde, BorderLayout.CENTER);
@@ -25,16 +28,14 @@ public class Fenetre extends JFrame {
         frame.setLocationRelativeTo(null);
 
         addKeyBinding(KeyEvent.VK_Q, "left", (evt) -> {
-            if (Interact.getState() == "play"){
+            if (Interact.getState() == "play")
                 Jeu.getCurrPlay().seDeplacer(-1, 0);
-                repaint();
-            }
+            repaint();
         });
         addKeyBinding(KeyEvent.VK_D, "right", (evt) -> {
-            if (Interact.getState() == "play"){
+            if (Interact.getState() == "play")
                 Jeu.getCurrPlay().seDeplacer(+1, 0);
-                repaint();
-            }
+            repaint();
         });
         addKeyBinding(KeyEvent.VK_Z, "forward", (evt) -> {
             switch (Interact.getState()) {
@@ -63,7 +64,7 @@ public class Fenetre extends JFrame {
         addKeyBinding(KeyEvent.VK_SPACE, "action", (evt) -> {
             switch (Interact.getState()) {
                 case "play" :
-                    Jeu.getCurrPlay().rencontrerVoisins();
+                    Interact.meet();
                     break;
                 case "shop" :
                     Interact.choose();
@@ -80,6 +81,7 @@ public class Fenetre extends JFrame {
     }
 
     public void repaint() {
+        System.out.println(Interact.getState());
         monde.repaint();
         menuDroite.repaint();
     }
@@ -99,5 +101,9 @@ public class Fenetre extends JFrame {
             }
         });
 
+    }
+
+    public static Fenetre getFenetre(){
+        return fenetre;
     }
 }
