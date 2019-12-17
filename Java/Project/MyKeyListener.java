@@ -1,7 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.*;
+import java.lang.*;
 
-public class MyKeyListener implements KeyListener {
+public class MyKeyListener extends Thread implements KeyListener {
     private static boolean leftHeld, rightHeld, upHeld, downHeld;
 
     public MyKeyListener () {
@@ -73,13 +74,13 @@ public class MyKeyListener implements KeyListener {
     }
 
     public void keyTyped (KeyEvent e) {
+        System.out.println("key");
         Avatar player = Jeu.getCurrPlay();
         char id = e.getKeyChar();
-        switch (Interact.getState()) {
+        switch ( Interact.getState() ) {
 
             case "talk" :
-                System.out.println("LIL");
-                Interact.meet();
+                Interact.play();
                 return;
 
             case "shop" :

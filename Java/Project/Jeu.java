@@ -6,15 +6,18 @@ public class Jeu extends JFrame{
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX;
   private static int NB_TOUR;
+  private static final int RATE = 1000;
 
   public static void main (String [] args) throws InterruptedException{
     //System.setProperty("file.encoding", "UTF-8");
 
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
-		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
+    String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
+    
 		if(nom1 == "" || nom1 == null) {
 			nom1 = "J1";
-		}
+    }
+    
 		if(nom2 == "" || nom2 == null) {
 			nom2 = "J2";
 		}
@@ -26,8 +29,8 @@ public class Jeu extends JFrame{
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
 
-    Avatar mario = new Avatar(nom1 , 60.5, "Avatar1");
-    Avatar luigi = new Avatar(nom2, 100.50, "Avatar2");
+    Avatar mario = new Avatar(nom1, 60.5, "Avatar1");
+    Avatar luigi = new Avatar(nom2, 100.5, "Avatar2");
 
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
@@ -54,12 +57,12 @@ public class Jeu extends JFrame{
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     Interact.play();
-    for (int i = 0; i < NB_TOUR; i++) {
+    for (int i = 0; i < NB_TOUR_MAX; i++) {
       Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == mario){
         Monde.world.repaint();
-        Thread.sleep(1500);  //ralenti l'affichage
+        Thread.sleep(RATE);  //ralenti l'affichage
         mario.update();
       }
       //Interact.talk(mario.toString());
@@ -68,13 +71,13 @@ public class Jeu extends JFrame{
       Monde.world.repaint();
       menuDroite.repaint();
       while (currentPlayer == luigi){
-        Thread.sleep(1500);  //ralenti l'affichage
+        Thread.sleep(RATE);  //ralenti l'affichage
         luigi.update();
       }
       //Interact.talk(luigi.toString());
       //System.out.println(luigi);
       Monde.deplacerCreature();
-
+      NB_TOUR++;
     }
     Interact.end();
 
@@ -148,17 +151,5 @@ public class Jeu extends JFrame{
 
   public static int getNb_tours_max(){
     return NB_TOUR_MAX;
-  }
-
-  public static void waitState(String str){
-    while (Interact.getState() != str){
-      Monde.world.repaint();
-      System.out.println("LOUL");
-      try{
-          Thread.sleep(1000);
-      } catch (Exception e) {
-          System.out.println(e);
-       }
-  }
   }
 }

@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
-//import java.util.Scanner;
+import java.lang.*;
+import java.util.Scanner;
 
 public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
@@ -143,7 +144,7 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrerVoisins(){
-    Interact.meet();
+    Interact.talk("");
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
       if (item instanceof Avatar){
@@ -159,9 +160,27 @@ public class Avatar extends Personnage{
       if (item instanceof Gobelin)
         toutPerdre();
       if (item instanceof Magasin){
-        Interact.talk("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
-        /*Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        Interact.shop("Marchand : Bienvenu.e dans mon magasin " + item.getNom() + ". \nSouahaitez-vous :\n\t- Acheter ?\n\t- Vendre ?\n\t- Partir" );
+        // try{
+        //   this.wait();
+        // } catch (Exception e) {
+        //   System.out.println(e);
+        // }
+        // switch ( Interact.getCursor() ) {
+        //   case 9 :
+        //     ((Magasin) item).acheter(this);
+        //     break;
+        //   case 1 :
+        //     vendre((Magasin) item);
+        //     break;
+        //   case 2 :
+        //     Interact.play();
+        //     break;
+        //   default:
+        //     System.out.println("switch");
+        // }
+        Scanner sc = new Scanner(System.in);
+        //System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
           case 0 :
             ((Magasin) item).acheter(this);
@@ -170,13 +189,14 @@ public class Avatar extends Personnage{
             vendre((Magasin) item);
             break;
           case 2 :
+            Interact.play();
             break;
-        }*/
+        }
       }
       Monde.world.repaint();
     }
+    //Interact.play();
     Jeu.nextPlayer();
-    Interact.play();
   }
 /*
   public void seDeplacer(){

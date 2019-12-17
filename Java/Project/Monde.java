@@ -187,9 +187,8 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
         itemVoisin.dessiner(g);
-        
+    System.out.println(Interact.getState());
     if (Interact.getState() == "talk" || Interact.getState() == "shop"){
-      System.out.println("LAL");
       Interact.dessinerTalk(g);
     }
 
