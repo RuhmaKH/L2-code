@@ -182,12 +182,12 @@ public class Monde extends JPanel{
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
         itemVoisin.dessiner(g);
+        
+    Avatar currentPlayer = Jeu.getCurrPlay();
+    g.drawImage( imageredcursor, currentPlayer.getX() * tailleCase + 7  , currentPlayer.getY() * tailleCase - 17  , 20 , 20 , this);
     if (Interact.getState() == "talk" || Interact.getState() == "shop"){
       Interact.dessinerTalk(g);
     }
-
-    Avatar currentPlayer = Jeu.getCurrPlay();
-    g.drawImage( imageredcursor, currentPlayer.getX()*tailleCase +7  , currentPlayer.getY()*tailleCase -17  , 20 , 20 , this);
 
   }
 }

@@ -150,8 +150,7 @@ public class Avatar extends Personnage{
     }
   }
 
-  public void rencontrerVoisins(){
-    Interact.talk("");
+  public void rencontrerVoisins() {
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
       if (item instanceof Avatar){
@@ -200,8 +199,7 @@ public class Avatar extends Personnage{
         // }
       }
     }
-    //Interact.play();
-    Jeu.nextPlayer();
+    Interact.play();
   }
 /*
   public void seDeplacer(){

@@ -31,11 +31,27 @@ public class Interact {
     public static void talk (String str) {
         state = "talk";
         talk = getTalk(str);
+        Fenetre.getFenetre().repaint();
+        while (state == "talk") {
+            try {
+                Thread.sleep(250);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
     public static void shop (String str) {
         state = "shop";
-        talk = getTalk(str);   
+        talk = getTalk(str);
+        Fenetre.getFenetre().repaint();
+        while (state == "shop") {
+            try {
+                Thread.sleep(250);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
     public static void cursorUp () {

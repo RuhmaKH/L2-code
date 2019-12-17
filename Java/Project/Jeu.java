@@ -6,7 +6,6 @@ public class Jeu extends JFrame{
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX;
   private static int NB_TOUR;
-  private static final int RATE = 1500;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
 
@@ -44,20 +43,20 @@ public class Jeu extends JFrame{
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     Interact.play();
-    for (int i = 0; i < NB_TOUR_MAX; i++) {
-      while (currentPlayer == mario){
-        //Thread.sleep(RATE);  //ralenti l'affichage
+
+    for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {
+      Monde.world.repaint();
+      while (Interact.getState() == "play"){
+        Thread.sleep(250);  //ralenti l'affichage
       }
-      //Interact.talk(mario.toString());
-      //System.out.println(mario);
-      //m.afficher();
-      while (currentPlayer == luigi){
-        Thread.sleep(RATE);  //ralenti l'affichage
+      currentPlayer.rencontrerVoisins();
+      Interact.talk(currentPlayer.toString());
+      //System.out.println(currentPlayer;
+      nextPlayer();
+      if (i % 2 == 0){
+        Monde.deplacerCreature();
+        NB_TOUR++;
       }
-      //Interact.talk(luigi.toString());
-      //System.out.println(luigi);
-      Monde.deplacerCreature();
-      NB_TOUR++;
     }
     Interact.end();
     //*********************************************** GAGNANT *********************************************** */
