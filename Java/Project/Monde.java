@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 
 public class Monde extends JPanel{
+  private static final long serialVersionUID = 1L;
   private static ArrayList<Item> listeItems;
   private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
@@ -49,11 +50,9 @@ public class Monde extends JPanel{
       creature = new Creature();
       listeCreature.add(creature);
       ajouterItem(creature);
-      ajouterCreatureOP(new Sonic());
     }
-    ajouterCreatureOP(new Gobelin());
-    //for (int j = 0; j < Math.random() * (taille / 4) + taille / 2; j++)
-    //  ajouterItem(new Ryuk());
+    ajouterCreatureOP(Sonic.sonic);
+    ajouterCreatureOP(Gobelin.gobelin);
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new Coffre());
@@ -65,9 +64,9 @@ public class Monde extends JPanel{
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
     ajouterAcc(new LivreMagique());
-    ajouterAcc(new Epee());
+    ajouterAcc(Epee.epee);
     //############# Magasin #############
-    ajouterItem(new Fruitier());
+    ajouterItem(Fruitier.fruitier);
   }
 
   public static void deplacerCreature(){

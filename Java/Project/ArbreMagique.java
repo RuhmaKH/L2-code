@@ -15,10 +15,9 @@ public class ArbreMagique extends Arbre{
   }
 
   public void changeImage(){
-    String nom =contenu.getNom();
-    if (nom== "Gobelin")
-      super.image= Images.getImage("Gobelin");
-    if (nom== "Sonic")
-      super.image= Images.getImage("Sonic");
+    if (contenu instanceof Gobelin)
+      super.image = Gobelin.image;
+    if (contenu instanceof Sonic)
+      super.image = Sonic.image;
   }
 }

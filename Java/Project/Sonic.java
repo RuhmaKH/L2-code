@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public class Sonic extends Creature{
-  private Image image = null;
+  public static final Image image = Images.getImage("Sonic");
+  public static final Sonic sonic = new Sonic();
 
-  public Sonic (){
+  private Sonic (){
     super("Sonic");
-    image = Images.getImage("Sonic");
   }
 
   public double getVitesse(){
