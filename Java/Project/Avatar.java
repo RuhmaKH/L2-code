@@ -52,6 +52,10 @@ public class Avatar extends Personnage{
     return money;
   }
 
+  public void supprimePremierAmi(){
+    listeAmis.remove(0);
+  }
+
   public boolean estAmi(Creature crea){
     if (listeAmis.contains(crea))
       return true;
@@ -129,6 +133,10 @@ public class Avatar extends Personnage{
 
   private void ramasser(Acc acc, boolean msg){
     boolean place = false;
+    if ( acc instanceof LivreMagique || acc instanceof Epee){
+      listeAcc.add(acc);
+      return;
+    }
     for (Item i : listeAcc)
         if (i instanceof Sac){
           if((place = ((Sac) i ).ajouter(acc, msg))){
@@ -150,20 +158,38 @@ public class Avatar extends Personnage{
     Jeu.interact();
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
-      if (item instanceof Avatar)
+      if (item instanceof Avatar){
         System.out.println("Salutation mon ami " + item.getNom());
-      if (item instanceof Creature)
+        killCreature( (Avatar) item);
+        continue;
+        }
+      if (item instanceof Creature){
         rencontrer((Creature) item);
-      if (item instanceof Coffre)
+        continue;
+        }
+      if (item instanceof Coffre){
         ouvrir((Coffre) item);
-      if (item instanceof Acc)
+        continue;
+        }
+      if (item instanceof Acc){
         ramasser((Acc) item, true);
-      if (item instanceof Gobelin)
-        toutPerdre();
+        continue;
+        }
+      if (item instanceof ArbreMagique){
+        ArbreMagique arbremagique = (ArbreMagique) item ;
+        if( arbremagique.getContenu() instanceof Gobelin){
+          arbremagique.changeImage();
+          toutPerdre();
+        }
+        if (arbremagique.getContenu() instanceof Sonic){
+          rencontrerSonic ( (Sonic)(arbremagique.getContenu()) , item);
+        }
+      }
+
       if (item instanceof Magasin){
         //Monde.dessinerShop();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souahaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
+        System.out.println("Bienvenu.e dans mon magasin " + item.getNom() + "\n Souhaitez-vous :\n\t( 0 )-acheter ?\n\t( 1 )-vendre ?\n\t( 2 )-Partir" );
         switch (sc.nextInt()) {
           case 0:
             ((Magasin) item).acheter(this);
@@ -295,9 +321,38 @@ public class Avatar extends Personnage{
 
   public void toutPerdre(){
     money = 0;
-    for ( int i =0 ; i< listeAcc.size() ; i++)
-      listeAcc.remove(listeAcc.get(0));
+    int a = listeAcc.size();
+    for ( int i =0 ; i< a ; i++){
+      //if ( listeAcc.get(0) instanceof Sac)
+      //  ((Sac)(listeAcc.get(0))).vider();
+      listeAcc.remove(0);
+    }
   }
+
+  public void rencontrerSonic(Sonic sonic, Item item){
+    for ( int i =0 ; i< listeAcc.size(); i++){
+      if (listeAcc.get(i) instanceof LivreMagique){
+        ((ArbreMagique) item ).changeImage();
+        sonic.newBFF(this);
+        listeAmis.add(sonic);
+        listeAcc.remove(i);
+      }
+    }
+  }
+
+  public void killCreature( Avatar avatar){
+    ArrayList<Creature> listeCreature = avatar.getAmis();
+    if ( listeCreature !=null){
+      for ( int i =0 ; i< listeAcc.size();  i++){
+        if (listeAcc.get(i) instanceof Epee){
+          listeAcc.remove(i);
+          Monde.supprimerItem(listeCreature.get(0));
+          avatar.supprimePremierAmi();
+        }
+      }
+    }
+  }
+
 
   public void dessiner(Graphics g){
       int tc = Monde.tailleCase;

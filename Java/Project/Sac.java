@@ -16,13 +16,6 @@ public class Sac extends Acc{
     super("Sac");
     tab= new Acc[n];
     image = Images.getImage("Sac");
-    /*
-    try {
-      image = ImageIO.read(new File("./Image/bag.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }*/
   }
 
   public Sac(){
@@ -85,6 +78,11 @@ public class Sac extends Acc{
        s=s+"\t"+tab[i].toString()+"\n";
     }
     return s;
+  }
+
+  public void vider(){
+    for ( int i = 0 ; i < tab.length ; i++)
+      tab[i]= null;
   }
 
   public void dessiner(Graphics g){

@@ -16,10 +16,14 @@ public class MenuDroite extends JPanel{
   private Image imageCreature=null;
   private Image imageBande = null;
   private Image imagebanderouge = null;
+  private Image imageLivremagique= null;
+  private Image imageepee= null;
   private double money;
   private int sac;
   private int pomme;
   private int pillule;
+  private int livremagique;
+  private int epee;
 
 
   public MenuDroite () {
@@ -28,27 +32,31 @@ public class MenuDroite extends JPanel{
     sac = 0;
     pomme = 0;
     pillule = 0;
+    imageHerbe = Images.getImage("Herbe");
+    imageArbre = Images.getImage("Arbre");
+    imageBande = Images.getImage("Case");
+    imagebanderouge = Images.getImage("Banderouge");
     imageCase= Images.getImage("Case");
     imageArgent = Images.getImage("Tresor");
     imageSac = Images.getImage("Sac");
     imagePomme = Images.getImage("Pomme");
     imagePills = Images.getImage("Pills");
-    imageHerbe = Images.getImage("Herbe");
-    imageArbre = Images.getImage("Arbre");
-    imageBande = Images.getImage("Case");
-    imagebanderouge = Images.getImage("Banderouge");
-    }
+    imageLivremagique = Images.getImage("LivreMagique");
+    imageepee = Images.getImage("Epee");
+  }
 
   private void compteDifferentAcc(Avatar avatar){
+    money = avatar.getMoney();
     sac = 0;
     pomme = 0;
     pillule = 0 ;
-    money = avatar.getMoney();
+    livremagique = 0;
+    epee = 0;
     ArrayList<Acc> tab = avatar.getAcc();
     for (Acc acc : tab){
       if (acc instanceof Sac){
-        compteDifferentAcc((Sac) acc);
         sac++;
+        compteDifferentAcc((Sac) acc);
         continue;
       }
       if (acc instanceof Pomme){
@@ -57,6 +65,14 @@ public class MenuDroite extends JPanel{
       }
       if(acc instanceof Pills){
         pillule++;
+        continue;
+      }
+      if (acc instanceof LivreMagique){
+        livremagique++;
+        continue;
+      }
+      if (acc instanceof Epee){
+        epee++;
         continue;
       }
     }
@@ -75,6 +91,10 @@ public class MenuDroite extends JPanel{
       }
       if(acc instanceof Pills){
         pillule++;
+        continue;
+      }
+      if (acc instanceof LivreMagique){
+        livremagique++;
         continue;
       }
     }
@@ -114,7 +134,7 @@ public class MenuDroite extends JPanel{
     g.setFont(font3);
 
     g.drawImage(imagebanderouge,  400 , 100 , 200  ,80 , this) ;
-    g.drawString("Tour : "+ (Jeu.getNb_tours()+1) +"/"+Jeu.getNb_tours_max() , 430, 150);
+    g.drawString("Tour : "+ (Jeu.getNb_tours()+1) +"/"+Jeu.getNb_tours_max() , 420, 150);
 
     Avatar[] players= Jeu.getPlayers();
 
@@ -137,6 +157,10 @@ public class MenuDroite extends JPanel{
         g.drawImage(imagePomme,  i*taille+espace - 10 , 405 , 33 ,30 ,this) ;
       if (i==3)
         g.drawImage(imagePills,  i*taille+espace -5, 404 , 15, 35,this) ;
+      if (i==4)
+        g.drawImage(imageLivremagique,  i*taille+espace-10 , 402 , 40, 40,this) ;
+      if (i==5)
+          g.drawImage(imageepee,  i*taille+espace-10 , 402 , 40, 40,this) ;
     }
     g.setColor(Color.WHITE);
     compteDifferentAcc(players[0]);
@@ -145,6 +169,8 @@ public class MenuDroite extends JPanel{
     g.drawString("x" + sac, 90 , 445);
     g.drawString("x" + pomme, 150 , 445);
     g.drawString("x" + pillule, 210 , 445);
+    g.drawString("x" + livremagique, 270 , 445);
+    g.drawString("x" + epee, 330 , 445);
     g.setFont(font2);
     g.drawString(String.format("%.2f", money) + "€", 25 , 442);
 
@@ -177,6 +203,10 @@ public class MenuDroite extends JPanel{
         g.drawImage(imagePomme,  i*taille+espace - 10 , 705 , 33 ,30 ,this) ;
       if (i==3)
         g.drawImage(imagePills,  i*taille+espace -5, 704 , 15, 35,this) ;
+      if (i==4)
+          g.drawImage(imageLivremagique,  i*taille+espace-10 , 702 , 40, 40,this) ;
+      if (i==5)
+          g.drawImage(imageepee,  i*taille+espace-10 , 702 , 40, 40,this) ;
     }
     espace = 10;
     for (int i = 0; i< 10; i++ ){
@@ -190,6 +220,8 @@ public class MenuDroite extends JPanel{
     g.drawString("x" + sac, 90 , 745);
     g.drawString("x" + pomme, 150 , 745);
     g.drawString("x" + pillule, 210 , 745);
+    g.drawString("x" + livremagique, 270 , 745);
+    g.drawString("x" + epee, 330 , 745);
     g.setFont(font2);
     g.drawString(String.format("%.2f",money)+"€", 25 , 742);
   }

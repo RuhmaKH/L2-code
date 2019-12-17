@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.io.*;
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class Pomme extends Acc implements Mangeable{
@@ -13,13 +11,6 @@ public class Pomme extends Acc implements Mangeable{
     super("Pomme");
     rayon = Math.random() * 4 + 3;
     image = Images.getImage("Pomme");
-    /*try {
-      image = ImageIO.read(new File("./Image/pomme_retouche.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
-    */
   }
 
   public double getPoids(){

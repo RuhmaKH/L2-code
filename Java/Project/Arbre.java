@@ -4,32 +4,21 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 public class Arbre extends Obstacle{
-  private Image image = null;
+  protected Image image = null;
 
 
   public Arbre (){
     super("Arbre");
     image = Images.getImage("Arbre");
-    /*
-    try {
-      image= ImageIO.read(new File("./Image/arbreblanc_retouche.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }*/
   }
 
+  public Arbre(String nom){
+    super(nom);
+    image = Images.getImage("Arbre");
+  }
   public Arbre( int x , int y ){
     super( "Arbre" , x ,y);
     image = Images.getImage("Arbre");
-    /*
-    try {
-      image= ImageIO.read(new File("./Image/arbreblanc_retouche.png"));
-    }
-    catch(IOException exc) {
-      exc.printStackTrace();
-    }
-    */
   }
 
     public void dessiner (Graphics g){

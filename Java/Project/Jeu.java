@@ -12,7 +12,7 @@ public class Jeu extends JFrame{
   private static int NB_TOUR;
 
   public static void main (String [] args) throws InterruptedException{
-    //System.setProperty("file.encoding", "UTF-8");
+    System.setProperty("file.encoding", "UTF-8");
 
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
 		String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
@@ -79,6 +79,7 @@ public class Jeu extends JFrame{
       System.out.println(luigi);
 
     }
+    menuDroite.repaint();
     interact = false;
 
     //*********************************************** GAGNANT *********************************************** */
