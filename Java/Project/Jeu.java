@@ -1,12 +1,12 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class Jeu extends JFrame{
+  private static final long serialVersionUID = 1L;
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX;
   private static int NB_TOUR;
-  private static final int RATE = 1000;
+  private static final int RATE = 1500;
 
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
@@ -41,40 +41,19 @@ public class Jeu extends JFrame{
     //m.afficher();
 
     ///// Test Graphique
-    JFrame f = new JFrame();
-    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    Monde.world.setLayout(new BorderLayout());
- 		f.add(Monde.world, BorderLayout.CENTER);
-    MenuDroite menuDroite = new MenuDroite();
-    MenuGauche menuGauche = new MenuGauche();
-    f.add(menuDroite, BorderLayout.EAST);
-    f.add(menuGauche, BorderLayout.WEST);
- 		f.pack();
-    f.setVisible(true);
-    f.setResizable(false);
-    f.setFocusable(true);
-    f.setLocationRelativeTo(null);
-    f.addKeyListener(new MyKeyListener());
-
+    Fenetre fenetre = new Fenetre();
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
     Interact.play();
     for (int i = 0; i < NB_TOUR_MAX; i++) {
-      Monde.world.repaint();
-      menuDroite.repaint();
       while (currentPlayer == mario){
-        Monde.world.repaint();
         Thread.sleep(RATE);  //ralenti l'affichage
-        mario.update();
       }
       //Interact.talk(mario.toString());
       //System.out.println(mario);
       //m.afficher();
-      Monde.world.repaint();
-      menuDroite.repaint();
       while (currentPlayer == luigi){
         Thread.sleep(RATE);  //ralenti l'affichage
-        luigi.update();
       }
       //Interact.talk(luigi.toString());
       //System.out.println(luigi);

@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import javax.imageio.ImageIO;
 
 public class Epee extends Acc{
   private Image image=null;

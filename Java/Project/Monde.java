@@ -4,6 +4,7 @@ import javax.swing.*;
 
 
 public class Monde extends JPanel{
+  private static final long serialVersionUID = 1L;
   private static ArrayList<Item> listeItems;
   private static ArrayList<Creature> listeCreature;
   public static final int taille = 30;
@@ -177,20 +178,8 @@ public class Monde extends JPanel{
   }
 
   public void paintComponent(Graphics g){
-		super.paintComponent(g); //redessine le panneau
-    //g.setColor(Color.GREEN);
-    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     dessinerMap(g);
-    //super.paintComponent(g); //redessine le panneau
-    /*
-    for (int i = 0; i<getWidth(); i++){
-      g.setColor(Color.ORANGE);
-      g.drawLine( i*tailleCase, 0, i*tailleCase, getHeight());
-    }
-    for (int i = 0; i<getHeight(); i++){
-      g.setColor(Color.ORANGE);
-      g.drawLine(0,  i*tailleCase, getWidth(), i*tailleCase);
-    }*/
+    
 		for(Item itemVoisin : listeItems)
 			if( itemVoisin != null)
         itemVoisin.dessiner(g);

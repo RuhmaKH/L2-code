@@ -1,8 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import javax.imageio.ImageIO;
-
 public class ArbreMagique extends Arbre{
   private Item contenu;
 

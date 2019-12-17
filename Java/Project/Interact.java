@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 import java.awt.*;
-import java.nio.CharBuffer;
 
-public class Interact implements Readable {
+public class Interact {
     private static String state;
-    private static String talk;
+    private static ArrayList<String> talk;
     private static int cursor;
     private static final Image imageTalk = Images.getImage("Dialogue");
     private static final Image imageCursor = Images.getImage("Cursor");
-    private static CharBuffer cb = CharBuffer.allocate(3);
-    public static final Interact interact = new Interact();
 
     public static String getState(){
         return state;
@@ -33,12 +30,14 @@ public class Interact implements Readable {
     
     public static void talk (String str) {
         state = "talk";
-        talk = str;
+        talk = getTalk(str);
+        Monde.world.repaint();
     }
 
     public static void shop (String str) {
         state = "shop";
-        talk = str;
+        talk = getTalk(str);
+        
     }
 
     public static void cursorUp () {
@@ -53,34 +52,37 @@ public class Interact implements Readable {
         return cursor;
     }
 
-    private static ArrayList<String> getTalk () {
+    public static int getMaxCursor () {
+        return talk.size();
+    }
+
+    private static ArrayList<String> getTalk (String str) {
         String temp = "";
-        String[] disc = talk.split(" ");
+        String[] disc = str.split(" ");
         String[] split = new String[2];
-        ArrayList<String> talk = new ArrayList<String>();
+        ArrayList<String> dialog = new ArrayList<String>();
         for (String s : disc) {
             if (s.contains("\n")) {
                 split = s.split("\n");
                 temp += split[0];
-                talk.add(temp);
+                dialog.add(temp);
                 if (split.length > 1) {
                     temp = split[1] + " ";
                 }
                 continue;
             }
             if ( (temp + s).length() > 64 ) {
-                talk.add(temp);
+                dialog.add(temp);
                 temp = "";
             }
             temp += s + " ";
         }
-        talk.add(temp);
-        return talk;
+        dialog.add(temp);
+        return dialog;
     }
 
     public static void dessinerTalk (Graphics g) {
         int k = 0;
-        ArrayList<String> talk = getTalk();
         String space = "";
         int height;
         if (talk.size() < 5)
@@ -106,16 +108,5 @@ public class Interact implements Readable {
                 space = "";
             g.drawString(space + talk.get(i), 55, size - height + 50 + 25 * i);
         }
-    }
-
-    public static CharBuffer getCB(){
-        return cb;
-    }
-
-    public int read(CharBuffer cb){
-        if (cb.length() > 1 )
-            return Character.getNumericValue( cb.get(0) ) * 10 + Character.getNumericValue( cb.get(1) );
-        else
-            return Character.getNumericValue( cb.get(0) );
     }
 }

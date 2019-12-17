@@ -41,7 +41,7 @@ public class Creature extends Personnage{
 
   protected void newBFF (Avatar newBFF){
     if (bff != null && bff != newBFF){
-      Interact.talk( String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()) );
+      Interact.talk( String.format(getNom() + " : Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()) );
       //System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
       bff.perdreAmi(this);
     }
