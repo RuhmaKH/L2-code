@@ -64,7 +64,7 @@ public class Fenetre extends JFrame {
         addKeyBinding(KeyEvent.VK_SPACE, "action", (evt) -> {
             switch (Interact.getState()) {
                 case "play" :
-                    Interact.meet();
+                    Interact.stop();
                     break;
                 case "shop" :
                     Interact.choose();
@@ -81,7 +81,6 @@ public class Fenetre extends JFrame {
     }
 
     public void repaint() {
-        System.out.println(Interact.getState());
         monde.repaint();
         menuDroite.repaint();
     }

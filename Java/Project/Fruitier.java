@@ -23,12 +23,12 @@ public class Fruitier extends Magasin {
 				discution = String.format("Vous possédez %.2f €\nJe vends : \n", avatar.getMoney());
 
 				for (int i = 0; i < taille; i++)
-					discution += String.format("\t( %d )-%s : %.2f €\n", i, stock.get(i).getNom(), stock.get(i).getPrix());
+					discution += String.format("\t- %s : %.2f €\n", stock.get(i).getNom(), stock.get(i).getPrix());
 			}
 			else
 				discution = "Je ne possède plus rien à vendre\nVoulez-vous :\n";
-			discution += "\t( " + taille + " )-Vendre ?\n";
-			discution += "\t( " + (taille + 1) + " )-Partir ?";
+			discution += "\t- Vendre ?\n";
+			discution += "\t- Partir ?";
 			Interact.shop( discution );
 			/*ystem.out.println(discution);
 			System.out.println("Choisissez l'objet que vous désirez acquérir : ");

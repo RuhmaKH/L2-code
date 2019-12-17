@@ -5,7 +5,7 @@ public class Jeu extends JFrame{
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX;
-  private static int NB_TOUR;
+  private static int NB_TOUR = 0;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
 
@@ -45,7 +45,7 @@ public class Jeu extends JFrame{
     Interact.play();
 
     for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {
-      Monde.world.repaint();
+      fenetre.repaint();
       while (Interact.getState() == "play"){
         Thread.sleep(250);  //ralenti l'affichage
       }
@@ -58,7 +58,8 @@ public class Jeu extends JFrame{
         NB_TOUR++;
       }
     }
-    Interact.end();
+
+    Interact.stop();
     //*********************************************** GAGNANT *********************************************** */
     int amisMario = mario.getAmis().size();
     int amisLuigi = luigi.getAmis().size();
