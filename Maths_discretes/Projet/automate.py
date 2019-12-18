@@ -85,7 +85,7 @@ class Automate(AutomateBase):
         """ Automate  -> bool
         rend True si auto est déterministe, False sinon
         """
-        if (len(auto.getListInitialStates()) != 1):
+        if (len(auto.getListInitialStates()) > 1):
             return False
         #alphabet : str
         alphabet = auto.getAlphabetFromTransitions()
