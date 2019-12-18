@@ -2,12 +2,13 @@ import java.awt.*;
 
 public class Sac extends Acc{
   private Acc[] tab;
-  private Image image =null;
+  private boolean full;
+  public static final Image image = Images.getImage("Sac");
 
   public Sac(int n) {
     super("Sac");
     tab= new Acc[n];
-    image = Images.getImage("Sac");
+    full = false;
   }
 
   public Sac(){
@@ -19,7 +20,7 @@ public class Sac extends Acc{
     return tab;
   }
 
-  public boolean ajouter(Acc acc, boolean msg){
+  public boolean ajouter (Acc acc, boolean msg) {
     int nb;
     if((nb = getNbElements()) < tab.length){
       tab[nb] = acc;
@@ -29,6 +30,7 @@ public class Sac extends Acc{
       if (msg){
         Interact.talk( "Pas la place dans le " + getNom() );
         //System.out.println("Pas la place dans le " + getNom());
+        full = true;
       }
       return false;
     }
@@ -40,6 +42,7 @@ public class Sac extends Acc{
       for (int j = i; j < tab.length - 1; j++)
         tab[j] = tab[j+1];
       tab[tab.length-1] = null;
+      full = false;
       return finale;
     }
     return null;
@@ -66,17 +69,23 @@ public class Sac extends Acc{
     return 0.5 * tab.length + 0.5;
   }
 
+  public boolean getFull(){
+    return full;
+  }
+
   public String toString(){
     String s = super.toString() + " contient " + getNbElements() + " accessoires sur " + tab.length + " :\n";
     for(int i=0; i<getNbElements(); i++){
-       s=s+"\t"+tab[i].toString()+"\n";
+       s += "\t" + tab[i].toString() + "\n";
     }
     return s;
   }
 
   public void vider(){
+    full = false;
+    Interact.talk("Tous les objets du " + getNom() + " ont disparus");
     for ( int i = 0 ; i < tab.length ; i++)
-      tab[i]= null;
+      tab[i] = null;
   }
 
   public void dessiner(Graphics g){

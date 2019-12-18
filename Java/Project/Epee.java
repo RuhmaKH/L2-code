@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public class Epee extends Acc{
-  private Image image=null;
+  private Image image = Images.getImage("Epee");
+  public static final Epee epee = new Epee(); 
 
-  public Epee(){
+  private Epee () {
     super("Epee");
-    image = Images.getImage("Epee");
   }
 
   public double getPoids(){

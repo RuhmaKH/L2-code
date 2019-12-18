@@ -35,7 +35,6 @@ public class Jeu extends JFrame{
     players[0] = mario;
     Monde.ajouterItem(luigi);
     players[1] = luigi;
-
     //m.afficher();
 
     ///// Test Graphique

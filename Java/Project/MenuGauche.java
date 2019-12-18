@@ -3,6 +3,7 @@ import javax.swing.*;
 
 
 public class MenuGauche extends JPanel{
+  private static final long serialVersionUID = 1L;
   private Image imageHerbe = null;
   private Image imageArbre = null;
   private Image imageCase = null;

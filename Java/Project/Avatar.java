@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.lang.*;
-import java.util.Scanner;
+// import java.util.Scanner;
 
 public class Avatar extends Personnage{
   private ArrayList<Creature> listeAmis;
@@ -132,8 +131,8 @@ public class Avatar extends Personnage{
       return;
     }
     for (Item i : listeAcc)
-        if (i instanceof Sac){
-          if((place = ((Sac) i ).ajouter(acc, msg))){
+        if (i instanceof Sac && ! ((Sac) i).getFull()){
+          if( (place = ((Sac) i ).ajouter(acc, msg)) ){
             if (msg){
               Interact.talk( acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom() );
               //System.out.println(acc.getNom() + " a été placé(e) dans le " + i.getNom() + " de " + this.getNom());
@@ -154,39 +153,60 @@ public class Avatar extends Personnage{
   public void rencontrerVoisins() {
     ArrayList<Item> voisins = Monde.getVoisins(this);
     for (Item item : voisins){
+
       if (item instanceof Avatar){
         Interact.talk( "Salutation mon ami " + item.getNom() );
         //System.out.println("Salutation mon ami " + item.getNom());
         killCreature( (Avatar) item);
         continue;
-        }
+      }
+
       if (item instanceof Creature){
         rencontrer((Creature) item);
         continue;
-        }
+      }
+        
       if (item instanceof Coffre){
         ouvrir((Coffre) item);
         continue;
-        }
+      }
+
       if (item instanceof Acc){
         ramasser((Acc) item, true);
         continue;
-        }
+      }
+
       if (item instanceof Eau){
-        ((Eau)item).changeImage();
+        ((Eau) item).changeImage();
         continue;
       }
+
       if (item instanceof ArbreMagique){
         ArbreMagique arbremagique = (ArbreMagique) item ;
-        if( arbremagique.getContenu() instanceof Gobelin){
+        if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
-          toutPerdre();
+          if (listeAcc.contains(Epee.epee)){
+            Interact.talk("Un gobelin vous a sautez dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
+            try {
+              Thread.sleep(2000);
+            } catch (Exception e) {
+              System.out.println(e);
+            }
+            Monde.supprimerItem(arbremagique);
+          }
+          else{
+            Interact.talk("Un gobelin vous a sautez dessus, malheureusement vous n'aviez rien pour vous défendre.\nIl vous a tout volé !");
+            toutPerdre();
+          }
+          continue;
         }
         if (arbremagique.getContenu() instanceof Sonic){
           rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
+          continue;
         }
         if (arbremagique.getContenu() instanceof Yoda){
           rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
+          continue;
         }
       }
 
@@ -248,6 +268,8 @@ public class Avatar extends Personnage{
     int x = getX() + dx;
     int y = getY() + dy;
     if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
+      if (listeAmis.size() > 0)
+        listeAmis.get(0).follow();
       setX(x);
       setY(y);
     }
@@ -361,15 +383,17 @@ public class Avatar extends Personnage{
     }
   }
 
-  public void killCreature( Avatar avatar){
+  public void killCreature(Avatar avatar){
     ArrayList<Creature> listeCreature = avatar.getAmis();
-    if ( listeCreature == null)
-      return;
-    for ( int i = 0; i < listeAcc.size();  i++){
-      if (listeAcc.get(i) instanceof Epee){
-        listeAcc.remove(i);
-        avatar.supprimePremierAmi();
+    if ( listeCreature != null){
+      if (listeAcc.contains(Epee.epee)){
+        if (avatar.listeAcc.contains(Epee.epee)){
+          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.");
+          return;
+        }
+        listeAcc.remove(Epee.epee);
         Monde.supprimerItem( listeCreature.get(0) );
+        avatar.supprimePremierAmi();
       }
     }
   }

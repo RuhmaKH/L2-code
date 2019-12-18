@@ -1,8 +1,9 @@
 import java.awt.*;
 
 public class Yoda extends Creature{
+  public static final Yoda yoda = new Yoda();
 
-  public Yoda (){
+  private Yoda (){
     super("Yoda");
   }
 

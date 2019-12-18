@@ -3,7 +3,6 @@ import java.awt.*;
 public class Eau extends Obstacle{
   private Image image = null;
 
-
   public Eau (){
     super("Eau");
     image = Images.getImage("Eau");

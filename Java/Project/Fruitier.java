@@ -1,9 +1,10 @@
 //import java.util.Scanner;
 import java.awt.*;
 public class Fruitier extends Magasin {
-  	private static final Image image = Images.getImage("Marchand");
+	private static final Image image = Images.getImage("Marchand");
+	public static final Fruitier fruitier = new Fruitier();  
 
-	public Fruitier(){
+	private Fruitier(){
 	  super("Fruitier");
 		initialize();
 	}
