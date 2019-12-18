@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 
-public class Fenetre extends JFrame implements KeyListener {
+public class Fenetre extends JFrame  {
     private static final long serialVersionUID = 1L;
     private static final JFrame frame = new JFrame();
     public static final Monde monde = Monde.world;
@@ -145,7 +145,7 @@ public class Fenetre extends JFrame implements KeyListener {
     }
 
     public void keyReleased (KeyEvent ke) { }
-/*
+
     public void removeListener(){
         frame.removeListener(this);
     }
@@ -153,5 +153,5 @@ public class Fenetre extends JFrame implements KeyListener {
     public static Fenetre getFenetre(){
         return fenetre;
     }
-    
+
 }

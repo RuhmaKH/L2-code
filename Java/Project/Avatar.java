@@ -16,10 +16,11 @@ public class Avatar extends Personnage{
     money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
   }
-
+/*
   public void setNom(String str){
     nom = str;
   }
+  */
 
   public String toString(){
     int nbAcc = 0;
@@ -170,7 +171,7 @@ public class Avatar extends Personnage{
         rencontrer((Creature) item);
         continue;
       }
-        
+
       if (item instanceof Coffre){
         ouvrir((Coffre) item);
         continue;
@@ -191,7 +192,7 @@ public class Avatar extends Personnage{
         if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
           if (listeAcc.contains(Epee.epee)){
-            Interact.talk("Un gobelin vous a sautez dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
+            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
             try {
               Thread.sleep(2000);
             } catch (Exception e) {
@@ -200,7 +201,7 @@ public class Avatar extends Personnage{
             Monde.supprimerItem(arbremagique);
           }
           else{
-            Interact.talk("Un gobelin vous a sautez dessus, malheureusement vous n'aviez rien pour vous défendre.\nIl vous a tout volé !");
+            Interact.talk("Un gobelin vous a sauté dessus, malheureusement vous n'aviez rien pour vous défendre.\nIl vous a tout volé !");
             toutPerdre();
           }
           continue;
@@ -210,6 +211,10 @@ public class Avatar extends Personnage{
           continue;
         }
         if (arbremagique.getContenu() instanceof Yoda){
+          rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
+          continue;
+        }
+        if (arbremagique.getContenu() instanceof Chevredelamort){
           rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
           continue;
         }

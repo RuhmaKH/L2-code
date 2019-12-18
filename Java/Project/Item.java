@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public abstract class Item{
-  protected String nom;
+  private final String nom;
   private int x;
   private int y;
 

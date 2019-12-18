@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public class Chevredelamort extends Creature{
-  private Image image = null;
+  public static final Chevredelamort chevredelamort = new Chevredelamort();
+
 
   public Chevredelamort (){
     super("Chevredelamort");
-    image = Images.getImage("Chevre");
   }
 
 }
