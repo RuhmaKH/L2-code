@@ -6,6 +6,7 @@ public class Jeu extends JFrame{
   private static Avatar[] players = new Avatar[2];
   private static int NB_TOUR_MAX = 0;
   private static int NB_TOUR = 0;
+
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
 /*
@@ -35,7 +36,7 @@ public class Jeu extends JFrame{
     Fenetre fenetre = new Fenetre();
 
     Interact.init();
-    
+
     //*********************************************** JEU *********************************************** */
 
     for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {
@@ -53,9 +54,11 @@ public class Jeu extends JFrame{
       }
     }
 
-    Interact.stop();
+    //Interact.stop();
+    Monde.world.setFin();
+    Monde.world.repaint();
     //*********************************************** GAGNANT *********************************************** */
-    int amisMario = mario.getAmis().size();
+    /*int amisMario = mario.getAmis().size();
     int amisLuigi = luigi.getAmis().size();
     double distMario;
     double distLuigi;
@@ -64,6 +67,7 @@ public class Jeu extends JFrame{
     Avatar winner;
     Creature daFast;
     if (amisMario != 0 && amisLuigi != 0) {
+      mario.PouvoirdeYoda();
       distMario = mario.course();
       distLuigi = luigi.course();
       if( distMario == distLuigi){
@@ -100,8 +104,8 @@ public class Jeu extends JFrame{
         else
         ggwp += mario.getNom() + " a gagné.e la course car " + luigi.getNom() + " n'a pas d'ami.e.s";
       }
-    }
     Interact.talk(ggwp);
+  }*/
     //System.out.println(ggwp);
 
   }
@@ -113,6 +117,10 @@ public class Jeu extends JFrame{
   public static void nextPlayer(){
     currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
   }
+
+  /*public static Avatar getWinner(){
+    return winner;
+  }*/
 
   public static Avatar[] getPlayers(){
     return players;

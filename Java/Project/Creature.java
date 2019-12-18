@@ -35,7 +35,7 @@ public class Creature extends Personnage{
   }
 
   public double getVitesse(){
-     double v = 0.25 * getPoids() - sac.getPoids();
+    double v = 0.25 * getPoids() - sac.getPoids();
     if (v < 0)
       return 0;
     return v * coefPills;
@@ -87,16 +87,14 @@ public class Creature extends Personnage{
   }
 
   public void manger(Mangeable m){
-    if (m instanceof Pills){
+    if (m instanceof Pills)
       coefPills= coefPills * 1.5;
-      return;
-    }
     this.addPoids(m.getPoids());
   }
 
   public void courir(){
-    Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
-		//System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
+    //Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
+		System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
   }
 
   public void dessiner(Graphics g){

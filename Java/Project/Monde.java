@@ -14,6 +14,8 @@ public class Monde extends JPanel{
   public final static Monde world = new Monde();
   private Image imageHerbe = null;
   private Image imageredcursor = null;
+  private boolean fin;
+
 
   private Monde(){
     setPreferredSize(new Dimension(taille*tailleCase , taille*tailleCase));
@@ -22,6 +24,7 @@ public class Monde extends JPanel{
     initialize();
     imageHerbe = Images.getImage("Herbe");
     imageredcursor = Images.getImage("Redcursor");
+    fin = false;
   }
 
   private static int getPositionAlea(){
@@ -207,10 +210,120 @@ public class Monde extends JPanel{
     g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
   }
 
+  public boolean getFin(){
+    return fin;
+  }
+
+  public void setFin(){
+    fin = true;
+  }
+
+  private void dessinerFin(Graphics g){
+      Image imagedumenudefin = Images.getImage("Fin");
+      Image imageAvatar1 = Images.getImage("Avatar2");
+      Image imageAvatar2 = Images.getImage("Avatar1");
+      Image imagecoupewinner = Images.getImage("Coupewinner");
+      Image imagecoupeperdant = Images.getImage("Coupeperdant");
+      Avatar[] avatar = Jeu. getPlayers();
+      int amisMario = avatar[0].getAmis().size();
+      int amisLuigi = avatar[1].getAmis().size();
+      double distMario;
+      double distLuigi;
+      String ggwp = "";
+      double chicken;
+      Avatar winner;
+      Creature daFast;
+
+      Font font = new Font ("Arial", Font.BOLD, 50);
+      Font font1 = new Font ("Arial", Font.BOLD, 26);
+      g.setFont(font);
+      g.setColor(Color.BLACK);
+
+
+
+      g.drawImage( imagedumenudefin, 0, 0, getWidth(),getHeight(), this);
+      g.drawString("RESULTATS", 300, 120);
+      g.setFont(font1);
+
+      g.drawImage( imageAvatar1  , 200, 200, 300, 300,this);
+      g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
+      if (amisMario != 0 && amisLuigi != 0) {
+        //avatar[0].PouvoirdeYoda();
+      //  distMario =2;
+        //distLuigi= 3 ;
+        distMario = avatar[0].course();
+        distLuigi = avatar[1].course();
+        g.drawString("Les animaux de  "+  avatar[0].getNom(), 500, 300);
+        g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);
+        g.drawString("Les animaux de  "+  avatar[1].getNom(), 500, 630);
+        g.drawString(" ont parcouru " + String.format(" %.2f",distLuigi) + "km", 480, 660);
+
+        if( distMario == distLuigi){
+          ggwp = avatar[0].getNom() + " et " + avatar[1].getNom() + " ont gagné(e)s par égalité";
+          g.drawImage( imagecoupewinner, 10, 220, 300, 300, this);
+          g.drawImage( imagecoupewinner, 10, 540, 300, 300, this);
+          g.drawString(ggwp, 60, 170);
+        }
+        else{
+          if (distMario > distLuigi){
+            chicken = distMario;
+            winner = avatar[0];
+            g.drawImage( imagecoupewinner, 10, 220, 300, 300, this);
+            g.drawImage( imagecoupeperdant, 80, 560, 150, 250, this);
+          }
+          else {
+            chicken = distLuigi;
+            winner = avatar[1];
+            g.drawImage( imagecoupewinner, 10, 540, 300, 300, this);
+            g.drawImage( imagecoupeperdant, 80, 240, 150, 250, this);
+          ggwp += winner.getNom() + " a gagné.e la course grâce à ses amis :\n";
+          daFast = winner.getCreaturePlusRapide();
+          for (Creature c : winner.getAmis()){
+            ggwp += "\t - ";
+            if (c == daFast)
+              ggwp += c.getNom() + " is da Speeeed";
+            else
+              ggwp += c.getNom();
+            ggwp += "\n";
+          ggwp = "Ils ont parcou.e.s " + chicken + "km.\n";
+        }
+      }
+    }
+
+      }
+      else {
+        if (amisMario == 0 && amisLuigi == 0){
+          ggwp = "La course n'a pas eu lieu car " + avatar[0].getNom()+ " et "  ;
+          g.drawString(ggwp, 60, 170);
+          ggwp = avatar[1].getNom() + " n'ont pas d'ami.e.s";
+          g.drawString(ggwp, 60, 200);
+          g.drawImage( imagecoupeperdant, 80, 240, 150, 250, this);
+          g.drawImage( imagecoupeperdant, 80, 560, 150, 250, this);
+        }
+        else {
+          if(amisMario == 0){
+            ggwp = avatar[1].getNom() + " a gagné.e la course car ";
+            g.drawString(ggwp, 60, 170);
+            ggwp = avatar[0].getNom() + " n'a pas d'ami.e.s";
+            g.drawString(ggwp, 60, 200);
+            g.drawImage( imagecoupeperdant, 80, 240, 150, 250, this);
+            g.drawImage( imagecoupewinner, 10, 540, 300, 300, this);
+          }else{
+            ggwp = avatar[1].getNom() + " a gagné.e la course car ";
+            g.drawString(ggwp, 60, 170);
+            ggwp = avatar[0].getNom() + " n'a pas d'ami.e.s";
+            g.drawString(ggwp, 60, 200);
+            g.drawImage( imagecoupewinner, 10, 220, 300, 300, this);
+            g.drawImage( imagecoupeperdant, 80, 560, 150, 250, this);
+          }
+        }
+      }
+
+
+  }
+
   public void paintComponent(Graphics g){
 		super.paintComponent(g); //redessine le panneau
-    //g.setColor(Color.GREEN);
-    //g.fillRect(0, 0 , getWidth() ,getHeight() ) ;
     dessinerMap(g);
     //super.paintComponent(g); //redessine le panneau
     /*
@@ -231,6 +344,10 @@ public class Monde extends JPanel{
     String state = Interact.getState();
     if (state == "talk" || state == "shop" || state == "init" || state == "tour"){
       Interact.dessinerTalk(g);
+    }
+
+    if (fin){
+      dessinerFin(g);
     }
 
   }

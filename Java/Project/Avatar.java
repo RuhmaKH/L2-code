@@ -7,6 +7,7 @@ public class Avatar extends Personnage{
   private ArrayList<Acc> listeAcc;
   private double money;
   private Image image = null;
+  private double coef;
 
 
   public Avatar(String nom, double poids, String nomFichier){
@@ -15,10 +16,28 @@ public class Avatar extends Personnage{
     listeAcc = new ArrayList<Acc>();
     money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
+    coef = 1;
   }
 
   public void setNom(String str){
     nom = str;
+  }
+
+  public void setCoef(double  x){
+    coef = coef * x;
+  }
+
+  public void PouvoirdeYoda (){
+    Avatar[] tabAv = Jeu.getPlayers();
+    Avatar ennemi;
+    if (this == tabAv[0] )
+      ennemi = tabAv[1];
+    else
+      ennemi = tabAv[0];
+    if (listeAmis.contains(Yoda.yoda))
+      ennemi.setCoef(0.5);
+    if (ennemi.getAmis().contains(Yoda.yoda))
+      coef= coef * 0.5;
   }
 
   public String toString(){
@@ -91,14 +110,12 @@ public class Avatar extends Personnage{
   public double course(){
     double dist = 0;
     for ( Creature crea : listeAmis){
-      crea.manger();
-      crea.courir();
+      //crea.manger();
+      //crea.courir();
       dist += crea.getVitesse();
     }
-    return dist;
+    return dist * coef;
   }
-
-
 
   public Creature getCreaturePlusRapide(){
     Creature rapide = listeAmis.get(0);
@@ -193,8 +210,7 @@ public class Avatar extends Personnage{
         if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
           if (listeAcc.contains(Epee.epee)){
-            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol ! (joli coup !)\nVotre épée est coincée dans le gobelin");
-            listeAcc.remove(Epee.epee);
+            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
             try {
               Thread.sleep(2000);
             } catch (Exception e) {
@@ -279,7 +295,7 @@ public class Avatar extends Personnage{
     int taille = Monde.taille;
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y) == null) ){
+    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
     }
@@ -383,7 +399,7 @@ public class Avatar extends Personnage{
   }
 
   public void rencontrerCreatureOP(Creature creature, Item item){
-    if (listeAmis.contains(Chevredelamort.chevredelamort))
+    if (listeAmis.contains(creature))
       return;
     for ( int i =0 ; i< listeAcc.size(); i++){
       if (listeAcc.get(i) instanceof LivreMagique){
@@ -391,6 +407,7 @@ public class Avatar extends Personnage{
         creature.newBFF(this);
         listeAmis.add(creature);
         listeAcc.remove(i);
+        return;
       }
     }
   }
@@ -400,9 +417,7 @@ public class Avatar extends Personnage{
     if ( listeCreature != null){
       if (listeAcc.contains(Epee.epee)){
         if (avatar.listeAcc.contains(Epee.epee)){
-          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe mais vos 2 épées se brisent.");
-          listeAcc.remove(Epee.epee);
-          avatar.listeAcc.remove(Epee.epee);
+          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.");
           return;
         }
         listeAcc.remove(Epee.epee);
@@ -411,7 +426,6 @@ public class Avatar extends Personnage{
       }
     }
   }
-
 
 
   public void dessiner(Graphics g){

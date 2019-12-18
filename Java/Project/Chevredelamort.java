@@ -8,4 +8,8 @@ public class Chevredelamort extends Creature{
     super("Chevredelamort");
   }
 
+  public double getVitesse(){
+    return 100000;
+  }
+
 }
