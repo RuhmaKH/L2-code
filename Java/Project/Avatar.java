@@ -17,6 +17,10 @@ public class Avatar extends Personnage{
     image = Images.getImage(nomFichier);
   }
 
+  public void setNom(String str){
+    nom = str;
+  }
+
   public String toString(){
     int nbAcc = 0;
     for (Acc acc : listeAcc){
@@ -128,6 +132,7 @@ public class Avatar extends Personnage{
     boolean place = false;
     if ( acc instanceof LivreMagique || acc instanceof Epee){
       listeAcc.add(acc);
+      Interact.talk( getNom() + " ramasse " + acc.getNom() );
       return;
     }
     for (Item i : listeAcc)
