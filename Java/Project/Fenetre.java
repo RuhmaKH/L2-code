@@ -123,24 +123,35 @@ public class Fenetre extends JFrame implements KeyListener {
                         player.setNom(name);
                         return;
                     default :
-                        name += String.valueOf( ke.getKeyChar() );
+                        if (size < 20)
+                            name += String.valueOf( ke.getKeyChar() );
                         break;
                 }
                 player.setNom(name + "_");
                 menuDroite.repaint();
                 break;
-            /*
+
             case "tour" :
                 int key = ke.getKeyCode();
-                if ( key >= '0' && key <= '9'){
-                    int nb = Jeu.getNb_tours_max();
-                    if (nb >= 0 && nb <= 9)
-                        Jeu.setNbTours( Character.getNumericValue(key) );
-                    else
-                        Jeu.setNbTours(nb * 10 + Character.getNumericValue(key) );
+                int nb = Jeu.getNb_tours_max();
+                switch (key) {
+                    case KeyEvent.VK_Z :
+                        Jeu.setNbTours(+1);
+                        break;
+                    case KeyEvent.VK_S :
+                        Jeu.setNbTours(-1);
+                        break;
+                    case KeyEvent.VK_D :
+                        Jeu.setNbTours(+5);
+                        break;
+                    case KeyEvent.VK_Q :
+                        Jeu.setNbTours(-5);
+                        break;
+                    case KeyEvent.VK_ENTER :
+                        Interact.play();
+                        break;
                 }
-                break;
-            */
+                menuDroite.repaint();
         }
     }
 
@@ -149,7 +160,7 @@ public class Fenetre extends JFrame implements KeyListener {
     public void removeListener(){
         frame.removeListener(this);
     }*/
-    
+
     public static Fenetre getFenetre(){
         return fenetre;
     }
