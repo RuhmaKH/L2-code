@@ -8,9 +8,9 @@ import javax.swing.AbstractAction;
 public class Fenetre extends JFrame implements KeyListener {
     private static final long serialVersionUID = 1L;
     private static final JFrame frame = new JFrame();
-    private static final Monde monde = Monde.world;
-    private static final MenuDroite menuDroite = new MenuDroite();
-    private static final MenuGauche menuGauche = new MenuGauche();
+    public static final Monde monde = Monde.world;
+    public static final MenuDroite menuDroite = new MenuDroite();
+    public static final MenuGauche menuGauche = new MenuGauche();
     private static Fenetre fenetre;
 
     public Fenetre () {
@@ -26,7 +26,7 @@ public class Fenetre extends JFrame implements KeyListener {
         frame.setResizable(false);
         frame.setFocusable(true);
         frame.setLocationRelativeTo(null);
-        //frame.addKeyListener(this);
+        frame.addKeyListener(this);
         addKeyBinding(KeyEvent.VK_Q, "left", (evt) -> {
             if (Interact.getState() == "play")
                 Jeu.getCurrPlay().seDeplacer(-1, 0);
@@ -102,24 +102,47 @@ public class Fenetre extends JFrame implements KeyListener {
 
     }
 
-    public void keyTyped (KeyEvent ke) {
-        Avatar player = Jeu.getCurrPlay();
-        String name = player.getNom();
-        switch (ke.getKeyCode()) {
-            case KeyEvent.VK_BACK_SPACE :
-                //name = name.subString(0,name.length() - 1);
-                break;
-            case KeyEvent.VK_ENTER :
-                Interact.play();
-                break;
-            default :
-                name += String.valueOf( ke.getKeyChar() );
-                break;
-        }
-        player.setNom(name);
-    }
+    public void keyTyped (KeyEvent ke) { }
 
-    public void keyPressed (KeyEvent ke) { }
+    public void keyPressed (KeyEvent ke) {
+        switch (Interact.getState()){
+            case "init" :
+                Avatar player = Jeu.getCurrPlay();
+                String name = player.getNom();
+                int size = name.length() - 1;
+                name = name.substring(0, size);
+                switch (ke.getKeyCode()) {
+                    case KeyEvent.VK_SHIFT :
+                        break;
+                    case KeyEvent.VK_BACK_SPACE :
+                        if ( size > 0 )
+                            name = name.substring(0, size - 1);
+                        break;
+                    case KeyEvent.VK_ENTER :
+                        Interact.stop();
+                        player.setNom(name);
+                        return;
+                    default :
+                        name += String.valueOf( ke.getKeyChar() );
+                        break;
+                }
+                player.setNom(name + "_");
+                menuDroite.repaint();
+                break;
+            /*
+            case "tour" :
+                int key = ke.getKeyCode();
+                if ( key >= '0' && key <= '9'){
+                    int nb = Jeu.getNb_tours_max();
+                    if (nb >= 0 && nb <= 9)
+                        Jeu.setNbTours( Character.getNumericValue(key) );
+                    else
+                        Jeu.setNbTours(nb * 10 + Character.getNumericValue(key) );
+                }
+                break;
+            */
+        }
+    }
 
     public void keyReleased (KeyEvent ke) { }
 /*

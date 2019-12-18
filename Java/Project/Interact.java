@@ -15,6 +15,10 @@ public class Interact {
     public static void init(){
         for (int i = 0; i < 2; i++){
             state = "init";
+            Avatar curr = Jeu.getCurrPlay();
+            curr.setNom("_");
+            talk =  getTalk("Rentrer le nom du Joueur 1");
+            Fenetre.getFenetre().repaint();
             while (state == "init") {
                 try {
                     Thread.sleep(250);
@@ -22,7 +26,18 @@ public class Interact {
                     System.out.println(e);
                 }
             }
+            Jeu.nextPlayer();
+        }/*
+        state = "tour";
+        while (state =="tour"){
+            Fenetre.menuDroite.repaint();
+            try {
+                    Thread.sleep(250);
+            } catch (Exception e) {
+                    System.out.println(e);
+            }
         }
+        */
     }
 
     public static void choose () {
