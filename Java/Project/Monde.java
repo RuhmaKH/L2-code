@@ -231,7 +231,7 @@ public class Monde extends JPanel{
     Avatar currentPlayer = Jeu.getCurrPlay();
     g.drawImage( imageredcursor, currentPlayer.getX() * tailleCase + 7  , currentPlayer.getY() * tailleCase - 17  , 20 , 20 , this);
     String state = Interact.getState();
-    if (state == "talk" || state == "shop" || state == "init"){
+    if (state == "talk" || state == "shop" || state == "init" || state == "tour"){
       Interact.dessinerTalk(g);
     }
 

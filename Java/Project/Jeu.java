@@ -4,7 +4,7 @@ public class Jeu extends JFrame{
   private static final long serialVersionUID = 1L;
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
-  private static int NB_TOUR_MAX = 10;
+  private static int NB_TOUR_MAX = 0;
   private static int NB_TOUR = 0;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
@@ -36,9 +36,6 @@ public class Jeu extends JFrame{
 
     Interact.init();
     //*********************************************** JEU *********************************************** */
-    
-
-    Interact.play();
 
     for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {
       fenetre.repaint();
@@ -121,7 +118,8 @@ public class Jeu extends JFrame{
   }
 
   public static void setNbTours(int nb){
-    NB_TOUR_MAX = nb;
+    if ( (NB_TOUR_MAX + nb) >= 0)
+      NB_TOUR_MAX += nb;
   }
 
   public static int getNb_tours(){

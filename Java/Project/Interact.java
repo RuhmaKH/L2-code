@@ -17,7 +17,7 @@ public class Interact {
             state = "init";
             Avatar curr = Jeu.getCurrPlay();
             curr.setNom("_");
-            talk =  getTalk("Rentrer le nom du Joueur 1");
+            talk =  getTalk("Rentrer le nom du Joueur " + (i + 1) );
             Fenetre.getFenetre().repaint();
             while (state == "init") {
                 try {
@@ -27,17 +27,17 @@ public class Interact {
                 }
             }
             Jeu.nextPlayer();
-        }/*
+        }
         state = "tour";
+        talk = getTalk("Choisir le nombre de tour :\n\t- Z : +1\n\t- S : -1\n\t- Q : -5\n\t- D : +5");
+        Fenetre.getFenetre().repaint();
         while (state =="tour"){
-            Fenetre.menuDroite.repaint();
             try {
                     Thread.sleep(250);
             } catch (Exception e) {
                     System.out.println(e);
             }
         }
-        */
     }
 
     public static void choose () {
