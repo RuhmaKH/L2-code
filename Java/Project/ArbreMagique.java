@@ -6,6 +6,11 @@ public class ArbreMagique extends Arbre{
     contenu= null;
   }
 
+  public ArbreMagique (int x , int y){
+    super("ArbreMagique", x , y );
+    contenu= null;
+  }
+
   public Item getContenu(){
     return contenu;
   }
@@ -21,5 +26,7 @@ public class ArbreMagique extends Arbre{
       super.image = Sonic.sonic.getImage();
     if (contenu instanceof Yoda)
       super.image = Yoda.yoda.getImage();
+    if (contenu instanceof Chevredelamort);
+      super.image = Chevredelamort.chevredelamort.getImage();
   }
 }

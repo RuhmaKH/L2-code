@@ -36,7 +36,7 @@ public class MenuGauche extends JPanel{
     imageCreature = Images.getImage("Poule");
     imageSonic = Images.getImage("Sonic");
     imageYoda = Images.getImage("Yoda");
-    imageChevre = Images.getImage("Chevre");
+    imageChevre = Images.getImage("Chevredelamort");
   }
 
 
@@ -117,7 +117,7 @@ public class MenuGauche extends JPanel{
       if (i==11){
           g.setFont(font2);
           g.drawImage(imageChevre,  25 , i*taille+espace-7 , 40, 40,this) ;
-          g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
+          g.drawString("Créature légendaire, caché dans un arbre", 100 , i*taille+espace+10);
           g.drawString("Si vous finissez avec la chevre, vous avez gagné", 100 , i*taille+espace+25);
       }
     }

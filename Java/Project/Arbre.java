@@ -13,6 +13,12 @@ public class Arbre extends Obstacle{
     super(nom);
     image = Images.getImage("Arbre");
   }
+
+  public Arbre(String nom, int x , int y){
+    super(nom , x , y);
+    image = Images.getImage("Arbre");
+  }
+
   public Arbre( int x , int y ){
     super( "Arbre" , x ,y);
     image = Images.getImage("Arbre");

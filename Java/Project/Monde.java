@@ -29,6 +29,14 @@ public class Monde extends JPanel{
   }
 
   private void initialize(){
+    //############# Chevredelamort #############
+    ajouterItem(new ArbreMagique( 0, 0));
+    ajouterItem(new ArbreMagique( 0, taille-1));
+    ajouterItem(new ArbreMagique( taille-1 , 0));
+    ajouterItem(new ArbreMagique( taille-1, taille-1 ));
+    ajouterCreatureOP(Chevredelamort.chevredelamort);
+
+
     //############# Arbre #############
     for (int j = 0; j < taille; j++)
       ajouterItemAtCoord(new Arbre(0,j));
@@ -50,7 +58,6 @@ public class Monde extends JPanel{
       creature = new Creature();
       listeCreature.add(creature);
       ajouterItem(creature);
-      ajouterCreatureOP(Sonic.sonic);
       ajouterCreatureOP(Yoda.yoda);
     }
     ajouterCreatureOP(Sonic.sonic);
@@ -65,7 +72,7 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    for (int j = 0; j < 3 ; j++){
+    for (int j = 0; j < 10 ; j++){
       ajouterAcc(new LivreMagique());
       ajouterAcc(Epee.epee);
     }
