@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame  {
     private static final long serialVersionUID = 1L;
     private static final JFrame frame = new JFrame();
     private static final Monde monde = Monde.world;
@@ -13,7 +13,7 @@ public class Fenetre extends JFrame {
     private static final MenuGauche menuGauche = new MenuGauche();
     private static Fenetre fenetre;
 
-    public Fenetre() {
+    public Fenetre () {
         if (fenetre == null)
             fenetre = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +26,7 @@ public class Fenetre extends JFrame {
         frame.setResizable(false);
         frame.setFocusable(true);
         frame.setLocationRelativeTo(null);
-
+        //frame.addKeyListener(this);
         addKeyBinding(KeyEvent.VK_Q, "left", (evt) -> {
             if (Interact.getState() == "play")
                 Jeu.getCurrPlay().seDeplacer(-1, 0);
@@ -101,8 +101,34 @@ public class Fenetre extends JFrame {
         });
 
     }
+/*
+    public void keyTyped (KeyEvent ke) {
+        Avatar player = Jeu.getCurrPlay();
+        String name = player.getNom();
+        switch (ke.getKeyCode()) {
+            case KeyEvent.VK_BACK_SPACE :
+                //name = name.subString(0,name.length() - 1);
+                break;
+            case KeyEvent.VK_ENTER :
+                Interact.play();
+                break;
+            default :
+                name += String.valueOf( ke.getKeyChar() );
+                break;
+        }
+        player.setNom(name);
+    }
 
+    public void keyPressed (KeyEvent ke) { }
+
+    public void keyReleased (KeyEvent ke) { }
+
+    public void removeListener(){
+        frame.removeListener(this);
+    }
+*/
     public static Fenetre getFenetre(){
         return fenetre;
     }
+
 }

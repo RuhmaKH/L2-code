@@ -42,7 +42,7 @@ public class MenuGauche extends JPanel{
 
   public void paintComponent(Graphics g){
     Font font1 = new Font ("Trajan", Font.ITALIC, 10);
-    Font font2 = new Font ("Trajan", Font.ITALIC, 7);
+    Font font2 = new Font ("Trajan", Font.ITALIC, 8);
     g.setFont(font1);
     g.setColor(Color.WHITE);
 
@@ -56,15 +56,15 @@ public class MenuGauche extends JPanel{
     for (int i = 0; i< 12; i++ ){
       g.drawImage(imageCase, 20 ,i*taille+espace , taille , taille , this) ;
       g.drawImage(imageCase, 80 ,i*taille+espace , 220 , taille , this) ;
-      espace+=10;
+      espace += 10;
       if (i==0){
-        g.drawImage(imageArgent, 30  , i*taille+espace , 30 , 30 ,this) ;
-        g.drawString("Monnaie pour acheter des ", 110 , i*taille+espace+10);
-        g.drawString("accessoires au marchand", 110 , i*taille+espace+25);
+        g.drawImage(imageArgent, 30  , i * taille + espace, 30, 30,this) ;
+        g.drawString("Monnaie pour acheter des ", 110 , i * taille + espace + 10);
+        g.drawString("accessoires au marchand", 110 , i * taille + espace + 25);
       }
       if (i==1){
         g.drawImage(imageSac, 28 , i*taille+espace , 30 , 30 ,this) ;
-        g.drawString("Sac permettant de donner ", 110 , i*taille+espace+10);
+        g.drawString("Sac permettant de donner ", 110 , i * taille + espace + 10);
         g.drawString("plusieurs accessoires", 110 , i*taille+espace+25);
       }
       if (i==2){
@@ -105,20 +105,20 @@ public class MenuGauche extends JPanel{
       if (i==9){
           g.setFont(font2);
           g.drawImage(imageSonic,  25 , i*taille+espace-7 , 40, 40,this) ;
-          g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
-          g.drawString("manifeste que quand vous possédez un LivreMagique", 100 , i*taille+espace+25);
+          g.drawString("Créature légendaire, caché dans un arbre, qui se", 95 , i*taille+espace+10);
+          g.drawString("manifeste que quand vous possédez un LivreMagique", 83 , i*taille+espace+25);
       }
       if (i==10){
           g.setFont(font2);
           g.drawImage(imageYoda,  25 , i*taille+espace-7 , 40, 40,this) ;
-          g.drawString("Créature légendaire, caché dans un arbre, qui se", 100 , i*taille+espace+10);
-          g.drawString("manifeste que quand vous possédez un LivreMagique", 100 , i*taille+espace+25);
+          g.drawString("Créature légendaire, caché dans un arbre, qui se", 95 , i*taille+espace+10);
+          g.drawString("manifeste que quand vous possédez un LivreMagique", 83 , i*taille+espace+25);
       }
       if (i==11){
           g.setFont(font2);
           g.drawImage(imageChevre,  25 , i*taille+espace-7 , 40, 40,this) ;
-          g.drawString("Créature légendaire, caché dans un arbre", 100 , i*taille+espace+10);
-          g.drawString("Si vous finissez avec la chevre, vous avez gagné", 100 , i*taille+espace+25);
+          g.drawString("Créature légendaire, caché dans un arbre", 90 , i*taille+espace+10);
+          g.drawString("Si vous finissez avec la chevre, vous avez gagné", 90 , i*taille+espace+25);
       }
     }
   }

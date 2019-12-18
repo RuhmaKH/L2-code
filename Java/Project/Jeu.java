@@ -12,14 +12,6 @@ public class Jeu extends JFrame{
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
     String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
 
-		if(nom1 == "" || nom1 == null) {
-			nom1 = "J1";
-    }
-
-		if(nom2 == "" || nom2 == null) {
-			nom2 = "J2";
-		}
-
 		try {
 			NB_TOUR_MAX = Integer.parseInt(JOptionPane.showInputDialog("Nombre de Tour :"));
 		} catch (NumberFormatException e) {
@@ -35,12 +27,16 @@ public class Jeu extends JFrame{
     players[0] = mario;
     Monde.ajouterItem(luigi);
     players[1] = luigi;
+
     //m.afficher();
 
     ///// Test Graphique
     Fenetre fenetre = new Fenetre();
+
+    //Interact.init();
     //*********************************************** JEU *********************************************** */
     currentPlayer = mario;
+
     Interact.play();
 
     for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {

@@ -20,13 +20,21 @@ public class ArbreMagique extends Arbre{
   }
 
   public void changeImage(){
-    if (contenu instanceof Gobelin)
+    if (contenu instanceof Gobelin){
       super.image = Gobelin.gobelin.getImage();
-    if (contenu instanceof Sonic)
+      return;
+    }
+    if (contenu instanceof Sonic){
       super.image = Sonic.sonic.getImage();
-    if (contenu instanceof Yoda)
+      return;
+    }
+    if (contenu instanceof Yoda){
       super.image = Yoda.yoda.getImage();
-    if (contenu instanceof Chevredelamort);
+      return;
+    }
+    if (contenu instanceof Chevredelamort){
       super.image = Chevredelamort.chevredelamort.getImage();
+      return;
+    }
   }
 }

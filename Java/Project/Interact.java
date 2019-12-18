@@ -12,6 +12,19 @@ public class Interact {
         return state;
     }
 
+    public static void init(){
+        for (int i = 0; i < 2; i++){
+            state = "init";
+            while (state == "init") {
+                try {
+                    Thread.sleep(250);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
+    }
+
     public static void choose () {
         state = "choose";
     }
@@ -64,7 +77,11 @@ public class Interact {
     }
 
     public static int getMaxCursor () {
-        return talk.size();
+        int max = 0;
+        for (String str : talk)
+            if (str.contains("\t"))
+                max++;
+        return max - 1;
     }
 
     private static ArrayList<String> getTalk (String str) {

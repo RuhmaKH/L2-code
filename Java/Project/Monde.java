@@ -30,19 +30,19 @@ public class Monde extends JPanel{
 
   private void initialize(){
     //############# Chevredelamort #############
-    ajouterItem(new ArbreMagique( 0, 0));
-    ajouterItem(new ArbreMagique( 0, taille-1));
-    ajouterItem(new ArbreMagique( taille-1 , 0));
-    ajouterItem(new ArbreMagique( taille-1, taille-1 ));
+    ajouterItemAtCoord(new ArbreMagique( 0, 0));
+    ajouterItemAtCoord(new ArbreMagique( 0, taille-1));
+    ajouterItemAtCoord(new ArbreMagique( taille-1 , 0));
+    ajouterItemAtCoord(new ArbreMagique( taille-1, taille-1 ));
     ajouterCreatureOP(Chevredelamort.chevredelamort);
 
 
     //############# Arbre #############
-    for (int j = 0; j < taille; j++)
+    for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(0,j));
-    for (int j = 1; j < taille; j++)
+    for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(j,0));
-    for (int j = 1; j < taille; j++)
+    for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(taille-1,j));
     for (int j = 1; j < taille-1; j++)
       ajouterItemAtCoord(new Arbre(j,taille-1));
@@ -58,8 +58,8 @@ public class Monde extends JPanel{
       creature = new Creature();
       listeCreature.add(creature);
       ajouterItem(creature);
-      ajouterCreatureOP(Yoda.yoda);
     }
+    ajouterCreatureOP(Yoda.yoda);
     ajouterCreatureOP(Sonic.sonic);
     ajouterCreatureOP(Gobelin.gobelin);
     //############# Coffre #############
@@ -103,10 +103,13 @@ public class Monde extends JPanel{
 
   public static void ajouterCreatureOP(Item chanceoupaschance){
     ArrayList<ArbreMagique> listeArbreMagique = new ArrayList<ArbreMagique>();
-    for (Item item : listeItems)
-      if (item instanceof ArbreMagique)
+    for (Item item : listeItems){
+      if (item instanceof ArbreMagique && ((ArbreMagique)item).getContenu()==null){
         listeArbreMagique.add((ArbreMagique) item);
-    ( listeArbreMagique.get( (int) (Math.random() * listeArbreMagique.size()) ) ).ajouter(chanceoupaschance);
+        ( listeArbreMagique.get( (int) (Math.random() * listeArbreMagique.size()) ) ).ajouter(chanceoupaschance);
+        return;
+    }
+  }
   }
 
   private static void ajouterAcc (Acc acc) {
