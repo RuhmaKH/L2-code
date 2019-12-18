@@ -8,7 +8,7 @@ public class Jeu extends JFrame{
   private static int NB_TOUR = 0;
   public static void main (String [] args) throws InterruptedException{
     System.setProperty("file.encoding", "UTF-8");
-
+/*
     String nom1 = JOptionPane.showInputDialog("Nom du joueur 1 :");
     String nom2 = JOptionPane.showInputDialog("Nom du joueur 2 :");
 
@@ -18,9 +18,9 @@ public class Jeu extends JFrame{
 			NB_TOUR_MAX = 10;
 			JOptionPane.showMessageDialog(null, "Erreur : Nombre de tour 10");
 		}
-
-    Avatar mario = new Avatar(nom1, 60.5, "Avatar2");
-    Avatar luigi = new Avatar(nom2, 100.5, "Avatar1");
+*/
+    Avatar mario = new Avatar("", 60.5, "Avatar2");
+    Avatar luigi = new Avatar("", 100.5, "Avatar1");
 
     //*********************************************** ITEMS *********************************************** */
     Monde.ajouterItem(mario);
@@ -28,14 +28,15 @@ public class Jeu extends JFrame{
     Monde.ajouterItem(luigi);
     players[1] = luigi;
 
+    currentPlayer = mario;
     //m.afficher();
 
     ///// Test Graphique
     Fenetre fenetre = new Fenetre();
 
-    //Interact.init();
+    Interact.init();
     //*********************************************** JEU *********************************************** */
-    currentPlayer = mario;
+    
 
     Interact.play();
 

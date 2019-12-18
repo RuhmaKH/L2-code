@@ -59,9 +59,9 @@ public class Monde extends JPanel{
       listeCreature.add(creature);
       ajouterItem(creature);
     }
-    //ajouterCreatureOP(Yoda.yoda);
-    //ajouterCreatureOP(Sonic.sonic);
-    //ajouterCreatureOP(Gobelin.gobelin);
+    ajouterCreatureOP(Yoda.yoda);
+    ajouterCreatureOP(Sonic.sonic);
+    ajouterCreatureOP(Gobelin.gobelin);
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new Coffre());
@@ -103,13 +103,11 @@ public class Monde extends JPanel{
 
   public static void ajouterCreatureOP(Item chanceoupaschance){
     ArrayList<ArbreMagique> listeArbreMagique = new ArrayList<ArbreMagique>();
-    for (Item item : listeItems){
-      if (item instanceof ArbreMagique && ((ArbreMagique)item).getContenu()==null){
+    for (Item item : listeItems)
+      if ((item instanceof ArbreMagique) && ((ArbreMagique)item).getContenu()==null)
         listeArbreMagique.add((ArbreMagique) item);
-        ( listeArbreMagique.get( (int) (Math.random() * listeArbreMagique.size()) ) ).ajouter(chanceoupaschance);
-        return;
-    }
-  }
+    ( listeArbreMagique.get( (int) (Math.random() * listeArbreMagique.size()) ) ).ajouter(chanceoupaschance);
+
   }
 
   private static void ajouterAcc (Acc acc) {

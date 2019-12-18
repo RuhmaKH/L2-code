@@ -145,12 +145,12 @@ public class Fenetre extends JFrame implements KeyListener {
     }
 
     public void keyReleased (KeyEvent ke) { }
-
+/*
     public void removeListener(){
         frame.removeListener(this);
-    }
+    }*/
+    
     public static Fenetre getFenetre(){
         return fenetre;
     }
-
 }

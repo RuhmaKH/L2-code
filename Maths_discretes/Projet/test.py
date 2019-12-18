@@ -28,8 +28,8 @@ L=[ t1,t2,t3,t4,t5,t6]
 
 
 print(" -auto est l'automate suivant : ")
-autoA = Automate.creationAutomate("tripleA.txt")
-autoB = Automate.creationAutomate("auto.txt")
+autoB = Automate.creationAutomate("tripleA.txt")
+autoA = Automate.creationAutomate("auto.txt")
 #autoA.show('autoA')
 #autoB.show('autoB')
 
@@ -113,13 +113,13 @@ print "\n TEST 'complementaire' \n"
 complement = Automate.complementaire(autoA,autoA.getAlphabetFromTransitions())
 print (
 "Le mot ababaaaabababababa est il accepté par :" +
-"\n\t-l'automate A ? => " + str (Automate.accepte(autoA,"ababaaaabababababa")) +
-"\n\t-le complémentaire A ? => " + str(Automate.accepte(complement,"ababaaaabababababa")) +
+"\n\t-l'automate A ? => " + str (Automate.accepte(autoA,"")) +
+"\n\t-le complémentaire A ? => " + str(Automate.accepte(complement,"")) +
 "\nLe mot aab est il accepté par :" +
 "\n\t-l'automate A ? => " + str (Automate.accepte (autoA,"aba")) +
 "\n\t-le complémentaire A ? => " + str(Automate.accepte (complement,"aba"))
 )
-#complement.show("autocomplementaire")
+complement.show("autocomplementaire")
 
 
 print "\n TEST 'intersection' \n"

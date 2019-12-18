@@ -21,7 +21,6 @@ public class Avatar extends Personnage{
     nom = str;
   }
 
-
   public String toString(){
     int nbAcc = 0;
     for (Acc acc : listeAcc){
