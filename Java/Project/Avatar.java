@@ -16,11 +16,11 @@ public class Avatar extends Personnage{
     money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
   }
-/*
+
   public void setNom(String str){
     nom = str;
   }
-  */
+
 
   public String toString(){
     int nbAcc = 0;
