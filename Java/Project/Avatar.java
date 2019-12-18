@@ -191,7 +191,8 @@ public class Avatar extends Personnage{
         if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
           if (listeAcc.contains(Epee.epee)){
-            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
+            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol ! (joli coup !)\nVotre épée est coincée dans le gobelin");
+            listeAcc.remove(Epee.epee);
             try {
               Thread.sleep(2000);
             } catch (Exception e) {
@@ -276,9 +277,7 @@ public class Avatar extends Personnage{
     int taille = Monde.taille;
     int x = getX() + dx;
     int y = getY() + dy;
-    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
-      if (listeAmis.size() > 0)
-        listeAmis.get(0).follow();
+    if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y) == null) ){
       setX(x);
       setY(y);
     }
@@ -397,7 +396,9 @@ public class Avatar extends Personnage{
     if ( listeCreature != null){
       if (listeAcc.contains(Epee.epee)){
         if (avatar.listeAcc.contains(Epee.epee)){
-          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.");
+          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe mais vos 2 épées se brisent.");
+          listeAcc.remove(Epee.epee);
+          avatar.listeAcc.remove(Epee.epee);
           return;
         }
         listeAcc.remove(Epee.epee);

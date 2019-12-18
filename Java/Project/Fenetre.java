@@ -123,7 +123,8 @@ public class Fenetre extends JFrame implements KeyListener {
                         player.setNom(name);
                         return;
                     default :
-                        name += String.valueOf( ke.getKeyChar() );
+                        if (size < 20)
+                            name += String.valueOf( ke.getKeyChar() );
                         break;
                 }
                 player.setNom(name + "_");
