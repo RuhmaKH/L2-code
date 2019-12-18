@@ -268,6 +268,8 @@ public class Avatar extends Personnage{
     int x = getX() + dx;
     int y = getY() + dy;
     if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
+      if (listeAmis.size() > 0)
+        listeAmis.get(0).follow();
       setX(x);
       setY(y);
     }

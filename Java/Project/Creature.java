@@ -3,14 +3,16 @@ import java.awt.*;
 public class Creature extends Personnage{
   protected Sac sac;
   private Avatar bff;
-  private Image image= null;
+  private Image image = null;
   private double coefPills;
+  private boolean follow;
 
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
     bff = null;
-    coefPills= 1;
+    coefPills = 1;
+    follow = false;
     image = Images.getImage(Noms.getTab_icourant());
   }
 
@@ -47,8 +49,10 @@ public class Creature extends Personnage{
       //System.out.println(String.format("Désolé %s je préfère %s, iel est plus sympa", bff.getNom(), newBFF.getNom()));
       bff.perdreAmi(this);
     }
-    if (newBFF == bff)
+    if (newBFF == bff){
       bff = null;
+      follow = false;
+    }
     else
       bff = newBFF;
   }
@@ -74,6 +78,13 @@ public class Creature extends Personnage{
     }
   }
 
+  public void follow () {
+    if (! follow)
+      follow = true;
+    setX(bff.getX());
+    setY(bff.getY());
+  }
+
   public void seDeplacer(){
     int taille = Monde.taille;
     int x = getX() + (int)(Math.random()*7) - 3 ;
@@ -83,7 +94,6 @@ public class Creature extends Personnage{
       setY(y);
     }
     Monde.world.repaint();
-
   }
 
   public void manger(Mangeable m){
