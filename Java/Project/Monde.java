@@ -36,7 +36,7 @@ public class Monde extends JPanel{
     ajouterItemAtCoord(new ArbreMagique( taille-1 , 0));
     ajouterItemAtCoord(new ArbreMagique( taille-1, taille-1 ));
     ajouterCreatureOP(Chevredelamort.chevredelamort);
-
+    ajouterCreatureOP(Gobelin.gobelin);
 
     //############# Arbre #############
     for (int j = 1; j < taille-1; j++)
@@ -73,12 +73,12 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    for (int j = 0; j < 4; j++){
+    for (int j = 0; j < 3; j++){
+      ajouterAcc(new Epee());
       ajouterAcc(new LivreMagique());
-      ajouterAcc(Epee.epee);
     }
     //############# Magasin #############
-    ajouterItem(Fruitier.fruitier);
+    ajouterItem(Marchand.marchand);
   }
 
   public static void deplacerCreature(){
@@ -238,9 +238,8 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar1  , 200, 200, 300, 300,this);
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
-        avatar[0].PouvoirdeYoda();
-        distMario = avatar[0].course();
-        distLuigi = avatar[1].course();
+        distMario = avatar[0].getDist();
+        distLuigi = avatar[1].getDist();
         g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);
         g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);
         g.drawString("Les animaux de  "+  avatar[1].getNom(), 480, 630);
@@ -334,7 +333,7 @@ public class Monde extends JPanel{
       Interact.dessinerTalk(g);
     }
 
-    if (Interact.getState() == "end"){
+    if (Interact.getState() == "end") {
       dessinerFin(g);
     }
 

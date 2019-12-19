@@ -5,7 +5,7 @@ public class Tresor extends Item {
 
     public Tresor(){
         super("Tresor");
-        tresor = Math.random() * 15 + 10;
+        tresor = Math.random() * 15 + 5;
     }
 
     public double getTresor(){

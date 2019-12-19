@@ -36,7 +36,6 @@ public class Jeu extends JFrame{
     Fenetre fenetre = new Fenetre();
 
     Interact.init();
-
     //*********************************************** JEU *********************************************** */
 
     for (int i = 1; i <= NB_TOUR_MAX * 2; i++) {
@@ -53,7 +52,9 @@ public class Jeu extends JFrame{
         NB_TOUR++;
       }
     }
-    
+    mario.setDist(mario.course());
+    luigi.setDist(luigi.course());
+    Yoda.yoda.PouvoirdeYoda();
     Interact.end();
     fenetre.repaint();
     //*********************************************** GAGNANT *********************************************** */

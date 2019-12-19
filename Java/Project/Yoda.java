@@ -20,6 +20,7 @@ public class Yoda extends Creature{
     Avatar[] players = Jeu.getPlayers();
 
     if (bff == players[0]){
+      System.out.println("fonctionne");
       players[1].setCoef(0.5);
       Interact.talk(Yoda.yoda.toString(players[1]));
       //System.out.println( Yoda.yoda.toString(ennemi));
