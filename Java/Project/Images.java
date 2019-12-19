@@ -35,7 +35,7 @@ public class Images {
     tabimage.add( ImageIO.read(new File("./Image/Rat.png")) );
     tabimage.add( ImageIO.read(new File("./Image/Tigre.png")) );
     tabimage.add( ImageIO.read(new File("./Image/Singe.png")) );
-    tabimage.add( ImageIO.read(new File("./Image/dialogue.png")));
+    tabimage.add( ImageIO.read(new File("./Image/dialogue.jpg")));
     tabimage.add( ImageIO.read(new File("./Image/cursor.png")));
     tabimage.add( ImageIO.read(new File("./Image/case.jpg")));
     tabimage.add( ImageIO.read(new File("./Image/gobelin.png")));
