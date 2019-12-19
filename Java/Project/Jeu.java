@@ -53,8 +53,7 @@ public class Jeu extends JFrame{
         NB_TOUR++;
       }
     }
-
-    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    
     Interact.end();
     fenetre.repaint();
     //*********************************************** GAGNANT *********************************************** */

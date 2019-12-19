@@ -98,6 +98,7 @@ public class Avatar extends Personnage{
   public double course(){
     double dist = 0;
     for ( Creature crea : listeAmis){
+      crea.courir();
       crea.manger();
       System.out.println("bbbbbbbbbbbbb");
       crea.courir();
