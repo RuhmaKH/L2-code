@@ -99,7 +99,9 @@ public class Avatar extends Personnage{
     double dist = 0;
     for ( Creature crea : listeAmis){
       crea.manger();
+      System.out.println("bbbbbbbbbbbbb");
       crea.courir();
+      System.out.println("cccccccccccccccc");
       dist += crea.getVitesse();
     }
     return dist * coef;

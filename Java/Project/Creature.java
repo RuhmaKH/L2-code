@@ -95,7 +95,7 @@ public class Creature extends Personnage{
   }
 
   public void courir(){
-    Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
+    Interact.talk( getNom() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac.getNom() );
 		//System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac.toString());
   }
 
@@ -103,4 +103,8 @@ public class Creature extends Personnage{
     	int tc = Monde.tailleCase;
     	g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
     }
+
+  public String toString (){
+    return super.toString() + " a pour ami " + bff.getNom();
+  }
 }
