@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Creature extends Personnage{
   protected Sac sac;
-  private Avatar bff;
+  protected Avatar bff;
   private Image image = null;
   private double coefPills;
 

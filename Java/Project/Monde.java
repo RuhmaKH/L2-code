@@ -36,6 +36,7 @@ public class Monde extends JPanel{
     ajouterItemAtCoord(new ArbreMagique( taille-1 , 0));
     ajouterItemAtCoord(new ArbreMagique( taille-1, taille-1 ));
     ajouterCreatureOP(Chevredelamort.chevredelamort);
+    ajouterCreatureOP(Gobelin.gobelin);
 
 
     //############# Arbre #############
@@ -62,6 +63,7 @@ public class Monde extends JPanel{
     }
     ajouterCreatureOP(Yoda.yoda);
     ajouterCreatureOP(Sonic.sonic);
+    ajouterCreatureOP(Gobelin.gobelin);
     ajouterCreatureOP(Gobelin.gobelin);
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
@@ -238,7 +240,7 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar1  , 200, 200, 300, 300,this);
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
-        avatar[0].PouvoirdeYoda();
+        Yoda.yoda.PouvoirdeYoda();
         distMario = avatar[0].course();
         distLuigi = avatar[1].course();
         g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);

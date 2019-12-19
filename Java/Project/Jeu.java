@@ -54,6 +54,7 @@ public class Jeu extends JFrame{
       }
     }
 
+    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     Interact.end();
     fenetre.repaint();
     //*********************************************** GAGNANT *********************************************** */

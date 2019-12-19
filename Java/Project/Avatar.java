@@ -27,24 +27,6 @@ public class Avatar extends Personnage{
     coef = coef * x;
   }
 
-  public void PouvoirdeYoda (){
-    Avatar[] tabAv = Jeu.getPlayers();
-    Avatar ennemi;
-    if (this == tabAv[0] )
-      ennemi = tabAv[1];
-    else
-      ennemi = tabAv[0];
-    if (listeAmis.contains(Yoda.yoda)){
-      ennemi.setCoef(0.5);
-      Interact.talk(Yoda.yoda.toString(ennemi));
-      //System.out.println( Yoda.yoda.toString(ennemi));
-    }
-    if (ennemi.getAmis().contains(Yoda.yoda)){
-      coef= coef * 0.5;
-      Interact.talk(Yoda.yoda.toString(this));
-      //System.out.println( Yoda.yoda.toString(this));
-    }
-  }
 
   public String toString(){
     int nbAcc = 0;
