@@ -27,24 +27,6 @@ public class Avatar extends Personnage{
     coef = coef * x;
   }
 
-  public void PouvoirdeYoda (){
-    Avatar[] tabAv = Jeu.getPlayers();
-    Avatar ennemi;
-    if (this == tabAv[0] )
-      ennemi = tabAv[1];
-    else
-      ennemi = tabAv[0];
-    if (listeAmis.contains(Yoda.yoda)){
-      ennemi.setCoef(0.5);
-      Interact.talk(Yoda.yoda.toString(ennemi));
-      //System.out.println( Yoda.yoda.toString(ennemi));
-    }
-    if (ennemi.getAmis().contains(Yoda.yoda)){
-      coef= coef * 0.5;
-      Interact.talk(Yoda.yoda.toString(this));
-      //System.out.println( Yoda.yoda.toString(this));
-    }
-  }
 
   public String toString(){
     int nbAcc = 0;
@@ -116,8 +98,11 @@ public class Avatar extends Personnage{
   public double course(){
     double dist = 0;
     for ( Creature crea : listeAmis){
-      crea.manger();
       crea.courir();
+      crea.manger();
+      System.out.println("bbbbbbbbbbbbb");
+      crea.courir();
+      System.out.println("cccccccccccccccc");
       dist += crea.getVitesse();
     }
     return dist * coef;
@@ -323,8 +308,9 @@ public class Avatar extends Personnage{
   public void vendre (Magasin mag) {
     //Scanner sc = new Scanner(System.in);
     String discution;
-    int num, i = 0, nbItem;
+    int num, i, nbItem;
     do{
+        i = 0;
         discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
           discution += String.format("\t- %s : %.2f\n", acc.getNom(), acc.getPrix());
@@ -332,7 +318,7 @@ public class Avatar extends Personnage{
           if(acc instanceof Sac && ( nbItem = ((Sac) acc).getNbElements() ) != 0){
             Acc[] contenu = ((Sac) acc).getTab();
             for(int j = 0; j < nbItem; j++){
-              discution += String.format("\t\t- %s : %.2f\n", contenu[j].getNom(), contenu[j].getPrix());
+              discution += String.format("\t- %s : %.2f\n", contenu[j].getNom(), contenu[j].getPrix());
               i++;
             }
           }

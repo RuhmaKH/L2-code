@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Creature extends Personnage{
   protected Sac sac;
-  private Avatar bff;
+  protected Avatar bff;
   private Image image = null;
   private double coefPills;
 
@@ -58,16 +58,18 @@ public class Creature extends Personnage{
     Acc obj;
     int nbElm = sac.getNbElements();
     if (nbElm == 0){
-      Interact.talk(getNom() + " n'a rien mangé");
+      //Interact.talk(getNom() + " n'a rien mangé");
     }
-    for( int i=0; i < nbElm; i++){
-      if ((obj = sac.obtenir(0)) instanceof Mangeable) {
+    for( int i = 0; i < nbElm; i++){
+      obj = sac.obtenir(0);
+      if (obj instanceof Mangeable) {
+        String eat = getNom() + " a mangé " + obj.toString();
         manger((Mangeable) obj);
-        Interact.talk( getNom() + " a mangé " + obj.toString() );
-        //System.out.println(getNom() + " a mangé " + obj.toString());
+        //Interact.talk( eat );
+        System.out.println( eat );
         continue;
       }
-      if ((obj = sac.obtenir(0)) instanceof Sac) {
+      if (obj instanceof Sac && ((Sac)obj).getNbElements() > 0) {
         Sac sol = sac;
         sac = (Sac) obj;
         manger();
@@ -94,13 +96,18 @@ public class Creature extends Personnage{
     this.addPoids(m.getPoids());
   }
 
-  public void courir(){
-    Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
-		//System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac.toString());
+  public void courir () {
+    String run = getNom() + String.format(" court à %.2f", getVitesse()) + "km/h avec le " + sac.getNom();
+    //Interact.talk( run );
+		System.out.println( run );
   }
 
   public void dessiner(Graphics g){
     	int tc = Monde.tailleCase;
     	g.drawImage(image,getX()*tc+1, getY()*tc+1, tc-2, tc-2, Monde.world);
     }
+
+  public String toString (){
+    return super.toString() + " a pour ami " + bff.getNom();
+  }
 }

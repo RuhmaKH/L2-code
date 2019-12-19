@@ -19,7 +19,7 @@ public class Pomme extends Acc implements Mangeable{
   }
 
   public String toString(){
-    return super.toString() + String.format("   %.2f", rayon) + "cm\n";
+    return super.toString() + String.format(" %.2f", rayon) + "cm\n";
   }
 
   public void dessiner(Graphics g){
