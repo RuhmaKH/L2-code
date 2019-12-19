@@ -75,12 +75,12 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    for (int j = 0; j < 4; j++){
+    for (int j = 0; j < 3; j++){
       ajouterAcc(new LivreMagique());
-      ajouterAcc(Epee.epee);
+      ajouterAcc(new Epee());
     }
     //############# Magasin #############
-    ajouterItem(Fruitier.fruitier);
+    ajouterItem(Marchand.marchand);
   }
 
   public static void deplacerCreature(){
@@ -240,8 +240,8 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar1  , 200, 200, 300, 300,this);
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
-        Yoda.yoda.PouvoirdeYoda();
         distMario = avatar[0].getDist();
+        System.out.println(distMario);
         distLuigi = avatar[1].getDist();
         g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);
         g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);

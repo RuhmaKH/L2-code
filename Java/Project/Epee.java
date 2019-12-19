@@ -2,9 +2,8 @@ import java.awt.*;
 
 public class Epee extends Acc{
   private Image image = Images.getImage("Epee");
-  public static final Epee epee = new Epee(); 
 
-  private Epee () {
+  public Epee () {
     super("Epee");
   }
 

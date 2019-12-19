@@ -13,7 +13,6 @@ public class Avatar extends Personnage{
   public Avatar(String nom, double poids, String nomFichier){
     super(nom, poids);
     listeAmis = new ArrayList<Creature>();
-    listeAmis.add(new Creature());
     listeAcc = new ArrayList<Acc>();
     money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
@@ -26,7 +25,7 @@ public class Avatar extends Personnage{
   }
 
   public void setCoef(double  x){
-    coef = coef * x;
+    coef = x;
   }
 
   public void setDist(double dis){
@@ -34,7 +33,8 @@ public class Avatar extends Personnage{
   }
 
   public double getDist(){
-    return dist;
+    System.out.println(coef);
+    return (dist * coef);
   }
 
   public String toString(){
@@ -204,23 +204,29 @@ public class Avatar extends Personnage{
       }
 
       if (item instanceof ArbreMagique){
+        boolean derniereminute = false;
         ArbreMagique arbremagique = (ArbreMagique) item ;
         if(arbremagique.getContenu() instanceof Gobelin){
           arbremagique.changeImage();
-          if (listeAcc.contains(Epee.epee)){
-            Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol !");
-            try {
-              Thread.sleep(2000);
-            } catch (Exception e) {
-              System.out.println(e);
+          for (Acc acc : listeAcc){
+            if (acc instanceof Epee){
+              Interact.talk("Un gobelin vous a sauté dessus, heureusement vous possédez une épee.\nVous l'avez tué en plein vol mais l'épée est restée bloquer !");
+              try {
+                Thread.sleep(2000);
+              } catch (Exception e) {
+                System.out.println(e);
+              }
+              Monde.supprimerItem(arbremagique);
+              listeAcc.remove(acc);
+              derniereminute = true;
+              break;
             }
-            Monde.supprimerItem(arbremagique);
           }
-          else{
+          if (! derniereminute){
             Interact.talk("Un gobelin vous a sauté dessus, malheureusement vous n'aviez rien pour vous défendre.\nIl vous a tout volé !");
             toutPerdre();
+            continue;
           }
-          continue;
         }
         if (arbremagique.getContenu() instanceof Sonic){
           rencontrerCreatureOP( (Creature)(arbremagique.getContenu()) , item);
@@ -414,14 +420,21 @@ public class Avatar extends Personnage{
   public void killCreature(Avatar avatar){
     ArrayList<Creature> listeCreature = avatar.getAmis();
     if ( listeCreature != null){
-      if (listeAcc.contains(Epee.epee)){
-        if (avatar.listeAcc.contains(Epee.epee)){
-          Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.");
+      for( Acc acc : listeAcc){
+        if (acc instanceof Epee){
+          for (Acc ac : avatar.listeAcc){
+            if (ac instanceof Epee){
+              Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.\nVos 2 épées se cassent");
+              listeAcc.remove(acc);
+              avatar.listeAcc.remove(ac);
+              return;
+            }
+          }
+          listeAcc.remove(acc);
+          Monde.supprimerItem( listeCreature.get(0) );
+          avatar.supprimePremierAmi();
           return;
         }
-        listeAcc.remove(Epee.epee);
-        Monde.supprimerItem( listeCreature.get(0) );
-        avatar.supprimePremierAmi();
       }
     }
   }

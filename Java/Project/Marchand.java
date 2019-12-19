@@ -1,17 +1,19 @@
 //import java.util.Scanner;
 import java.awt.*;
-public class Fruitier extends Magasin {
+public class Marchand extends Magasin {
 	private static final Image image = Images.getImage("Marchand");
-	public static final Fruitier fruitier = new Fruitier();  
+	public static final Marchand marchand = new Marchand();  
 
-	private Fruitier(){
-	  super("Fruitier");
+	private Marchand(){
+	  super("Marchand");
 		initialize();
 	}
 
 	private void initialize(){
 		for (int i = 0; i < Math.random() * 8 + 5; i++)
 			stock.add(new Pomme());
+		stock.add(new LivreMagique());
+		stock.add(new Epee());
 	}
 
 	public void acheter (Avatar avatar) {

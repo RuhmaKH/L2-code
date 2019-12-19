@@ -9,7 +9,6 @@ public class Creature extends Personnage{
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
-    sac.ajouter(new Pomme(), false);
     bff = null;
     coefPills = 1;
     image = Images.getImage(Noms.getTab_icourant());
