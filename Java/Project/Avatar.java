@@ -34,10 +34,16 @@ public class Avatar extends Personnage{
       ennemi = tabAv[1];
     else
       ennemi = tabAv[0];
-    if (listeAmis.contains(Yoda.yoda))
+    if (listeAmis.contains(Yoda.yoda)){
       ennemi.setCoef(0.5);
-    if (ennemi.getAmis().contains(Yoda.yoda))
+      Interact.talk(Yoda.yoda.toString(ennemi));
+      //System.out.println( Yoda.yoda.toString(ennemi));
+    }
+    if (ennemi.getAmis().contains(Yoda.yoda)){
       coef= coef * 0.5;
+      Interact.talk(Yoda.yoda.toString(this));
+      //System.out.println( Yoda.yoda.toString(this));
+    }
   }
 
   public String toString(){
@@ -110,8 +116,8 @@ public class Avatar extends Personnage{
   public double course(){
     double dist = 0;
     for ( Creature crea : listeAmis){
-      //crea.manger();
-      //crea.courir();
+      crea.manger();
+      crea.courir();
       dist += crea.getVitesse();
     }
     return dist * coef;

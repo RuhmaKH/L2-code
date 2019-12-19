@@ -7,4 +7,12 @@ public class Yoda extends Creature{
     super("Yoda");
   }
 
+  public double getVitesse(){
+    return 30;
+  }
+
+  public String toString(Avatar avatar){
+    return "Maitre Yoda ralentit de 50% les créatures de " + avatar.getNom() ;
+  }
+
 }

@@ -57,8 +57,10 @@ public class Creature extends Personnage{
   public void manger(){
     Acc obj;
     int nbElm = sac.getNbElements();
-    int i;
-    for(i=0; i <= nbElm; i++){
+    if (nbElm == 0){
+      Interact.talk(getNom() + " n'a rien mangé");
+    }
+    for( int i=0; i < nbElm; i++){
       if ((obj = sac.obtenir(0)) instanceof Mangeable) {
         manger((Mangeable) obj);
         Interact.talk( getNom() + " a mangé " + obj.toString() );
@@ -77,8 +79,8 @@ public class Creature extends Personnage{
 
   public void seDeplacer(){
     int taille = Monde.taille;
-    int x = getX() + (int)(Math.random()*7) - 3 ;
-    int y = getY() + (int)(Math.random()*7) - 3 ;
+    int x = getX() + (int)(Math.random() * 7) - 3 ;
+    int y = getY() + (int)(Math.random() * 7) - 3 ;
     if ( (x >= 0 && x < taille)  && (y >= 0 && y < taille) && (Monde.chercher(x,y)== null)){
       setX(x);
       setY(y);
@@ -88,13 +90,13 @@ public class Creature extends Personnage{
 
   public void manger(Mangeable m){
     if (m instanceof Pills)
-      coefPills= coefPills * 1.5;
+      coefPills = coefPills * 1.5;
     this.addPoids(m.getPoids());
   }
 
   public void courir(){
-    //Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
-		System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac);
+    Interact.talk( toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac );
+		//System.out.println(toString() + String.format(" court à %.2f", getVitesse()) + "km/h avec le\n" + sac.toString());
   }
 
   public void dessiner(Graphics g){

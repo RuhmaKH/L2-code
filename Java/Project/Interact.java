@@ -51,7 +51,11 @@ public class Interact {
     public static void play () {
         state = "play";
     }
-    
+
+    public static void end () {
+      state = "end";
+    }
+
     public static void talk (String str) {
         state = "talk";
         talk = getTalk(str);
@@ -86,7 +90,7 @@ public class Interact {
     public static void cursorDown () {
         cursor++;
     }
-    
+
     public static int getCursor () {
         return cursor;
     }

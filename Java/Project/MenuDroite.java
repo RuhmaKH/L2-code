@@ -133,8 +133,8 @@ public class MenuDroite extends JPanel{
     g.setFont(font3);
 
     g.drawImage(imagebanderouge,  400 , 100 , 200  ,80 , this) ;
-    if (!Monde.world.getFin())
-      g.drawString("Tour : "+ (Jeu.getNb_tours()+1) +"/"+Jeu.getNb_tours_max() , 420, 150);
+    if (Interact.getState() != "fin")
+      g.drawString("Tour : "+ (Jeu.getNb_tours()) +"/"+Jeu.getNb_tours_max() , 420, 150);
     else
       g.drawString("FIN" , 420, 150);
 

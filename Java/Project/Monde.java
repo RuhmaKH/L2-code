@@ -14,7 +14,6 @@ public class Monde extends JPanel{
   public final static Monde world = new Monde();
   private Image imageHerbe = null;
   private Image imageredcursor = null;
-  private boolean fin;
 
 
   private Monde(){
@@ -24,7 +23,6 @@ public class Monde extends JPanel{
     initialize();
     imageHerbe = Images.getImage("Herbe");
     imageredcursor = Images.getImage("Redcursor");
-    fin = false;
   }
 
   private static int getPositionAlea(){
@@ -75,7 +73,7 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    for (int j = 0; j < 10 ; j++){
+    for (int j = 0; j < 4; j++){
       ajouterAcc(new LivreMagique());
       ajouterAcc(Epee.epee);
     }
@@ -210,14 +208,6 @@ public class Monde extends JPanel{
     g.drawImage(imageShop, 20, size - height + 3, size - 40, height - 20, this);
   }
 
-  public boolean getFin(){
-    return fin;
-  }
-
-  public void setFin(){
-    fin = true;
-  }
-
   private void dessinerFin(Graphics g){
       Image imagedumenudefin = Images.getImage("Fin");
       Image imageAvatar1 = Images.getImage("Avatar2");
@@ -248,14 +238,12 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar1  , 200, 200, 300, 300,this);
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
-        //avatar[0].PouvoirdeYoda();
-      //  distMario =2;
-        //distLuigi= 3 ;
+        avatar[0].PouvoirdeYoda();
         distMario = avatar[0].course();
         distLuigi = avatar[1].course();
-        g.drawString("Les animaux de  "+  avatar[0].getNom(), 500, 300);
+        g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);
         g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);
-        g.drawString("Les animaux de  "+  avatar[1].getNom(), 500, 630);
+        g.drawString("Les animaux de  "+  avatar[1].getNom(), 480, 630);
         g.drawString(" ont parcouru " + String.format(" %.2f",distLuigi) + "km", 480, 660);
 
         if( distMario == distLuigi){
@@ -346,7 +334,7 @@ public class Monde extends JPanel{
       Interact.dessinerTalk(g);
     }
 
-    if (fin){
+    if (Interact.getState() == "end"){
       dessinerFin(g);
     }
 

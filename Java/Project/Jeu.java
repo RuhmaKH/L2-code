@@ -4,7 +4,7 @@ public class Jeu extends JFrame{
   private static final long serialVersionUID = 1L;
   private static Avatar currentPlayer;
   private static Avatar[] players = new Avatar[2];
-  private static int NB_TOUR_MAX = 0;
+  private static int NB_TOUR_MAX = 1;
   private static int NB_TOUR = 0;
 
   public static void main (String [] args) throws InterruptedException{
@@ -54,11 +54,11 @@ public class Jeu extends JFrame{
       }
     }
 
-    //Interact.stop();
-    Monde.world.setFin();
-    Monde.world.repaint();
+    Interact.end();
+    fenetre.repaint();
     //*********************************************** GAGNANT *********************************************** */
-    /*int amisMario = mario.getAmis().size();
+    /*
+    int amisMario = mario.getAmis().size();
     int amisLuigi = luigi.getAmis().size();
     double distMario;
     double distLuigi;
@@ -105,9 +105,8 @@ public class Jeu extends JFrame{
         ggwp += mario.getNom() + " a gagné.e la course car " + luigi.getNom() + " n'a pas d'ami.e.s";
       }
     Interact.talk(ggwp);
-  }*/
+    }*/
     //System.out.println(ggwp);
-
   }
 
   public static Avatar getCurrPlay(){
@@ -127,7 +126,7 @@ public class Jeu extends JFrame{
   }
 
   public static void setNbTours(int nb){
-    if ( (NB_TOUR_MAX + nb) >= 0)
+    if ( (NB_TOUR_MAX + nb) > 0)
       NB_TOUR_MAX += nb;
   }
 
