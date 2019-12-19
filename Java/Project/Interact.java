@@ -139,9 +139,8 @@ public class Interact {
         g.setFont(new Font ("Trajan", Font.BOLD, 22));
         g.setColor(new Color(95, 0, 0));
         //############# BOITE DE DIALOGUE #############
-        g.fillRect( 15, size - height - plus, size - 30, height + plus - 15 );
-        g.drawImage(imageTalk, 20, size - height - plus + 3, size - 40, height + plus - 20, Monde.world);
-        g.setColor(Color.BLACK);
+        g.drawImage(imageTalk, 18, size - height - plus + 3, size - 35 , height + plus - 20, Monde.world);
+        g.setColor(Color.WHITE);
         //############# DIALOGUE #############
         for (int i = 0; i < talk.size(); i++){
             if (talk.get(i).contains("\t")){
