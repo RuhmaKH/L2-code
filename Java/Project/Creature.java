@@ -9,6 +9,7 @@ public class Creature extends Personnage{
   public Creature(){
     super(Noms.getNom());
     sac = new Sac();
+    sac.ajouter(new Pomme(), false);
     bff = null;
     coefPills = 1;
     image = Images.getImage(Noms.getTab_icourant());
@@ -57,16 +58,19 @@ public class Creature extends Personnage{
   public void manger(){
     Acc obj;
     int nbElm = sac.getNbElements();
+    String eat;
     if (nbElm == 0){
-      //Interact.talk(getNom() + " n'a rien mangé");
+      eat = getNom() + " n'a rien mangé";
+      Interact.talk( eat );
+      return;
     }
     for( int i = 0; i < nbElm; i++){
       obj = sac.obtenir(0);
       if (obj instanceof Mangeable) {
-        String eat = getNom() + " a mangé " + obj.toString();
+        eat = getNom() + " a mangé " + obj.toString();
         manger((Mangeable) obj);
-        //Interact.talk( eat );
-        System.out.println( eat );
+        Interact.talk( eat );
+        //System.out.println( eat );
         continue;
       }
       if (obj instanceof Sac && ((Sac)obj).getNbElements() > 0) {
@@ -98,8 +102,8 @@ public class Creature extends Personnage{
 
   public void courir () {
     String run = getNom() + String.format(" court à %.2f", getVitesse()) + "km/h avec le " + sac.getNom();
-    //Interact.talk( run );
-		System.out.println( run );
+    Interact.talk( run );
+		//System.out.println( run );
   }
 
   public void dessiner(Graphics g){

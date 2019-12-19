@@ -53,7 +53,9 @@ public class Jeu extends JFrame{
         NB_TOUR++;
       }
     }
-    
+    mario.setDist(mario.course());
+    luigi.setDist(luigi.course());
+
     Interact.end();
     fenetre.repaint();
     //*********************************************** GAGNANT *********************************************** */

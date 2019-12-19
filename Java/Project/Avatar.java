@@ -8,15 +8,17 @@ public class Avatar extends Personnage{
   private double money;
   private Image image = null;
   private double coef;
-
+  private double dist;
 
   public Avatar(String nom, double poids, String nomFichier){
     super(nom, poids);
     listeAmis = new ArrayList<Creature>();
+    listeAmis.add(new Creature());
     listeAcc = new ArrayList<Acc>();
     money = Math.random() * 10 + 5;
     image = Images.getImage(nomFichier);
     coef = 1;
+    dist = 0;
   }
 
   public void setNom(String str){
@@ -27,6 +29,13 @@ public class Avatar extends Personnage{
     coef = coef * x;
   }
 
+  public void setDist(double dis){
+    dist = dis;
+  }
+
+  public double getDist(){
+    return dist;
+  }
 
   public String toString(){
     int nbAcc = 0;
@@ -100,9 +109,7 @@ public class Avatar extends Personnage{
     for ( Creature crea : listeAmis){
       crea.courir();
       crea.manger();
-      System.out.println("bbbbbbbbbbbbb");
       crea.courir();
-      System.out.println("cccccccccccccccc");
       dist += crea.getVitesse();
     }
     return dist * coef;

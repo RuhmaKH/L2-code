@@ -241,8 +241,8 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
         Yoda.yoda.PouvoirdeYoda();
-        distMario = avatar[0].course();
-        distLuigi = avatar[1].course();
+        distMario = avatar[0].getDist();
+        distLuigi = avatar[1].getDist();
         g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);
         g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);
         g.drawString("Les animaux de  "+  avatar[1].getNom(), 480, 630);
@@ -336,7 +336,7 @@ public class Monde extends JPanel{
       Interact.dessinerTalk(g);
     }
 
-    if (Interact.getState() == "end"){
+    if (Interact.getState() == "end") {
       dessinerFin(g);
     }
 
