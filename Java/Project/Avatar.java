@@ -332,7 +332,7 @@ public class Avatar extends Personnage{
           if(acc instanceof Sac && ( nbItem = ((Sac) acc).getNbElements() ) != 0){
             Acc[] contenu = ((Sac) acc).getTab();
             for(int j = 0; j < nbItem; j++){
-              discution += String.format("\t\t- %s : %.2f\n", contenu[j].getNom(), contenu[j].getPrix());
+              discution += String.format("\t- %s : %.2f\n", contenu[j].getNom(), contenu[j].getPrix());
               i++;
             }
           }
