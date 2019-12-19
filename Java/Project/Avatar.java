@@ -419,6 +419,7 @@ public class Avatar extends Personnage{
 
   public void killCreature(Avatar avatar){
     ArrayList<Creature> listeCreature = avatar.getAmis();
+    Creature killed;
     if ( listeCreature != null){
       for( Acc acc : listeAcc){
         if (acc instanceof Epee){
@@ -430,8 +431,10 @@ public class Avatar extends Personnage{
               return;
             }
           }
+          killed = listeCreature.get(0);
+          Interact.talk( getNom() + " a tué " + killed.getNom() + " de " + avatar.getNom() );
           listeAcc.remove(acc);
-          Monde.supprimerItem( listeCreature.get(0) );
+          Monde.supprimerItem(acc);
           avatar.supprimePremierAmi();
           return;
         }
