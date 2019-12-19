@@ -36,8 +36,6 @@ public class Monde extends JPanel{
     ajouterItemAtCoord(new ArbreMagique( taille-1 , 0));
     ajouterItemAtCoord(new ArbreMagique( taille-1, taille-1 ));
     ajouterCreatureOP(Chevredelamort.chevredelamort);
-    ajouterCreatureOP(Gobelin.gobelin);
-
 
     //############# Arbre #############
     for (int j = 1; j < taille-1; j++)
@@ -64,7 +62,6 @@ public class Monde extends JPanel{
     ajouterCreatureOP(Yoda.yoda);
     ajouterCreatureOP(Sonic.sonic);
     ajouterCreatureOP(Gobelin.gobelin);
-    ajouterCreatureOP(Gobelin.gobelin);
     //############# Coffre #############
     for (int j = 0; j < Math.random() * (taille / 2) + taille / 2; j++)
       ajouterItem(new Coffre());
@@ -76,8 +73,8 @@ public class Monde extends JPanel{
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
     for (int j = 0; j < 3; j++){
-      ajouterAcc(new LivreMagique());
       ajouterAcc(new Epee());
+      ajouterAcc(new LivreMagique());
     }
     //############# Magasin #############
     ajouterItem(Marchand.marchand);
@@ -241,7 +238,6 @@ public class Monde extends JPanel{
       g.drawImage( imageAvatar2, 200, 530, 300, 300, this);
       if (amisMario != 0 && amisLuigi != 0) {
         distMario = avatar[0].getDist();
-        System.out.println(distMario);
         distLuigi = avatar[1].getDist();
         g.drawString("Les animaux de  "+  avatar[0].getNom(), 480, 300);
         g.drawString("ont parcouru " + String.format(" %.2f",distMario) + "km", 480, 330);
