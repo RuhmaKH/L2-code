@@ -323,8 +323,9 @@ public class Avatar extends Personnage{
   public void vendre (Magasin mag) {
     //Scanner sc = new Scanner(System.in);
     String discution;
-    int num, i = 0, nbItem;
+    int num, i, nbItem;
     do{
+        i = 0;
         discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
           discution += String.format("\t- %s : %.2f\n", acc.getNom(), acc.getPrix());
