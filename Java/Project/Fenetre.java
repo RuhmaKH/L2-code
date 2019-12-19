@@ -45,6 +45,8 @@ public class Fenetre extends JFrame implements KeyListener {
                 case "shop" :
                     if (Interact.getCursor() > 0)
                         Interact.cursorUp();
+                    else
+                        Interact.cursorMax();
                     break;
             }
             repaint();
@@ -57,6 +59,8 @@ public class Fenetre extends JFrame implements KeyListener {
                 case "shop" :
                     if (Interact.getCursor() < Interact.getMaxCursor())
                         Interact.cursorDown();
+                    else
+                        Interact.cursorMin();
                     break;
             }
             repaint();

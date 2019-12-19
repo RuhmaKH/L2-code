@@ -33,7 +33,6 @@ public class Avatar extends Personnage{
   }
 
   public double getDist(){
-    System.out.println(coef);
     return (dist * coef);
   }
 
@@ -324,7 +323,7 @@ public class Avatar extends Personnage{
     int num, i, nbItem;
     do{
         i = 0;
-        discution = String.format("Le magasin possède %.2f\nVous pouvez vendre : \n", mag.getMoney());
+        discution = String.format("Le magasin possède %.2f €\nVous pouvez vendre : \n", mag.getMoney());
         for (Acc acc : listeAcc){
           discution += String.format("\t- %s : %.2f\n", acc.getNom(), acc.getPrix());
           i++;
@@ -425,7 +424,7 @@ public class Avatar extends Personnage{
         if (acc instanceof Epee){
           for (Acc ac : avatar.listeAcc){
             if (ac instanceof Epee){
-              Interact.talk("Vous possédez tous les 2 une épee !\nRien ne se passe.\nVos 2 épées se cassent");
+              Interact.talk("Vous possédez tous les 2 une épee !\nVos 2 épées se cassent dans votre bataille\nRien ne se passe.");
               listeAcc.remove(acc);
               avatar.listeAcc.remove(ac);
               return;

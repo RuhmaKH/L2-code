@@ -8,7 +8,7 @@ public abstract class Magasin extends Item {
     protected Magasin (String nom){
         super(nom);
         stock = new ArrayList<Acc>();
-        money = Math.random() * 30 + 10;
+        money = Math.random() * 30 + 10000000;
     }
 
     public ArrayList<Acc> getStock(){

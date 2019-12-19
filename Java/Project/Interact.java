@@ -91,6 +91,14 @@ public class Interact {
         cursor++;
     }
 
+    public static void cursorMax () {
+        cursor = getMaxCursor();
+    }
+
+    public static void cursorMin () {
+        cursor = 0;
+    }
+
     public static int getCursor () {
         return cursor;
     }
@@ -118,7 +126,7 @@ public class Interact {
                 }
                 continue;
             }
-            if ( (temp + s).length() > 64 ) {
+            if ( (temp + s).length() > 60 ) {
                 dialog.add(temp);
                 temp = "";
             }
