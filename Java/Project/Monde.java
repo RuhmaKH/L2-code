@@ -73,9 +73,10 @@ public class Monde extends JPanel{
       ajouterAcc(new Pomme());
     for (int j = 0; j < Math.random() * (taille / 4) + taille / 6; j++)
       ajouterAcc(new Pills());
-    for (int j = 0; j < 4; j++){
+    for (int j = 0; j < 15; j++){
       ajouterAcc(new LivreMagique());
       ajouterAcc(Epee.epee);
+          ajouterCreatureOP(Yoda.yoda);
     }
     //############# Magasin #############
     ajouterItem(Fruitier.fruitier);
